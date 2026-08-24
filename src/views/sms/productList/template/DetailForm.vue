@@ -38,7 +38,8 @@ const defaultForm = () => ({
   height: null,
   broadcastId: '',
   carouselInterval: null,
-  rotationDegree: 0
+  rotationDegree: 0,
+  verticalRotation: 0
 })
 
 const formRef = ref(null)
@@ -51,13 +52,24 @@ const rules = {
     { required: true, message: '请输入产品名称', trigger: 'blur' },
     { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
   ],
-  productImg: [{ required: true, type: 'array', message: '请上传产品图片', trigger: 'change' }],
+  productImg: [
+    {
+      required: true,
+      type: 'array',
+      message: '请上传产品图片',
+      trigger: 'change'
+    }
+  ],
   shapeType: [{ required: true, message: '请选择形状类型', trigger: 'change' }],
-  screenType: [{ required: true, message: '请选择屏幕方向', trigger: 'change' }],
+  screenType: [
+    { required: true, message: '请选择屏幕方向', trigger: 'change' }
+  ],
   width: [{ required: true, message: '请输入宽度', trigger: 'blur' }],
   height: [{ required: true, message: '请输入高度', trigger: 'blur' }],
   broadcastId: [{ required: true, message: '请输入广播ID', trigger: 'blur' }],
-  carouselInterval: [{ required: true, message: '请输入轮播间隔', trigger: 'blur' }]
+  carouselInterval: [
+    { required: true, message: '请输入轮播间隔', trigger: 'blur' }
+  ]
 }
 
 function resetForm() {
@@ -69,19 +81,26 @@ async function getData() {
   const res = await getProductDetail({ id: route.query.id })
   const detail = res.retData || {}
   Object.assign(formData, defaultForm(), detail, {
-    productImg: detail.productImg ? [{ url: detail.productImg, name: '产品图片' }] : [],
+    productImg: detail.productImg
+      ? [{ url: detail.productImg, name: '产品图片' }]
+      : [],
     broadcastId: detail.broadcastId ?? '',
     carouselInterval: detail.carouselInterval ?? null,
     screenType: detail.screenType ?? 0,
-    rotationDegree: detail.rotationDegree ?? 0
+    rotationDegree: detail.rotationDegree ?? 0,
+    verticalRotation: detail.verticalRotation ?? 0
   })
 }
 
 function buildSubmitData() {
   const submitData = cloneDeep(formData)
   submitData.productImg = formData.productImg[0]?.url || ''
-  Object.keys(submitData).forEach((key) => {
-    if (submitData[key] === null || submitData[key] === undefined || submitData[key] === '') {
+  Object.keys(submitData).forEach(key => {
+    if (
+      submitData[key] === null ||
+      submitData[key] === undefined ||
+      submitData[key] === ''
+    ) {
       delete submitData[key]
     }
   })
@@ -94,7 +113,7 @@ async function initializeData() {
 }
 
 function submitForm() {
-  formRef.value.validate(async (valid) => {
+  formRef.value.validate(async valid => {
     if (!valid) return false
     submitting.value = true
     try {
@@ -133,7 +152,13 @@ onActivated(() => {
     </PageHeader>
 
     <el-card class="box-card">
-      <el-form ref="formRef" :model="formData" :rules="rules" label-width="140px" size="small">
+      <el-form
+        ref="formRef"
+        :model="formData"
+        :rules="rules"
+        label-width="140px"
+        size="small"
+      >
         <el-form-item label="产品名称" prop="productName">
           <el-input
             v-model="formData.productName"
@@ -147,20 +172,38 @@ onActivated(() => {
         </el-form-item>
 
         <el-form-item label="产品图片" prop="productImg">
-          <MultiUpload v-model="formData.productImg" :max-count="1" :disabled="pageType === 3" />
+          <MultiUpload
+            v-model="formData.productImg"
+            :max-count="1"
+            :disabled="pageType === 3"
+          />
         </el-form-item>
 
         <el-form-item label="形状类型" prop="shapeType">
-          <el-radio-group v-model="formData.shapeType" :disabled="pageType === 3">
-            <el-radio v-for="item in shapeTypeOptions" :key="item.value" :label="item.value">
+          <el-radio-group
+            v-model="formData.shapeType"
+            :disabled="pageType === 3"
+          >
+            <el-radio
+              v-for="item in shapeTypeOptions"
+              :key="item.value"
+              :label="item.value"
+            >
               {{ item.label }}
             </el-radio>
           </el-radio-group>
         </el-form-item>
 
         <el-form-item label="屏幕方向" prop="screenType">
-          <el-radio-group v-model="formData.screenType" :disabled="pageType === 3">
-            <el-radio v-for="item in screenTypeOptions" :key="item.value" :label="item.value">
+          <el-radio-group
+            v-model="formData.screenType"
+            :disabled="pageType === 3"
+          >
+            <el-radio
+              v-for="item in screenTypeOptions"
+              :key="item.value"
+              :label="item.value"
+            >
               {{ item.label }}
             </el-radio>
           </el-radio-group>
@@ -204,7 +247,7 @@ onActivated(() => {
           />
         </el-form-item>
 
-        <el-form-item label="轮播间隔(小时)" prop="carouselInterval">
+        <el-form-item label="轮播间隔(分钟)" prop="carouselInterval">
           <el-input-number
             v-model="formData.carouselInterval"
             :min="0"
@@ -216,12 +259,22 @@ onActivated(() => {
           />
         </el-form-item>
 
-        <el-form-item label="旋转度数" prop="rotationDegree">
+        <el-form-item label="横向旋转度数" prop="rotationDegree">
           <el-input-number
             v-model="formData.rotationDegree"
             :precision="0"
             :controls="false"
-            placeholder="请输入旋转度数"
+            placeholder="请输入横向旋转度数"
+            :disabled="pageType === 3"
+          />
+        </el-form-item>
+
+        <el-form-item label="竖向旋转度数" prop="verticalRotation">
+          <el-input-number
+            v-model="formData.verticalRotation"
+            :precision="0"
+            :controls="false"
+            placeholder="请输入竖向旋转度数"
             :disabled="pageType === 3"
           />
         </el-form-item>
@@ -235,7 +288,9 @@ onActivated(() => {
           >
             提交
           </el-button>
-          <el-button @click="router.push({ name: 'productList' })">返回</el-button>
+          <el-button @click="router.push({ name: 'productList' })"
+            >返回</el-button
+          >
         </el-form-item>
       </el-form>
     </el-card>

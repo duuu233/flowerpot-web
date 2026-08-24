@@ -23,6 +23,10 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false
+  },
+  generateThumbnail: {
+    type: Boolean,
+    default: false
   }
 })
 const emit = defineEmits(['update:modelValue'])
@@ -56,7 +60,8 @@ async function handleUpload(option) {
     const remainingCount = props.maxCount - fileList.value.length
     if (remainingCount <= 0) return
 
-    const response = await setFileUpload(option.file)
+    const uploadOptions = props.generateThumbnail ? { isUploadThumb: 1 } : undefined
+    const response = await setFileUpload(option.file, uploadOptions)
     const uploadedFiles = withLocalPreview(
       normalizeUploadedFiles(response.retData, option.file).slice(0, remainingCount),
       option.file

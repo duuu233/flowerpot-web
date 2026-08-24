@@ -20,10 +20,11 @@ function buildUploadFormData(files) {
   return formData
 }
 
-export function setFileUpload(files) {
+export function setFileUpload(files, { isUploadThumb } = {}) {
   return request({
     url: appendUserTokenQuery('/Common/setFileUpload'),
     method: 'post',
+    params: isUploadThumb === undefined ? undefined : { isUploadThumb },
     data: buildUploadFormData(files),
     // 上传大文件(如 .bin 固件)可能很慢，取消 60s 超时限制
     timeout: 0

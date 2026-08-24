@@ -12,6 +12,8 @@ const statisticsList = ref([])
 
 const stats = reactive({
   userCount: '-',
+  userBindProductCount: '-',
+  orderAmount: '-',
   productCount: '-',
   productFaqCount: '-'
 })
@@ -28,7 +30,21 @@ const cards = computed(() => [
     label: '用户总数',
     value: stats.userCount,
     icon: 'User',
-    span: 12
+    span: 8
+  },
+  {
+    key: 'userBindProductCount',
+    label: '绑定设备',
+    value: stats.userBindProductCount,
+    icon: 'Connection',
+    span: 8
+  },
+  {
+    key: 'orderAmount',
+    label: '订单金额',
+    value: stats.orderAmount,
+    icon: 'Wallet',
+    span: 8
   },
   {
     key: 'productCount',
@@ -69,6 +85,8 @@ async function loadStats() {
     const res = await getUserCount()
     const data = res.retData || {}
     stats.userCount = formatCount(data.userCount)
+    stats.userBindProductCount = formatCount(data.userBindProductCount)
+    stats.orderAmount = formatCount(data.orderAmount)
     stats.productCount = formatCount(data.productCount)
     stats.productFaqCount = formatCount(data.productFaqCount)
   } finally {
@@ -107,7 +125,7 @@ onMounted(() => {
     </el-card>
 
     <el-row v-loading="statsLoading" :gutter="16" class="stat-row">
-      <el-col v-for="card in cards" :key="card.key" :xs="24" :sm="card.span">
+      <el-col v-for="card in cards" :key="card.key" :xs="24" :sm="12" :md="card.span">
         <el-card shadow="never" class="stat-card">
           <div class="stat-icon">
             <el-icon><component :is="card.icon" /></el-icon>

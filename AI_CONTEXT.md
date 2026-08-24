@@ -107,6 +107,7 @@ src/views 与 src/components
 1. `AGENTS.md`
 2. 本文件
 3. `docs/README.md`
+<<<<<<< HEAD
 4. 与任务相关且已标明来源的 Active/Tracking 文档
 5. CodeGraph 中的源码符号、调用链和影响范围
 6. 仅在追查原因时读取 Historical 或临时交接记录
@@ -137,12 +138,44 @@ src/views 与 src/components
 - [`docs/api-integration-progress.md`](docs/api-integration-progress.md)：接口迁移进度，使用前核对日期和当前工作树。
 - [`docs/interface-list.md`](docs/interface-list.md)：混合来源接口清单，待拆分历史与当前事实。
 - [`docs/next-session.md`](docs/next-session.md)：可替换的短期交接，不是长期日志。
+=======
+4. 与任务相关的 Active 文档
+5. CodeGraph 中的源码符号、调用链和影响范围
+6. 仅在追查原因时读取相关 Historical 记录
+
+执行约定：
+
+1. 先运行 `git status --short`，识别并保护已有用户改动。
+2. `.codegraph/` 存在时，结构分析先运行 `codegraph status .` 和 `codegraph explore "问题或符号"`。
+3. 拉取代码后运行 `codegraph sync .`；完成有意义的源码修改后再次同步并检查状态。
+4. 行为、接口、架构、命令、权限或部署方式变化时，更新对应 Active 文档。
+5. 一次集中修改建立一份 `docs/history/YYYY-MM/YYYY-MM-DD-主题.md`；不要把流水账追加到 AI_CONTEXT。
+6. 记录实际运行过的验证，不把“计划验证”写成“已通过”。
+
+## 9. 已知风险与待确认项
+
+- 项目暂无自动化测试、lint 和类型检查脚本，回归主要依赖构建与人工验证。
+- 后台菜单与本地路由可能独立演进；新增页面后需要重新绑定角色权限并重新登录验证。
+- 请求签名和统一错误处理集中在请求层，修改的影响面很大。
+- Swagger、线上返回值和已有页面可能短期不一致，应在文档中标明核验日期与事实来源。
+- 仓库同时保留 `yarn.lock` 与 `pnpm-lock.yaml`；主包管理器尚未形成明确的仓库规则，不应擅自重写锁文件。
+- 支付请求使用独立请求地址，修改通用接口环境变量时不能默认覆盖支付链路。
+
+## 10. 文档地图
+
+- [`docs/README.md`](docs/README.md)：文档导航、生命周期和维护规则。
+- [`docs/project-structure.md`](docs/project-structure.md)：当前目录与模块组织。
+- [`docs/interface-list.md`](docs/interface-list.md)：接口核对清单。
+- [`docs/api-integration-progress.md`](docs/api-integration-progress.md)：接口接入状态。
+- [`docs/dynamic-menu-sync.md`](docs/dynamic-menu-sync.md)：动态菜单同步、验证和回滚。
+>>>>>>> e1edab3084b74fb0f48b1c3a50d8d9245ae33f21
 - [`docs/history/README.md`](docs/history/README.md)：本地操作更新记录规范与模板。
 
 ## 11. 兄弟项目边界与同步触发
 
 | 项目 | 主要职责 | 需要同步的变化 |
 | --- | --- | --- |
+<<<<<<< HEAD
 | `flowerpot-web` | 花盆产品 PC 管理后台 | 管理端 API、产品/版本/用户设备字段、菜单与权限契约。 |
 | `flowerpot` | YSplanter Flutter 用户端 | 用户态接口模型、设备状态、DP、配网、OTA 和协议口径。 |
 | `web-ui-v2` | BoltFox PC 管理后台 | 仅在复用的管理端组件、流程或接口契约确实共享时同步。 |
@@ -155,3 +188,17 @@ src/views 与 src/components
 - 不读取、输出或记录 `.env` 中的实际秘密；只引用变量名。
 - 不覆盖已有未提交改动，不恢复当前工作树已经删除的遗留文件。
 - Historical 和 `next-session.md` 只用于追溯；与源码或 Active 事实冲突时先核验再修正文档。
+=======
+| `web-ui-v2` | BoltFox PC 管理后台 | 管理端接口、权限码、菜单/路由契约、运营配置字段。 |
+| `flowerpot` | 花盆产品微信小程序 | 面向用户的接口模型、设备/产品状态、登录与业务口径。 |
+| `flowerpot-web` | 花盆产品 PC 管理后台 | 花盆后台接口、管理菜单、权限和运营字段。 |
+
+只有共享契约发生变化时才同步事实和影响；各项目按自己的源码、技术栈与部署方式填写，不能复制另一项目的模块或命令。跨项目同步要在各自历史记录中写明上游来源、实际同步内容、有意保留的差异和未完成项。
+
+## 12. AI 工作备注
+
+- 不根据文件名猜行为；先看 CodeGraph 和当前源码。
+- 不覆盖与当前任务无关的未提交改动。
+- 不把本机绝对路径、临时缓存或某台机器的安装状态写成跨环境事实。
+- 历史记录只用于追溯；若历史与 Active 文档或源码冲突，以当前源码和最新 Active 文档为准，并修正文档。
+>>>>>>> e1edab3084b74fb0f48b1c3a50d8d9245ae33f21

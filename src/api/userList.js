@@ -24,6 +24,14 @@ export function getUserListExcel(params) {
   })
 }
 
+export function getOperatUserAccountLog(params) {
+  return request({
+    url: '/User/getOperatUserAccountLog',
+    method: 'get',
+    params
+  })
+}
+
 export function setUserVerify(data) {
   return request({
     url: '/User/setUserVerify',
@@ -35,6 +43,14 @@ export function setUserVerify(data) {
 export function setUserInfo(data) {
   return request({
     url: '/User/setUserInfo',
+    method: 'post',
+    data
+  })
+}
+
+export function setUserAccount(data) {
+  return request({
+    url: '/User/setUserAccount',
     method: 'post',
     data
   })
