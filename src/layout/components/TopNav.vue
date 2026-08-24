@@ -1,7 +1,7 @@
 <template>
   <div class="top-nav-box">
     <div class="logo">
-      <img :src="logoMini" alt="logo" />
+      <img :src="logoMini" alt="花盆 LOGO" />
     </div>
     <div class="nav-box">
       <ul class="nav">
@@ -102,8 +102,9 @@ function logout() {
   color: #fff;
   padding: 10px 28px;
   img {
-    width: 150px;
-    height: auto;
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
   }
 }
 .nav-box {
@@ -191,7 +192,8 @@ function logout() {
     min-width: 170px;
     padding: 10px 18px;
     img {
-      width: 132px;
+      width: 44px;
+      height: 44px;
     }
   }
 

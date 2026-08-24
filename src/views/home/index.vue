@@ -119,7 +119,7 @@ onMounted(() => {
         <img :src="avatar" class="avatar" alt="avatar" />
         <div class="hello">
           <div class="title">你好，{{ trueName || '管理员' }}</div>
-          <div class="sub">欢迎使用 曝石相框 管理中心</div>
+          <div class="sub">欢迎使用 花盆 管理中心</div>
         </div>
       </div>
     </el-card>

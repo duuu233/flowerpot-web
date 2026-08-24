@@ -85,7 +85,7 @@ function handleLogin() {
     <img :src="login_bg" class="login_bg_img" alt="bg" />
     <div class="logon_content_bx">
       <div class="login_content_tp">
-        <p class="login_title">曝石相框 管理中心</p>
+        <p class="login_title">花盆 管理中心</p>
       </div>
       <div class="login_content_bm">
         <el-form
