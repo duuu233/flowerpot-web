@@ -6,6 +6,7 @@ import md5 from 'js-md5'
 import { validateE_N, validateC_E_N } from '@/utils/validate'
 import { setCookie, getCookie } from '@/utils/support'
 import { useUserStore } from '@/store/modules/user'
+import { getCountryListForTest } from '@/api/clientBasic'
 import login_bg from '@/assets/images/login_bg.png'
 
 const router = useRouter()
@@ -13,6 +14,7 @@ const userStore = useUserStore()
 
 const loginFormRef = ref(null)
 const loading = shallowRef(false)
+const countryApiTesting = shallowRef(false)
 
 const loginForm = reactive({
   adminName: getCookie('adminName') || getCookie('username') || '',
@@ -78,6 +80,32 @@ function handleLogin() {
       })
   })
 }
+
+async function handleCountryApiTest() {
+  countryApiTesting.value = true
+  try {
+    const response = await getCountryListForTest()
+    const result = response.data || {}
+    const countryCount = Array.isArray(result.retData) ? result.retData.length : 0
+
+    console.info('[国家列表接口测试]', response)
+    if (result.retCode === 200) {
+      ElMessage.success(`接口调用成功：HTTP ${response.status}，返回 ${countryCount} 个国家`)
+    } else {
+      ElMessage.warning(
+        `接口已响应：HTTP ${response.status}，业务码 ${result.retCode ?? '未知'}`
+      )
+    }
+  } catch (error) {
+    const reason = error.response?.status
+      ? `HTTP ${error.response.status}`
+      : error.message || '未知错误'
+    console.error('[国家列表接口测试失败]', error)
+    ElMessage.error(`接口调用失败：${reason}`)
+  } finally {
+    countryApiTesting.value = false
+  }
+}
 </script>
 
 <template>
@@ -136,6 +164,15 @@ function handleLogin() {
           </el-form-item>
         </el-form>
       </div>
+      <el-button
+        class="country-api-test-btn"
+        type="primary"
+        link
+        :loading="countryApiTesting"
+        @click="handleCountryApiTest"
+      >
+        测试国家列表接口
+      </el-button>
     </div>
     <p class="login_copyright">
       版权所有 启和明(深圳)新能源科技有限公司 2024-2030年 版本号 V1.0.0
@@ -167,7 +204,7 @@ function handleLogin() {
 
 .logon_content_bx {
   width: 400px;
-  height: 420px;
+  height: 470px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -259,5 +296,12 @@ function handleLogin() {
   border-color: var(--brand-500);
   box-shadow: 0 6px 16px rgba(43, 39, 36, 0.1);
   font-size: 16px;
+}
+
+.country-api-test-btn {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>
