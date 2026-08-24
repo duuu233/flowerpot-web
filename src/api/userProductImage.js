@@ -8,17 +8,33 @@ export function getUserProductImgList(params) {
   })
 }
 
-export function deleteUserProductImg(data) {
+export function getUserProductImgDetail(params) {
   return request({
-    url: '/UserProductImg/deleteUserProductImg',
+    url: '/UserProductImg/getUserProductImgDetail',
+    method: 'get',
+    params
+  })
+}
+
+export function addUserProductImg(data) {
+  return request({
+    url: '/UserProductImg/addUserProductImg',
     method: 'post',
     data
   })
 }
 
-export function setUserProductImgVerify(data) {
+export function editUserProductImg(data) {
   return request({
-    url: '/UserProductImg/setUserProductImgVerify',
+    url: '/UserProductImg/editUserProductImg',
+    method: 'post',
+    data
+  })
+}
+
+export function deleteUserProductImg(data) {
+  return request({
+    url: '/UserProductImg/deleteUserProductImg',
     method: 'post',
     data
   })

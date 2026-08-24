@@ -99,3 +99,34 @@ Run:
 ```bash
 codegraph sync
 ```
+
+---
+
+# Knowledge and Change Records
+
+## Required Reading Order
+
+Before changing the project, read `AGENTS.md`, `AI_CONTEXT.md`, `docs/README.md`, the task's Active document, and then the relevant source and call paths through CodeGraph. Read Historical or short-term handoff records only when an earlier decision's reason is needed.
+
+`AI_CONTEXT.md` is a concise snapshot of current project facts, not a chronological log. `docs/README.md` is the canonical documentation index and must be updated when a document is added, moved, superseded, or changes responsibility.
+
+## CodeGraph and Markdown Responsibilities
+
+- Source code plus CodeGraph are authoritative for current locations, symbols, dependencies, callers, and impact.
+- Active Markdown documents are authoritative for current API contracts, manual procedures, architecture decisions, and operational expectations.
+- Tracking documents must include a verification date and source. Historical and handoff records are not current requirements.
+- When sources conflict, verify the current implementation and external contract first, then repair the stale Active document.
+
+After pulling changes, run `codegraph sync .`. After meaningful source changes, run `codegraph sync .` followed by `codegraph status .`. Run `codegraph index .` only when the index is missing or damaged, the extractor changed, or the tool recommends it.
+
+## Local Operation and Update Records
+
+Record each substantial task in `docs/history/YYYY-MM/YYYY-MM-DD-topic.md` using `docs/history/README.md`. Include scope, environment, branch and starting revision, affected files or modules, external operations, decisions, actual verification, remaining work, and rollback notes when applicable.
+
+Create a record for architecture, API, permission, menu, security, deployment, migration, or cross-project changes. A trivial typo or formatting-only edit does not need a record. Freeze completed records and feed durable conclusions back into the relevant Active document.
+
+Never record secrets, tokens, signatures, passwords, cookies, private user data, full environment files, or local CodeGraph cache contents.
+
+## Cross-Environment Handoff
+
+Git remains the only shared source of truth across computers. A handoff must identify the branch, base revision, validation actually performed, unfinished work, and intentional local-only state. Do not depend on uncommitted files, editor state, dependency directories, build output, or another machine's `.codegraph/` directory.

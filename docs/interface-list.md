@@ -1,5 +1,7 @@
 # Interface Checklist
 
+> 2026-08-03 update: the active source is `https://api.yikaltd.com/v2/api-docs`. Only tags beginning with `管理后台-` are in scope. The current document exposes 8 management groups and 77 endpoints, all covered by local management wrappers. The copied project's message, waybill, dispatch, log, pay, freight, and goods calls are outside the new Swagger scope. Product-version detail is currently `/ZoneAdmin/ProductVersion/getProductVersionDetail`; user-product-image management has five endpoints and no status mutation. See [api-integration-progress.md](./api-integration-progress.md) for the current status and [next-session.md](./next-session.md) for deferred cleanup.
+
 Source:
 
 - Manual checklist image provided on 2026-06-11.
