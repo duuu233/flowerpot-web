@@ -7,9 +7,9 @@ import request from '@/utils/request'
  * 与其他模块一致：路径省略公共前缀 /ZoneAdmin，由 VITE_APP_API_PREFIX 与请求层补齐；
  * 签名、randomString、userToken 由 src/utils/request.js 统一注入。
  *
- * 入参与返回字段尚未按 Swagger（http://120.25.227.36:8601/v2/api-docs）核对：
- * 本机访问该域名被阿里云 ICP 备案拦截，暂时取不到机器可读契约。
- * 因此这里只固定「路径 + HTTP 方法」，具体字段由调用方按 Swagger 传入。
+ * 2026-08-25 已按 Swagger（http://120.25.227.36:8601/v2/api-docs）和真实只读响应核对：
+ * 列表返回 productPlantId 分页记录，详情使用 id 查询，状态接口提交 { id, verify }；
+ * 新增/编辑共用 ProductPlantAddApiIn，编辑时额外提交 productPlantId。
  */
 
 // 植物列表（分页）

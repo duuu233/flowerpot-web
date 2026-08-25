@@ -2,7 +2,7 @@
 
 > 文档类型：当前架构说明
 > 状态：Active
-> 最后核验：2026-08-13
+> 最后核验：2026-08-25
 > 事实来源：当前目录、源码、路由配置与 CodeGraph
 
 本项目是 Vue 3 + Vite 后台管理系统。结构约定是：框架配置放在项目根目录，可复用 UI 放在 `src/components`，可复用组合式逻辑放在 `src/composables`，业务页面按模块放在 `src/views`。
@@ -18,7 +18,7 @@
 ├─ package.json            # scripts 和依赖
 ├─ README.md               # 项目说明
 ├─ scripts/
-│  └─ sync-admin-menu.mjs    # 按 scope 幂等同步商品或用户账户后台菜单
+│  └─ sync-admin-menu.mjs    # 按 scope 幂等预览、生成或迁移后台菜单
 └─ docs/
    ├─ project-structure.md # 目录结构说明
    └─ dynamic-menu-sync.md # 后端菜单自动生成与复用指南
@@ -59,8 +59,8 @@ src/components/
 ├─ SearchPanel/      # 搜索表单容器，内置查询/重置按钮
 ├─ SvgIcon/          # 本地 svg 图标组件
 └─ Upload/
-   ├─ FileUpload.vue
-   └─ MultiUpload.vue
+   ├─ fileUpload.vue
+   └─ multiUpload.vue
 ```
 
 新列表页优先使用 `SearchPanel`、`ListToolbar`、`PaginationBar`，避免重复写筛选卡片、操作栏和分页条。
@@ -90,9 +90,17 @@ src/views/
 
 用户列表相关页面位于 `src/views/sms/userList/`：列表页复用公共查询、工具栏和分页组件；`components/UserAccountEditor.vue` 负责可用星币编辑交互；`accountLogs.vue` 是账户操作日志的隐藏路由页面。
 
+植物管理位于 `src/views/sms/productPlant/`：`index.vue` 负责分页查询和接口协调，
+`ProductPlantTable.vue` 负责资料列表与权限操作，`ProductPlantFormDialog.vue` 统一承载新增、
+编辑和详情。页面对应后端 `ProductPlant` 的 5 个管理端接口，并复用 `multiUpload.vue` 上传植物图片。
+
+`scripts/sync-admin-menu.mjs` 的 `checklist` scope 维护 Excel 中属于本仓库的四个后台模块，
+支持旧 APP 版本权限码迁移和空旧分组的非删除式收尾；具体字段、命令和验证见
+`docs/dynamic-menu-sync.md`。
+
 命名约定：
 
-- 可复用 Vue 组件使用 PascalCase，例如 `FileUpload.vue`、`DetailForm.vue`。
+- 新增的可复用 Vue 组件使用 PascalCase，例如 `DetailForm.vue`；引用既有 Upload 组件时必须保持磁盘上的 `fileUpload.vue` / `multiUpload.vue` 大小写。
 - 路由页面文件使用描述清晰的 camelCase，例如 `productBasic.vue`、`shopData.vue`、`noPermission.vue`。
 - 路由 `name` 保持稳定，因为 keep-alive 和后端菜单数据依赖这些值。
 - add/edit/detail 共用的本地表单组件放在对应模块的 `template/DetailForm.vue`。
@@ -133,6 +141,7 @@ src/views/
 - `src/views/sms/messageUser/index.vue`
 - `src/views/sms/productFaqList/index.vue`
 - `src/views/sms/productList/index.vue`
+- `src/views/sms/productPlant/index.vue`
 - `src/views/sms/userList/index.vue`
 - `src/views/ums/admin/index.vue`
 - `src/views/ums/menuList/index.vue`

@@ -2,7 +2,7 @@
 
 > 文档类型：历史记录规范与索引
 > 状态：Active
-> 最后核验：2026-08-12
+> 最后核验：2026-08-25
 > 事实来源：`AGENTS.md` 与项目文档治理约定
 
 本目录补充 Git 提交，记录集中修改的背景、外部操作、验证和未完成项，但不替代源码、提交历史或 Active 文档。文件使用 `YYYY-MM/YYYY-MM-DD-topic.md`，任务完成后冻结。
@@ -36,3 +36,4 @@
 - [`2026-08/2026-08-12-official-gallery-upload-thumbnail.md`](2026-08/2026-08-12-official-gallery-upload-thumbnail.md)：官方图库上传时生成缩略图。
 - [`2026-08/2026-08-13-user-account-statistics.md`](2026-08/2026-08-13-user-account-statistics.md)：首页统计与用户星币账户。
 - [`2026-08/2026-08-24-theme-recolor-and-product-plant-scaffold.md`](2026-08/2026-08-24-theme-recolor-and-product-plant-scaffold.md)：主题配色改为 LOGO 青绿，新增植物管理接口封装、路由与菜单同步范围。
+- [`2026-08/2026-08-25-product-plant-integration-menu-sync.md`](2026-08/2026-08-25-product-plant-integration-menu-sync.md)：按 Excel、Swagger 与 CodeGraph 完成植物管理 CRUD，并生成、迁移和复查完整清单菜单权限。

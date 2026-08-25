@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "menu:sync:commerce": "node scripts/sync-admin-menu.mjs --scope=commerce",
     "menu:sync:user-account": "node scripts/sync-admin-menu.mjs --scope=user-account",
-    "menu:sync:product-plant": "node scripts/sync-admin-menu.mjs --scope=product-plant"
+    "menu:sync:product-plant": "node scripts/sync-admin-menu.mjs --scope=product-plant",
+    "menu:sync:checklist": "node scripts/sync-admin-menu.mjs --scope=checklist"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",

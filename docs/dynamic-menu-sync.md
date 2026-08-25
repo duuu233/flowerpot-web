@@ -2,7 +2,7 @@
 
 > 文档类型：当前操作手册
 > 状态：Active
-> 最后核验：2026-08-24
+> 最后核验：2026-08-25
 > 事实来源：菜单同步脚本、路由、权限 Store 与后台接口契约
 
 本项目的页面可访问性由两部分共同决定：
@@ -102,6 +102,33 @@ AI配置 (#)
 `scripts/sync-admin-menu.mjs` 里 `productPlantMenuTree` 的 `aliases`，避免建出重复分组。
 分组 `grade` 目前是 2，排在现有「产品管理 / 订单管理 / AI配置」之后，需要靠前就调高该值。
 
+`checklist` 是智能花盆接口清单在本仓库的完整 PC 管理后台范围，推荐新环境直接使用：
+
+```text
+运营管理 (#)
+├─ 植物管理 (Get_ProductPlant_GetProductPlantList, appUrl=productPlant)
+│  └─ 新增 / 详情 / 编辑 / 启用禁用
+├─ APP版本管理 (Get_AppVersion_GetAppVersionList, appUrl=appVersion)
+│  └─ 详情 / 新增编辑 / 删除 / 启用禁用 / 设置权重
+└─ 基础信息配置 (Get_Common_GetConfigDataList, appUrl=config)
+   └─ 编辑 (Post_Common_SetConfigDataEdit)
+
+系统管理 (#)
+└─ 管理员权限 (Get_Jurisdiction_GetAdminSystems, appUrl=menuList)
+   └─ 系统详情 / 新增编辑 / 启用禁用 / 查看员工 / 查询与绑定角色 /
+      权限列表 / 设置权限 / 权限详情 / 删除权限
+```
+
+该范围会识别旧 APP 版本菜单的 `/Content/*` 权限码，并在 `--update` 下把已有节点迁移到
+「运营管理」，不会重复创建。迁移完成后，脚本只在旧「APP管理」分组确实没有子节点时将其设为
+非导航；不会删除节点，也不会隐藏仍含业务子项的分组。
+
+> 后端状态核验（2026-08-25）：系统 `1` 先通过 `product-plant --apply` 新增 6 个节点，随后
+> 通过 `checklist --apply --update` 新增 14 个节点、更新 7 个已有节点，并额外将迁移后为空的
+> 旧「APP管理」分组设为非导航。最终只读预览 26 个声明节点均为“存在”且无配置差异，
+> `/Jurisdiction/getLeftMenus` 返回「运营管理」下的植物管理、APP版本管理、基础信息配置，
+> 以及「系统管理」下的管理员权限。普通角色仍需绑定权限并重新登录。
+
 ## 执行同步
 
 脚本不会把 token 写入代码、配置或日志。请把当前管理员 `userToken` 临时放在进程环境变量中。
@@ -128,6 +155,10 @@ npm run menu:sync:user-account -- --apply
 npm run menu:sync:product-plant
 npm run menu:sync:product-plant -- --apply
 
+# 完整清单：先预览，再迁移旧节点并补齐缺失节点（推荐）
+npm run menu:sync:checklist
+npm run menu:sync:checklist -- --apply --update
+
 Remove-Item Env:BOLTFOX_USER_TOKEN
 ```
 
@@ -140,9 +171,10 @@ npm run menu:sync:commerce -- --system-id=2 --apply
 脚本的安全特性：
 
 - 默认是只读预览，必须显式传 `--apply` 才写入。
-- `commerce`、`user-account` 与 `product-plant` 是独立范围；执行其中一个不会遍历或修改其他范围的节点。
+- `commerce`、`user-account`、`product-plant` 与 `checklist` 是独立范围；`checklist` 只维护功能清单内的 PC 管理后台节点。
 - 在同一父节点下优先按 `appCode` 查重；编码为 `#` 的分组按 `appName` 查重。
 - “产品管理”声明兼容旧版顶级名称“商品管理”，升级时不会重复创建分组；传入 `--update` 后会完成名称迁移。
+- `checklist` 对已知旧 APP 版本权限码进行全树查重和安全迁移；旧空分组只改为非导航，不执行删除。
 - 每次创建父节点后重新读取权限树，以真实后端 ID 创建子节点。
 - 重复执行只会跳过已存在节点，不会重复插入。
 - 默认不覆盖已有配置；只有显式传 `--update` 才会修正差异。

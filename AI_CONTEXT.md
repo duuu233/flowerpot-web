@@ -2,7 +2,7 @@
 
 > 文档类型：当前项目上下文
 > 状态：Active
-> 最后核验：2026-08-24
+> 最后核验：2026-08-25
 > 适用范围：`flowerpot-web` 当前工作树
 > 事实来源：源码与 CodeGraph、`package.json`、路由、请求层和 `docs/` 当前内容
 
@@ -41,7 +41,7 @@ npm run preview
 - `VITE_APP_API_ORIGIN` 是生产接口源站，`VITE_APP_PROXY_TARGET` 是开发代理目标。
 - `VITE_APP_BASE_PAY` 供遗留支付请求实例使用；是否继续保留需结合当前接口范围确认。
 
-`.env` 当前有本地未提交改动。不得把实际 Token、签名、密码、Cookie、接口密钥或完整环境文件复制到文档、源码、历史记录或提交信息。
+不得把实际 Token、签名、密码、Cookie、接口密钥或完整环境文件复制到文档、源码、历史记录或提交信息。
 
 ## 4. 架构与数据流
 
@@ -86,9 +86,16 @@ src/views 与 src/components
 ## 6. 当前有效业务模块
 
 - `home`：后台首页。
-- `sms`：用户、用户产品、产品、用户产品图片、产品版本、FAQ、APP 版本和应用市场；
-  2026-08-24 新增植物管理 `productPlant`，目前只有接口封装、路由和菜单节点，页面是占位页。
+- `sms`：用户、用户产品、产品、产品版本、FAQ、植物管理、APP 版本和应用市场；
+  `productPlant` 已完成分页列表、新增、编辑、详情、图片上传、启用/禁用、路由和后端菜单。
 - `ums`：员工、角色、菜单权限、部门和系统配置。
+
+2026-08-25 已按 Excel 清单对系统 `1` 同步完整菜单：运营管理下为植物管理、APP版本管理和
+基础信息配置，系统管理下为管理员权限。`scripts/sync-admin-menu.mjs` 的 `checklist` scope 可在
+其他环境幂等预览/写入，并能迁移旧 `Content` 前缀 APP 版本权限；普通角色仍需绑定权限后重新登录。
+
+`userProductImage` 的本地包装、页面和路由仍在仓库中，但 2026-08-25 的当前 Swagger 已无
+`/ZoneAdmin/UserProductImg/*`；它属于待清理遗留实现，不再视为已确认受支持模块，也不应新增菜单。
 
 消息、运单、日志、支付、货运和商品等复制项目遗留源码不在当前 yikaltd 管理后台 Swagger 范围内；是否删除必须以当前路由、依赖分析和接口契约为依据，不能仅凭目录存在恢复入口。
 
@@ -113,75 +120,46 @@ src/views 与 src/components
 1. `AGENTS.md`
 2. 本文件
 3. `docs/README.md`
-<<<<<<< HEAD
 4. 与任务相关且已标明来源的 Active/Tracking 文档
 5. CodeGraph 中的源码符号、调用链和影响范围
-6. 仅在追查原因时读取 Historical 或临时交接记录
-
-执行约定：
-
-1. 先运行 `git status --short`。当前仓库存在业务代码、接口文档、环境文件和删除项的未提交改动，禁止覆盖或恢复。
-2. `.codegraph/` 存在时，结构分析先运行 `codegraph status .` 和 `codegraph explore 问题或符号`。
-3. 拉取后运行 `codegraph sync .`；有意义的源码修改完成后再次同步并检查状态。
-4. JavaScript 变更运行相关 `node --check`，页面和路由变更运行 `npm run build`；无法执行时如实记录原因。
-5. 架构、接口、命令、权限或模块范围变化时更新负责该事实的 Active/Tracking 文档。
-6. 一次集中修改建立一份 `docs/history/YYYY-MM/YYYY-MM-DD-主题.md`，不在 AI_CONTEXT 或 `next-session.md` 无限追加。
-
-## 9. 已知风险与待确认项
-
-- 当前工作区有大量未提交修改，包括 `.env`、路由、用户产品图片、删除的 API 文件和接口文档；这些属于在途工作。
-- README 和包名仍是复制项目口径，并列出了当前路由已移除的遗留模块。
-- `api-integration-progress.md`、`interface-list.md` 混合不同时间和域名的事实；当前接口需以 yikaltd Swagger 与源码再次核验。
-- `next-session.md` 是 2026-08-03 的临时交接，其中“没有 node_modules”等本机状态已经陈旧。
-- CodeGraph 仍能看到被取消路由的遗留源码；在依赖清理完成前，索引存在不等于模块仍受支持。
-- 项目没有自动化测试、lint 或类型检查脚本。
-- 多套锁文件并存且主包管理器未定，安装依赖可能产生大范围无关差异。
-
-## 10. 文档地图
-
-- [`docs/README.md`](docs/README.md)：文档导航、可信边界和维护规则。
-- [`docs/project-structure.md`](docs/project-structure.md)：当前 Vue/Vite 目录与公共列表约定。
-- [`docs/api-integration-progress.md`](docs/api-integration-progress.md)：接口迁移进度，使用前核对日期和当前工作树。
-- [`docs/interface-list.md`](docs/interface-list.md)：混合来源接口清单，待拆分历史与当前事实。
-- [`docs/next-session.md`](docs/next-session.md)：可替换的短期交接，不是长期日志。
-=======
-4. 与任务相关的 Active 文档
-5. CodeGraph 中的源码符号、调用链和影响范围
-6. 仅在追查原因时读取相关 Historical 记录
+6. 仅在追查原因时读取相关 Historical 或临时交接记录
 
 执行约定：
 
 1. 先运行 `git status --short`，识别并保护已有用户改动。
 2. `.codegraph/` 存在时，结构分析先运行 `codegraph status .` 和 `codegraph explore "问题或符号"`。
-3. 拉取代码后运行 `codegraph sync .`；完成有意义的源码修改后再次同步并检查状态。
-4. 行为、接口、架构、命令、权限或部署方式变化时，更新对应 Active 文档。
-5. 一次集中修改建立一份 `docs/history/YYYY-MM/YYYY-MM-DD-主题.md`；不要把流水账追加到 AI_CONTEXT。
-6. 记录实际运行过的验证，不把“计划验证”写成“已通过”。
+3. 拉取后运行 `codegraph sync .`；有意义的源码修改完成后再次同步并检查状态。
+4. JavaScript 变更运行相关 `node --check`，页面和路由变更运行 `npm run build`；无法执行时如实记录原因。
+5. 行为、接口、架构、命令、权限或部署方式变化时，更新对应 Active/Tracking 文档。
+6. 一次集中修改建立一份 `docs/history/YYYY-MM/YYYY-MM-DD-主题.md`，只记录实际验证，不把流水账追加到 AI_CONTEXT。
 
 ## 9. 已知风险与待确认项
 
 - 项目暂无自动化测试、lint 和类型检查脚本，回归主要依赖构建与人工验证。
 - 后台菜单与本地路由可能独立演进；新增页面后需要重新绑定角色权限并重新登录验证。
+- 旧「APP管理」节点因 APP 版本迁移而为空，系统 `1` 已将其设为非导航但没有删除；其他环境由 `checklist --apply --update` 在确认空节点后处理。
 - 请求签名和统一错误处理集中在请求层，修改的影响面很大。
-- Swagger、线上返回值和已有页面可能短期不一致，应在文档中标明核验日期与事实来源。
-- 仓库同时保留 `yarn.lock` 与 `pnpm-lock.yaml`；主包管理器尚未形成明确的仓库规则，不应擅自重写锁文件。
+- 当前 Swagger 已移除 `UserProductImg`，但仓库仍保留其包装、页面和路由；清理前不能把文件存在误判为后端支持。
+- 仓库还保留商品、订单、图库、AI、消息、日志、运单和支付等不在当前 Swagger 的遗留包装或页面。
+- `docs/interface-list.md` 混合不同来源，当前契约以最新 Swagger、真实只读响应和源码为准。
+- README、包名和短期交接仍有复制项目或陈旧环境口径。
+- 仓库同时保留 `yarn.lock` 与 `pnpm-lock.yaml`；主包管理器尚未确认，不应擅自重写锁文件。
 - 支付请求使用独立请求地址，修改通用接口环境变量时不能默认覆盖支付链路。
 
 ## 10. 文档地图
 
-- [`docs/README.md`](docs/README.md)：文档导航、生命周期和维护规则。
-- [`docs/project-structure.md`](docs/project-structure.md)：当前目录与模块组织。
-- [`docs/interface-list.md`](docs/interface-list.md)：接口核对清单。
-- [`docs/api-integration-progress.md`](docs/api-integration-progress.md)：接口接入状态。
+- [`docs/README.md`](docs/README.md)：文档导航、可信边界和维护规则。
+- [`docs/project-structure.md`](docs/project-structure.md)：当前 Vue/Vite 目录与公共列表约定。
+- [`docs/api-integration-progress.md`](docs/api-integration-progress.md)：接口迁移与核验进度。
 - [`docs/dynamic-menu-sync.md`](docs/dynamic-menu-sync.md)：动态菜单同步、验证和回滚。
->>>>>>> e1edab3084b74fb0f48b1c3a50d8d9245ae33f21
+- [`docs/interface-list.md`](docs/interface-list.md)：混合来源接口清单，待拆分历史与当前事实。
+- [`docs/next-session.md`](docs/next-session.md)：可替换的短期交接，不是长期日志。
 - [`docs/history/README.md`](docs/history/README.md)：本地操作更新记录规范与模板。
 
 ## 11. 兄弟项目边界与同步触发
 
 | 项目 | 主要职责 | 需要同步的变化 |
 | --- | --- | --- |
-<<<<<<< HEAD
 | `flowerpot-web` | 花盆产品 PC 管理后台 | 管理端 API、产品/版本/用户设备字段、菜单与权限契约。 |
 | `flowerpot` | YSplanter Flutter 用户端 | 用户态接口模型、设备状态、DP、配网、OTA 和协议口径。 |
 | `web-ui-v2` | BoltFox PC 管理后台 | 仅在复用的管理端组件、流程或接口契约确实共享时同步。 |
@@ -192,19 +170,7 @@ src/views 与 src/components
 
 - 当前源码和 CodeGraph 优先于复制项目 README、旧域名接口清单或临时会话说明。
 - 不读取、输出或记录 `.env` 中的实际秘密；只引用变量名。
-- 不覆盖已有未提交改动，不恢复当前工作树已经删除的遗留文件。
+- 不覆盖已有未提交改动，不恢复当前工作树已经删除的遗留文件；每次开始任务重新检查状态。
+- 不根据文件名或旧路由猜测后端支持范围，先核对 CodeGraph、最新 Swagger 与 Active 文档。
+- 不把本机绝对路径、依赖缓存或某台机器的安装状态写成跨环境事实。
 - Historical 和 `next-session.md` 只用于追溯；与源码或 Active 事实冲突时先核验再修正文档。
-=======
-| `web-ui-v2` | BoltFox PC 管理后台 | 管理端接口、权限码、菜单/路由契约、运营配置字段。 |
-| `flowerpot` | 花盆产品微信小程序 | 面向用户的接口模型、设备/产品状态、登录与业务口径。 |
-| `flowerpot-web` | 花盆产品 PC 管理后台 | 花盆后台接口、管理菜单、权限和运营字段。 |
-
-只有共享契约发生变化时才同步事实和影响；各项目按自己的源码、技术栈与部署方式填写，不能复制另一项目的模块或命令。跨项目同步要在各自历史记录中写明上游来源、实际同步内容、有意保留的差异和未完成项。
-
-## 12. AI 工作备注
-
-- 不根据文件名猜行为；先看 CodeGraph 和当前源码。
-- 不覆盖与当前任务无关的未提交改动。
-- 不把本机绝对路径、临时缓存或某台机器的安装状态写成跨环境事实。
-- 历史记录只用于追溯；若历史与 Active 文档或源码冲突，以当前源码和最新 Active 文档为准，并修正文档。
->>>>>>> e1edab3084b74fb0f48b1c3a50d8d9245ae33f21

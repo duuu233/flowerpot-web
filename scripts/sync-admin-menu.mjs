@@ -267,6 +267,201 @@ export const productPlantMenuTree = [
   }
 ]
 
+export const checklistMenuTree = [
+  {
+    appName: '运营管理',
+    aliases: ['运营', '运营中心'],
+    appCode: '#',
+    appUrl: '#',
+    grade: 2,
+    isNav: 1,
+    isRefresh: 0,
+    children: [
+      {
+        ...productPlantMenuTree[0].children[0],
+        grade: 3
+      },
+      {
+        appName: 'APP版本管理',
+        appCode: 'Get_AppVersion_GetAppVersionList',
+        legacyCodes: ['Get_Content_GetAppVersionList'],
+        allowReparent: true,
+        appUrl: 'appVersion',
+        grade: 2,
+        isNav: 1,
+        isRefresh: 0,
+        children: [
+          {
+            appName: '详情',
+            appCode: 'Get_AppVersion_GetAppVersionDetail',
+            legacyCodes: ['get_Content_GetAppVersionDetail'],
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '新增/编辑',
+            appCode: 'Post_AppVersion_SetAppVersionEdit',
+            legacyCodes: ['Post_Content_SetAppVersionEdit'],
+            allowReparent: true,
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '删除',
+            appCode: 'Post_AppVersion_SetAppVersionDelete',
+            legacyCodes: ['Post_Content_SetAppVersionDelete'],
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '启用/禁用',
+            appCode: 'Post_AppVersion_SetAppVersionVerify',
+            legacyCodes: ['Post_Content_SetAppVersionVerify'],
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '设置权重',
+            appCode: 'Post_AppVersion_SetAppVersionGrade',
+            legacyCodes: ['Post_Content_SetAppVersionGrade'],
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          }
+        ]
+      },
+      {
+        appName: '基础信息配置',
+        appCode: 'Get_Common_GetConfigDataList',
+        appUrl: 'config',
+        grade: 1,
+        isNav: 1,
+        isRefresh: 0,
+        children: [
+          {
+            appName: '编辑',
+            appCode: 'Post_Common_SetConfigDataEdit',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    appName: '系统管理',
+    aliases: ['系统', '权限管理'],
+    appCode: '#',
+    appUrl: '#',
+    grade: 1,
+    isNav: 1,
+    isRefresh: 0,
+    children: [
+      {
+        appName: '管理员权限',
+        appCode: 'Get_Jurisdiction_GetAdminSystems',
+        appUrl: 'menuList',
+        grade: 1,
+        isNav: 1,
+        isRefresh: 0,
+        children: [
+          {
+            appName: '系统详情',
+            appCode: 'Get_Jurisdiction_getAdminSystemsDetails',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '新增/编辑系统',
+            appCode: 'Post_Jurisdiction_setAdminSystems',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '启用/禁用系统',
+            appCode: 'Post_Jurisdiction_setAdminSystemsVerify',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '查看员工',
+            appCode: 'Get_Jurisdiction_getAdminStaffBySys',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '查询绑定角色',
+            appCode: 'Get_Jurisdiction_getRoleBySystem',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '绑定角色',
+            appCode: 'Post_Jurisdiction_setAdminSystemBindRoles',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '权限列表',
+            appCode: 'Get_Jurisdiction_getAdminAppliBySys',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '设置权限',
+            appCode: 'Post_Jurisdiction_setAdminAppli',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '权限详情',
+            appCode: 'Get_Jurisdiction_getAdminAppliDetails',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '删除权限',
+            appCode: 'Post_Jurisdiction_setDelAdminAppli',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          }
+        ]
+      }
+    ]
+  }
+]
+
 export const userAccountMenuNodes = [
   {
     appName: '编辑用户账户',
@@ -301,6 +496,22 @@ const menuScopes = {
     label: '运营管理与植物管理',
     parentCode: null,
     nodes: productPlantMenuTree
+  },
+  checklist: {
+    label: '智能花盆后台对接清单',
+    parentCode: null,
+    nodes: checklistMenuTree,
+    existingOnlyNodes: [
+      {
+        appName: 'APP管理',
+        appCode: '#',
+        appUrl: '#',
+        grade: 1,
+        isNav: 0,
+        isRefresh: 0,
+        requireEmpty: true
+      }
+    ]
   }
 }
 
@@ -355,7 +566,7 @@ function printHelp() {
   BOLTFOX_MENU_SCOPE   可选，默认 commerce
 
 参数：
-  --scope=<scope>      同步范围：commerce、user-account 或 product-plant
+  --scope=<scope>      同步范围：commerce、user-account、product-plant 或 checklist
   --apply              实际新增缺失节点；省略时只预览
   --update             同时更新已存在但配置漂移的节点（必须搭配 --apply）
   --system-id=<id>     覆盖系统 ID
@@ -477,10 +688,28 @@ function resolveScopeParent(root, scope) {
 function findMatchingChild(parent, expected) {
   const children = parent?.childs || []
   if (expected.appCode !== '#') {
-    return children.find(node => node.appCode === expected.appCode) || null
+    const acceptedCodes = [expected.appCode, ...(expected.legacyCodes || [])]
+    return children.find(node => acceptedCodes.includes(node.appCode)) || null
   }
   const acceptedNames = [expected.appName, ...(expected.aliases || [])]
   return children.find(node => acceptedNames.includes(node.appName)) || null
+}
+
+function findNodeEntryByCodes(nodes, acceptedCodes, parentId = 0) {
+  for (const node of nodes || []) {
+    if (acceptedCodes.includes(node.appCode)) {
+      return { node, parentId: Number(parentId) }
+    }
+    const child = findNodeEntryByCodes(node.childs, acceptedCodes, node.id)
+    if (child) return child
+  }
+  return null
+}
+
+function findRelocatableNode(root, expected) {
+  if (!expected.allowReparent || expected.appCode === '#') return null
+  const acceptedCodes = [expected.appCode, ...(expected.legacyCodes || [])]
+  return findNodeEntryByCodes(root.childs, acceptedCodes, root.id)
 }
 
 function normalizedUrl(value) {
@@ -489,10 +718,11 @@ function normalizedUrl(value) {
   return String(value)
 }
 
-function getDrift(node, expected) {
+function getDrift(node, expected, targetParentId, actualParentId = targetParentId) {
   const fields = ['appName', 'appCode', 'grade', 'isNav', 'isRefresh']
   const drift = fields.filter(field => String(node[field] ?? '') !== String(expected[field] ?? ''))
   if (normalizedUrl(node.appUrl) !== normalizedUrl(expected.appUrl)) drift.push('appUrl')
+  if (Number(actualParentId) !== Number(targetParentId)) drift.push('parentId')
   return drift
 }
 
@@ -510,15 +740,40 @@ function buildPayload(expected, parentId, systemId, id = 0) {
   }
 }
 
-function printPreview(parent, expectedNodes, depth = 0) {
+function printPreview(root, parent, expectedNodes, depth = 0) {
   for (const expected of expectedNodes) {
-    const existing = parent ? findMatchingChild(parent, expected) : null
+    const local = parent ? findMatchingChild(parent, expected) : null
+    const relocated = !local ? findRelocatableNode(root, expected) : null
+    const existing = local || relocated?.node || null
+    const actualParentId = local ? parent.id : relocated?.parentId
     const indent = '  '.repeat(depth)
-    const marker = existing ? '存在' : '待新增'
-    const drift = existing ? getDrift(existing, expected) : []
+    const marker = relocated ? '待迁移' : existing ? '存在' : '待新增'
+    const drift = existing
+      ? getDrift(existing, expected, parent?.id, actualParentId)
+      : []
     const driftText = drift.length ? `（配置差异：${drift.join(', ')}）` : ''
     console.log(`${indent}- [${marker}] ${expected.appName} <${expected.appCode}>${driftText}`)
-    printPreview(existing, expected.children || [], depth + 1)
+    printPreview(root, existing, expected.children || [], depth + 1)
+  }
+}
+
+function printExistingOnlyPreview(root, expectedNodes) {
+  if (!expectedNodes?.length) return
+  console.log('\n旧节点收尾：')
+  for (const expected of expectedNodes) {
+    const existing = findMatchingChild(root, expected)
+    if (!existing) {
+      console.log(`- [不存在，跳过] ${expected.appName}`)
+      continue
+    }
+    if (expected.requireEmpty && existing.childs?.length) {
+      console.log(`- [仍有子节点，保留] ${expected.appName}`)
+      continue
+    }
+    const drift = getDrift(existing, expected, root.id, root.id)
+    const marker = drift.length ? '待更新' : '已处理'
+    const driftText = drift.length ? `（配置差异：${drift.join(', ')}）` : ''
+    console.log(`- [${marker}] ${expected.appName}${driftText}`)
   }
 }
 
@@ -546,13 +801,16 @@ async function syncNode(client, options, parentId, expected, depth, stats) {
 
   const indent = '  '.repeat(depth)
   let current = findMatchingChild(parent, expected)
+  const relocated = !current ? findRelocatableNode(root, expected) : null
+  const actualParentId = current ? parent.id : relocated?.parentId
+  if (!current && relocated) current = relocated.node
   if (!current) {
     await client.saveMenu(buildPayload(expected, parentId, options.systemId))
     current = await waitForCreatedNode(client, options, parentId, expected)
     stats.created += 1
     console.log(`${indent}+ 已新增 ${expected.appName} <${expected.appCode}>`)
   } else {
-    const drift = getDrift(current, expected)
+    const drift = getDrift(current, expected, parentId, actualParentId)
     if (drift.length && options.update) {
       await client.saveMenu(
         buildPayload(expected, parentId, options.systemId, Number(current.id))
@@ -570,6 +828,36 @@ async function syncNode(client, options, parentId, expected, depth, stats) {
   for (const child of expected.children || []) {
     await syncNode(client, options, current.id, child, depth + 1, stats)
   }
+}
+
+async function syncExistingOnlyNode(client, options, expected, stats) {
+  const response = await client.getMenuTree(options.systemId)
+  const root = getVirtualRoot(response.retData || [])
+  let current = findMatchingChild(root, expected)
+  if (!current) {
+    console.log(`= 不存在 ${expected.appName}，无需收尾`)
+    return
+  }
+  if (expected.requireEmpty && current.childs?.length) {
+    stats.existing += 1
+    console.log(`= 保留 ${expected.appName}：仍有 ${current.childs.length} 个子节点`)
+    return
+  }
+
+  const drift = getDrift(current, expected, root.id, root.id)
+  if (drift.length && options.update) {
+    await client.saveMenu(
+      buildPayload(expected, root.id, options.systemId, Number(current.id))
+    )
+    current = await waitForCreatedNode(client, options, root.id, expected)
+    stats.updated += 1
+    console.log(`~ 已收尾 ${expected.appName}（${drift.join(', ')}）`)
+    return
+  }
+
+  stats.existing += 1
+  const driftText = drift.length ? `，保留配置差异：${drift.join(', ')}` : ''
+  console.log(`= 已处理 ${expected.appName}${driftText}`)
 }
 
 async function main() {
@@ -593,7 +881,8 @@ async function main() {
   console.log(`执行模式：${options.apply ? '写入' : '只读预览'}`)
 
   if (!options.apply) {
-    printPreview(scopeParent, scope.nodes)
+    printPreview(root, scopeParent, scope.nodes)
+    printExistingOnlyPreview(root, scope.existingOnlyNodes)
     console.log('\n未写入任何数据。确认后追加 --apply 执行。')
     return
   }
@@ -601,6 +890,9 @@ async function main() {
   const stats = { created: 0, updated: 0, existing: 0 }
   for (const node of scope.nodes) {
     await syncNode(client, options, scopeParent.id, node, 0, stats)
+  }
+  for (const node of scope.existingOnlyNodes || []) {
+    await syncExistingOnlyNode(client, options, node, stats)
   }
 
   console.log(
