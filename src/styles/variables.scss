@@ -1,16 +1,17 @@
-// BoltStar palette.
-// 品牌色取自 LOGO 的橙色（色相 24°），但界面上使用「压深、降饱和」的版本：
-// LOGO 原色 #f26910 饱和度 88%，白字对比度仅 3.07:1，大面积铺开会刺眼且不达 WCAG AA。
-// 界面主色改用同色相的 #b25a1e（饱和度 71%，白字 4.8:1），LOGO 原色只用于 1-3px 的指示条。
-$brandLogo: #f26910; // 仅 LOGO / 细指示条
-$primary: #b25a1e; // 界面主色（填充按钮、选中态）
-$primaryDark: #964a15; // hover / 按下 / 正文链接
-$primaryTint: #fbf4ee; // 最浅的品牌底色
+// YSplanter palette.
+// 品牌色取自 APP LOGO（src/assets/images/logo.png）的青绿渐变：
+// 浅端 #c7e3d8、深端 #48999f，色相锁在 186° 左右。
+// LOGO 深端 #48999f 白字对比度只有 3.32:1，不能直接当界面主色；
+// 界面主色压深到同色相的 #2a757c（白字 5.34:1），LOGO 原色只用于 1-2px 指示条。
+$brandLogo: #48999f; // 仅 LOGO / 细指示条
+$primary: #2a757c; // 界面主色（填充按钮、选中态）
+$primaryDark: #1f6a71; // hover / 按下 / 正文链接
+$primaryTint: #f0f6f6; // 最浅的品牌底色
 
-// 中性色统一走「暖中性」，与橙色同处一个色温，避免冷灰 + 高饱和橙互相打架。
-$topNavBg: #262220;
-$pageBg: #f5f4f2;
+// 中性色统一走「冷中性 + 一点绿灰」，与青绿主色同色温，整屏观感干净不发黄。
+$topNavBg: #0f2a2e;
+$pageBg: #f4f6f6;
 $surface: #ffffff;
-$border: #e8e5e1;
-$textPrimary: #2b2724;
-$textSecondary: #6b6560;
+$border: #e3e9e8;
+$textPrimary: #16262a;
+$textSecondary: #5f6f70;

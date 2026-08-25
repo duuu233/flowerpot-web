@@ -16,7 +16,7 @@ import {
   getUserDeviceVersionDetail
 } from '@/api/productVersion'
 import PageHeader from '@/components/PageHeader/index.vue'
-import FileUpload from '@/components/Upload/FileUpload.vue'
+import FileUpload from '@/components/Upload/fileUpload.vue'
 import { invalidateList } from '@/composables/useListRefresh'
 
 const route = useRoute()

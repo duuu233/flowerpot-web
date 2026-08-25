@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 
 const SIGN_SALT = '8e808087-08b3-3e10-8e83-93bf078df4b2'
-const DEFAULT_API_BASE = 'https://api.boltfox.cn/ZoneAdmin'
+const DEFAULT_API_BASE = 'http://120.25.227.36:8601/ZoneAdmin'
 
 export const commerceMenuTree = [
   {
@@ -209,6 +209,64 @@ export const commerceMenuTree = [
   }
 ]
 
+export const productPlantMenuTree = [
+  {
+    // 分组节点：后端已存在同名（或 aliases 中任一名称）的分组时会直接复用，不会重复创建。
+    // 若实际后端把植物管理挂在别的分组下，把该分组名加进 aliases 再执行预览即可。
+    appName: '运营管理',
+    aliases: ['运营', '运营中心'],
+    appCode: '#',
+    appUrl: '#',
+    grade: 2,
+    isNav: 1,
+    isRefresh: 0,
+    children: [
+      {
+        appName: '植物管理',
+        appCode: 'Get_ProductPlant_GetProductPlantList',
+        appUrl: 'productPlant',
+        grade: 0,
+        isNav: 1,
+        isRefresh: 0,
+        children: [
+          {
+            appName: '新增',
+            appCode: 'Post_ProductPlant_AddProductPlant',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '详情',
+            appCode: 'Get_ProductPlant_GetProductPlantDetail',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '编辑',
+            appCode: 'Post_ProductPlant_EditProductPlant',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          },
+          {
+            appName: '启用/禁用',
+            appCode: 'Post_ProductPlant_SetProductPlantVerify',
+            appUrl: '#',
+            grade: 0,
+            isNav: 0,
+            isRefresh: 0
+          }
+        ]
+      }
+    ]
+  }
+]
+
 export const userAccountMenuNodes = [
   {
     appName: '编辑用户账户',
@@ -238,6 +296,11 @@ const menuScopes = {
     label: '用户账户与账户日志',
     parentCode: 'Get_User_GetUserList',
     nodes: userAccountMenuNodes
+  },
+  'product-plant': {
+    label: '运营管理与植物管理',
+    parentCode: null,
+    nodes: productPlantMenuTree
   }
 }
 
@@ -292,7 +355,7 @@ function printHelp() {
   BOLTFOX_MENU_SCOPE   可选，默认 commerce
 
 参数：
-  --scope=<scope>      同步范围：commerce 或 user-account
+  --scope=<scope>      同步范围：commerce、user-account 或 product-plant
   --apply              实际新增缺失节点；省略时只预览
   --update             同时更新已存在但配置漂移的节点（必须搭配 --apply）
   --system-id=<id>     覆盖系统 ID

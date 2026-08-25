@@ -38,7 +38,7 @@ const classObj = computed(() => ({
   padding-top: var(--shell-header-height);
   padding-left: var(--shell-sidebar-width);
   background:
-    radial-gradient(circle at 100% 0, rgba(242, 105, 16, 0.045), transparent 24rem),
+    radial-gradient(circle at 100% 0, rgba(72, 153, 159, 0.06), transparent 24rem),
     var(--app-canvas);
 }
 

@@ -218,6 +218,15 @@ export const asyncRouterMap = [
         hidden: true
       },
       {
+        path: 'productPlant',
+        name: 'productPlant',
+        component: () => import('@/views/sms/productPlant/index.vue'),
+        meta: {
+          title: '植物管理',
+          icon: 'sms-flash'
+        }
+      },
+      {
         path: 'appVersion',
         name: 'appVersion',
         component: () => import('@/views/sms/appVersion/index.vue'),

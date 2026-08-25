@@ -242,7 +242,7 @@ onMounted(() => {
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 28px rgba(43, 39, 36, 0.07);
+    box-shadow: 0 14px 28px rgba(22, 38, 42, 0.07);
   }
 
   :deep(.el-card__body) {
@@ -317,7 +317,7 @@ onMounted(() => {
 .trend-track {
   height: 8px;
   border-radius: 999px;
-  background: #ebe8e4;
+  background: var(--app-border);
   overflow: hidden;
 }
 

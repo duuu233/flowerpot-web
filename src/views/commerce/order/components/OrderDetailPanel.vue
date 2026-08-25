@@ -160,7 +160,7 @@ function optionLabel(options, value) {
   border: 1px solid var(--app-border);
   border-radius: var(--app-radius);
   background:
-    linear-gradient(90deg, rgba(242, 105, 16, 0.04) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(72, 153, 159, 0.05) 1px, transparent 1px) 0 0 / 28px 28px,
     var(--app-surface);
 }
 

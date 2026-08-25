@@ -209,11 +209,11 @@ async function handleCountryApiTest() {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(43, 39, 36, 0.08);
-  border-radius: 16px;
+  border: 1px solid rgba(22, 38, 42, 0.08);
+  border-radius: 12px;
   background-color: #fff;
   overflow: hidden;
-  box-shadow: 0 22px 56px rgba(43, 39, 36, 0.12);
+  box-shadow: 0 22px 56px rgba(22, 38, 42, 0.12);
 }
 
 // 顶部色带用主题色阶绘制，跟随 --brand-* 变化，不再依赖固定颜色的图片
@@ -290,11 +290,11 @@ async function handleCountryApiTest() {
   margin-top: 5px;
   width: 100%;
   height: 45px;
-  border-radius: 8px;
+  border-radius: var(--control-radius);
   font-weight: 600;
   background-color: var(--brand-500);
   border-color: var(--brand-500);
-  box-shadow: 0 6px 16px rgba(43, 39, 36, 0.1);
+  box-shadow: 0 6px 16px rgba(22, 38, 42, 0.1);
   font-size: 16px;
 }
 

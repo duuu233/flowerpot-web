@@ -2,7 +2,7 @@
 
 > 文档类型：文档治理入口
 > 状态：Active
-> 最后核验：2026-08-12
+> 最后核验：2026-08-24
 > 事实来源：当前源码、CodeGraph、项目配置与工作树中的文档
 
 本文件是 `docs/` 的统一入口。根目录保留执行规则 `AGENTS.md` 和当前 AI 快照 `AI_CONTEXT.md`；当前架构、接口迁移、临时交接和冻结历史都从这里定位。
@@ -22,6 +22,7 @@
 | --- | --- | --- |
 | [`project-structure.md`](project-structure.md) | Active | 当前目录、请求地址规则、公共列表组件和 composable。 |
 | [`api-integration-progress.md`](api-integration-progress.md) | Tracking / Reverify | yikaltd 管理端接口迁移进度；当前工作树正在修改，使用前核对日期、源码和 Swagger。 |
+| [`dynamic-menu-sync.md`](dynamic-menu-sync.md) | Active | 后端菜单与按钮权限的声明式同步脚本、scope 划分和验证步骤。 |
 | [`interface-list.md`](interface-list.md) | Mixed Sources | 同时保留 boltfox 历史与 yikaltd 更新，整理前不能单独作为当前契约。 |
 | [`next-session.md`](next-session.md) | Temporary Handoff | 2026-08-03 的可替换会话交接；其中本机依赖状态已经陈旧。 |
 | [`history/README.md`](history/README.md) | Active | 长期操作更新记录规则、模板与索引。 |

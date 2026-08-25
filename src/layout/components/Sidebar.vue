@@ -70,7 +70,7 @@ function isActive(name) {
     width: 6px;
   }
   &::-webkit-scrollbar-thumb {
-    background: #d3cec8;
+    background: #cbd4d2;
     border-radius: 20px;
   }
 }

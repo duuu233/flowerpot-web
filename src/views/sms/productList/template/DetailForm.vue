@@ -5,7 +5,7 @@ import { ElMessage } from 'element-plus'
 import { cloneDeep } from 'lodash-es'
 import { addProduct, editProduct, getProductDetail } from '@/api/productList'
 import { invalidateList } from '@/composables/useListRefresh'
-import MultiUpload from '@/components/Upload/MultiUpload.vue'
+import MultiUpload from '@/components/Upload/multiUpload.vue'
 import PageHeader from '@/components/PageHeader/index.vue'
 
 const props = defineProps({

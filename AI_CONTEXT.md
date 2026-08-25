@@ -2,7 +2,7 @@
 
 > 文档类型：当前项目上下文
 > 状态：Active
-> 最后核验：2026-08-12
+> 最后核验：2026-08-24
 > 适用范围：`flowerpot-web` 当前工作树
 > 事实来源：源码与 CodeGraph、`package.json`、路由、请求层和 `docs/` 当前内容
 
@@ -32,8 +32,10 @@ npm run preview
 
 ## 3. 环境与接口约定
 
-- 当前管理后台 Swagger：`https://api.yikaltd.com/swagger-ui.html#/`。
-- 机器可读契约：`https://api.yikaltd.com/v2/api-docs`。
+- 当前管理后台 Swagger：`http://120.25.227.36:8601/swagger-ui.html#/`。
+- 机器可读契约：`http://120.25.227.36:8601/v2/api-docs`。
+- 2026-08-25 起接口地址统一使用 IP：原域名 `https://api.yikaltd.com` 在本机被阿里云 ICP 备案页拦截，
+  改用 IP 后 Swagger 与 `/v2/api-docs` 实测可访问。地址只写在根目录 `.env` 的 `VITE_APP_API_ORIGIN`。
 - 只接入 Swagger tag 以 `管理后台-` 开头的接口。
 - `VITE_APP_API_PREFIX` 通常为 `/ZoneAdmin`；API 模块默认不重复写该前缀。
 - `VITE_APP_API_ORIGIN` 是生产接口源站，`VITE_APP_PROXY_TARGET` 是开发代理目标。
@@ -84,7 +86,8 @@ src/views 与 src/components
 ## 6. 当前有效业务模块
 
 - `home`：后台首页。
-- `sms`：用户、用户产品、产品、用户产品图片、产品版本、FAQ、APP 版本和应用市场。
+- `sms`：用户、用户产品、产品、用户产品图片、产品版本、FAQ、APP 版本和应用市场；
+  2026-08-24 新增植物管理 `productPlant`，目前只有接口封装、路由和菜单节点，页面是占位页。
 - `ums`：员工、角色、菜单权限、部门和系统配置。
 
 消息、运单、日志、支付、货运和商品等复制项目遗留源码不在当前 yikaltd 管理后台 Swagger 范围内；是否删除必须以当前路由、依赖分析和接口契约为依据，不能仅凭目录存在恢复入口。
@@ -99,6 +102,9 @@ src/views 与 src/components
 4. 只集成当前 yikaltd Swagger 的 `管理后台-` 接口；旧 boltfox 记录仅供迁移追溯。
 5. 修改请求层、登录 Store、权限指令或路由前必须用 CodeGraph 查看调用者和影响范围。
 6. CodeGraph 描述当前源码结构；Markdown 负责外部契约、人工流程、迁移决策和历史。
+7. 主题配色集中在 `src/styles/variables.scss` 与 `src/styles/index.scss` 的 `:root` 令牌；
+   页面和组件只引用 `--brand-*`、`--app-*`、`--el-*` 变量，不写死品牌色。
+8. 跨平台大小写：本仓库在 Windows 与 Linux 之间同步，import 路径必须与磁盘文件名大小写完全一致。
 
 ## 8. 开发与维护流程
 

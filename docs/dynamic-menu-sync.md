@@ -2,7 +2,7 @@
 
 > 文档类型：当前操作手册
 > 状态：Active
-> 最后核验：2026-08-13
+> 最后核验：2026-08-24
 > 事实来源：菜单同步脚本、路由、权限 Store 与后台接口契约
 
 本项目的页面可访问性由两部分共同决定：
@@ -85,6 +85,23 @@ AI配置 (#)
 
 账户日志页面使用本地隐藏路由 `userAccountLogs`，从用户列表工具栏或行操作进入；权限节点本身不展示为左侧菜单。
 
+`product-plant` 范围是 2026-08-24 新增的植物管理（对应功能清单「PC管理后台 → 运营管理 → 植物管理」）：
+
+```text
+运营管理 (#)
+└─ 植物管理 (Get_ProductPlant_GetProductPlantList, appUrl=productPlant)
+   ├─ 新增 (Post_ProductPlant_AddProductPlant)
+   ├─ 详情 (Get_ProductPlant_GetProductPlantDetail)
+   ├─ 编辑 (Post_ProductPlant_EditProductPlant)
+   └─ 启用/禁用 (Post_ProductPlant_SetProductPlantVerify)
+```
+
+「运营管理」是分组节点（`appCode` 为 `#`），脚本按 `appName` 与 `aliases` 查重，
+后端已存在同名分组时会直接复用。**执行 `--apply` 前必须先看只读预览**：
+如果后端把植物管理归在别的分组下，或分组用了别的名字，先把该名字加进
+`scripts/sync-admin-menu.mjs` 里 `productPlantMenuTree` 的 `aliases`，避免建出重复分组。
+分组 `grade` 目前是 2，排在现有「产品管理 / 订单管理 / AI配置」之后，需要靠前就调高该值。
+
 ## 执行同步
 
 脚本不会把 token 写入代码、配置或日志。请把当前管理员 `userToken` 临时放在进程环境变量中。
@@ -107,6 +124,10 @@ npm run menu:sync:commerce -- --apply --update
 npm run menu:sync:user-account
 npm run menu:sync:user-account -- --apply
 
+# 植物管理：预览、写入
+npm run menu:sync:product-plant
+npm run menu:sync:product-plant -- --apply
+
 Remove-Item Env:BOLTFOX_USER_TOKEN
 ```
 
@@ -119,7 +140,7 @@ npm run menu:sync:commerce -- --system-id=2 --apply
 脚本的安全特性：
 
 - 默认是只读预览，必须显式传 `--apply` 才写入。
-- `commerce` 与 `user-account` 是独立范围；执行其中一个不会遍历或修改另一个范围的节点。
+- `commerce`、`user-account` 与 `product-plant` 是独立范围；执行其中一个不会遍历或修改其他范围的节点。
 - 在同一父节点下优先按 `appCode` 查重；编码为 `#` 的分组按 `appName` 查重。
 - “产品管理”声明兼容旧版顶级名称“商品管理”，升级时不会重复创建分组；传入 `--update` 后会完成名称迁移。
 - 每次创建父节点后重新读取权限树，以真实后端 ID 创建子节点。
@@ -128,7 +149,9 @@ npm run menu:sync:commerce -- --system-id=2 --apply
 
 ## 新模块复用步骤
 
-1. 从 `https://api.boltfox.cn/v2/api-docs` 核对接口路径、HTTP 方法、入参和输出模型。
+1. 从 `http://120.25.227.36:8601/v2/api-docs` 核对接口路径、HTTP 方法、入参和输出模型。
+   （旧域名 `api.boltfox.cn` 已于 2026-08-03 停用；2026-08-25 起接口地址统一改用 IP，
+   脚本的 `DEFAULT_API_BASE` 为 `http://120.25.227.36:8601/ZoneAdmin`，可用 `BOLTFOX_API_BASE` 覆盖。）
 2. 在 `src/api/<module>.js` 中新增请求封装；路径省略 `/ZoneAdmin`，由环境变量统一补齐。
 3. 在 `src/router/routes.js` 注册列表和隐藏的详情/编辑路由，固定路由 `name`。
 4. 在菜单同步脚本的适用 scope 中新增节点：导航节点的 `appUrl` 填路由 `name`；若是已有导航下的操作权限，使用 `parentCode` 定位父节点。

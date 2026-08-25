@@ -5,92 +5,92 @@
 @use './sidebar';
 
 :root {
-  // 品牌色阶：色相锁定 LOGO 的 24°，靠明度分层，不靠饱和度堆强度。
-  --brand-logo: #f26910; // LOGO 原色，只允许出现在 1-3px 指示条
-  --brand-50: #fbf4ee;
-  --brand-100: #f4e5d8;
-  --brand-200: #e8cbb1;
-  --brand-300: #d6a67e;
-  --brand-400: #c37b45;
-  --brand-500: #b25a1e; // 主色填充，白字 4.8:1
-  --brand-600: #964a15; // hover / 链接文字，白底 6.4:1
-  --brand-700: #78390f;
+  // 品牌色阶：色相锁定 LOGO 的 186°，靠明度分层，不靠饱和度堆强度。
+  --brand-logo: #48999f; // LOGO 原色，只允许出现在 1-2px 指示条
+  --brand-50: #f0f6f6;
+  --brand-100: #dbebeb;
+  --brand-200: #b6d6d8;
+  --brand-300: #86bcc0;
+  --brand-400: #4f9ba2;
+  --brand-500: #2a757c; // 主色填充，白字 5.3:1
+  --brand-600: #1f6a71; // hover / 链接文字，白底 6.3:1
+  --brand-700: #17545a;
 
-  // 暖中性底：与橙色同色温，整屏不再有冷灰与暖橙互相顶的感觉。
-  --app-canvas: #f5f4f2;
+  // 冷中性底：带一点绿灰，与青绿主色同色温，整屏干净、不发黄。
+  --app-canvas: #f4f6f6;
   --app-surface: #ffffff;
-  --app-surface-muted: #faf9f7;
-  --app-surface-hover: #f2f0ed;
-  --app-border: #e8e5e1;
-  --app-border-strong: #cbc6c0; // 输入框描边，比原来的冷灰更实一些
-  --app-ink: #2b2724;
-  --app-text: #6b6560;
-  --app-muted: #7a736c;
-  --app-shell: #262220; // 顶栏底色
+  --app-surface-muted: #f7faf9;
+  --app-surface-hover: #eef3f2;
+  --app-border: #e3e9e8;
+  --app-border-strong: #c6d0cf; // 输入框描边
+  --app-ink: #16262a;
+  --app-text: #5f6f70;
+  --app-muted: #6b7a7b;
+  --app-shell: #0f2a2e; // 顶栏底色，LOGO 青绿压到最深
 
-  // 语义色统一压深到白底可读（≥ 4.9:1），并把 warning 推到 45° 黄金色，
-  // 避免和 24° 的品牌橙撞色导致「警告看起来像品牌色」。
-  --app-success: #2e7d4f;
-  --app-warning: #8a6c12;
-  --app-danger: #b3352e;
-  --app-info: #6b6560;
+  // 语义色统一压深到白底可读（≥ 4.9:1）。success 推到 145° 的叶绿，
+  // 与 186° 的品牌青绿拉开色相距离，避免「成功状态看起来像主色」。
+  --app-success: #35774a;
+  --app-warning: #8a6a12;
+  --app-danger: #b23c35;
+  --app-info: #5f6f70;
 
   --shell-header-height: 72px;
   --shell-sidebar-width: 256px;
-  --app-radius: 12px;
-  --control-radius: 8px;
+  --app-radius: 10px;
+  --control-radius: 6px;
 
   --el-color-primary: var(--brand-500);
-  --el-color-primary-light-3: #c98c62;
-  --el-color-primary-light-5: #d9ad8f;
-  --el-color-primary-light-7: #e8cdbc;
-  --el-color-primary-light-8: #f0ded2;
-  --el-color-primary-light-9: #f7efe9;
+  --el-color-primary-light-3: #6a9ea3;
+  --el-color-primary-light-5: #95babe;
+  --el-color-primary-light-7: #bfd6d8;
+  --el-color-primary-light-8: #d4e3e4;
+  --el-color-primary-light-9: #eaf1f1;
   --el-color-primary-dark-2: var(--brand-600);
 
   --el-color-success: var(--app-success);
-  --el-color-success-light-3: #6da484;
-  --el-color-success-light-5: #96bea7;
-  --el-color-success-light-7: #c0d8ca;
-  --el-color-success-light-8: #d5e5dc;
-  --el-color-success-light-9: #eaf2ed;
-  --el-color-success-dark-2: #256440;
+  --el-color-success-light-3: #72a080;
+  --el-color-success-light-5: #9abba5;
+  --el-color-success-light-7: #c2d6c9;
+  --el-color-success-light-8: #d7e3db;
+  --el-color-success-light-9: #ebf1ed;
+  --el-color-success-dark-2: #2a5f3b;
 
   --el-color-warning: var(--app-warning);
-  --el-color-warning-light-3: #ad9859;
-  --el-color-warning-light-5: #c5b689;
-  --el-color-warning-light-7: #dcd3b8;
-  --el-color-warning-light-8: #e8e2d0;
+  --el-color-warning-light-3: #ad9759;
+  --el-color-warning-light-5: #c5b589;
+  --el-color-warning-light-7: #dcd2b8;
+  --el-color-warning-light-8: #e8e1d0;
   --el-color-warning-light-9: #f3f0e7;
-  --el-color-warning-dark-2: #6e560e;
+  --el-color-warning-dark-2: #6e550e;
 
   --el-color-danger: var(--app-danger);
-  --el-color-danger-light-3: #ca726d;
-  --el-color-danger-light-5: #d99a97;
-  --el-color-danger-light-7: #e8c2c0;
-  --el-color-danger-light-8: #f0d7d5;
-  --el-color-danger-light-9: #f7ebea;
-  --el-color-danger-dark-2: #8f2a25;
+  --el-color-danger-light-3: #c97772;
+  --el-color-danger-light-5: #d99e9a;
+  --el-color-danger-light-7: #e8c5c2;
+  --el-color-danger-light-8: #f0d8d5;
+  --el-color-danger-light-9: #f7eceb;
+  --el-color-danger-dark-2: #8e302a;
 
   --el-color-error: var(--app-danger);
-  --el-color-error-light-3: #ca726d;
-  --el-color-error-light-5: #d99a97;
-  --el-color-error-light-7: #e8c2c0;
-  --el-color-error-light-8: #f0d7d5;
-  --el-color-error-light-9: #f7ebea;
-  --el-color-error-dark-2: #8f2a25;
+  --el-color-error-light-3: #c97772;
+  --el-color-error-light-5: #d99e9a;
+  --el-color-error-light-7: #e8c5c2;
+  --el-color-error-light-8: #f0d8d5;
+  --el-color-error-light-9: #f7eceb;
+  --el-color-error-dark-2: #8e302a;
 
   --el-color-info: var(--app-info);
-  --el-color-info-light-3: #979390;
-  --el-color-info-light-5: #b5b2b0;
-  --el-color-info-light-7: #d3d1cf;
-  --el-color-info-light-8: #e1e0df;
-  --el-color-info-light-9: #f0f0ef;
-  --el-color-info-dark-2: #56514d;
+  --el-color-info-light-3: #8f9a9b;
+  --el-color-info-light-5: #afb7b8;
+  --el-color-info-light-7: #cfd4d4;
+  --el-color-info-light-8: #dfe2e2;
+  --el-color-info-light-9: #eff1f1;
+  --el-color-info-dark-2: #4c595a;
 
   --el-border-color: var(--app-border-strong);
   --el-border-color-light: var(--app-border);
-  --el-border-color-lighter: #efedea;
+  --el-border-color-lighter: #edf1f0;
   --el-fill-color-blank: var(--app-surface);
   --el-fill-color-light: var(--app-surface-muted);
   --el-fill-color-lighter: var(--app-surface-muted);
@@ -98,11 +98,11 @@
   --el-bg-color-page: var(--app-canvas);
   --el-bg-color-overlay: var(--app-surface);
   --el-text-color-primary: var(--app-ink);
-  --el-text-color-regular: #56504b;
+  --el-text-color-regular: #4a5b5c;
   --el-text-color-secondary: var(--app-text);
   --el-text-color-placeholder: var(--app-muted);
   --el-border-radius-base: var(--control-radius);
-  --el-box-shadow-light: 0 12px 28px rgba(43, 39, 36, 0.08);
+  --el-box-shadow-light: 0 10px 24px rgba(22, 38, 42, 0.06);
 }
 
 html {
@@ -319,13 +319,13 @@ ul {
   border: 1px solid var(--app-border);
   border-radius: var(--app-radius);
   background: var(--app-surface);
-  box-shadow: 0 10px 26px rgba(43, 39, 36, 0.04);
+  box-shadow: 0 1px 2px rgba(22, 38, 42, 0.04);
 }
 
 .el-card.is-always-shadow,
 .el-card.is-hover-shadow:focus,
 .el-card.is-hover-shadow:hover {
-  box-shadow: 0 10px 26px rgba(43, 39, 36, 0.04);
+  box-shadow: 0 1px 2px rgba(22, 38, 42, 0.04);
 }
 
 .el-card__header {
@@ -381,7 +381,7 @@ ul {
 .el-select__wrapper:hover,
 .el-date-editor.el-input__wrapper:hover,
 .el-date-editor.el-range-editor:hover {
-  box-shadow: 0 0 0 1px #c2bdb7 inset;
+  box-shadow: 0 0 0 1px #b7c3c2 inset;
 }
 
 .el-input__wrapper.is-focus,
@@ -393,7 +393,7 @@ ul {
 }
 
 .el-form-item__label {
-  color: #56504b;
+  color: #4a5b5c;
   font-weight: 500;
 }
 
@@ -413,11 +413,11 @@ ul {
 
 .vxe-table {
   border-radius: var(--app-radius);
-  color: #56504b;
+  color: #4a5b5c;
 
   .vxe-header--column {
     background: var(--app-surface-muted);
-    color: #56504b;
+    color: #4a5b5c;
     font-size: 13px;
     font-weight: 650;
   }
@@ -428,7 +428,7 @@ ul {
 }
 
 // 行悬停走中性灰：表格是整个后台出现频率最高的界面，
-// 每次划过都染一层橙色是「刺眼」的主要来源。品牌色只留给「当前选中行」。
+// 每次划过都染一层品牌色是「刺眼」的主要来源。品牌色只留给「当前选中行」。
 .vxe-table--render-default .vxe-body--row.row--hover {
   background-color: var(--app-surface-hover);
 }
@@ -445,7 +445,7 @@ ul {
 
 .el-dialog {
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 12px;
 }
 
 .el-dialog__header {

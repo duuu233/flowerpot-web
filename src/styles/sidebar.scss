@@ -14,9 +14,8 @@
     padding: 8px 0 20px;
     overflow: hidden;
     border-right: 1px solid var(--app-border);
-    border-radius: 0 16px 0 0;
-    background: #fcfbfa;
-    box-shadow: 12px 0 34px rgba(43, 39, 36, 0.04);
+    background: #fbfcfc;
+    box-shadow: 1px 0 0 rgba(22, 38, 42, 0.03);
     transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 
     a {

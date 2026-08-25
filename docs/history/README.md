@@ -33,3 +33,6 @@
 ## 索引
 
 - [`2026-08/2026-08-12-ai-context-codegraph-maintenance.md`](2026-08/2026-08-12-ai-context-codegraph-maintenance.md)：建立项目专属 AI 上下文、文档入口与 CodeGraph/历史记录规则。
+- [`2026-08/2026-08-12-official-gallery-upload-thumbnail.md`](2026-08/2026-08-12-official-gallery-upload-thumbnail.md)：官方图库上传时生成缩略图。
+- [`2026-08/2026-08-13-user-account-statistics.md`](2026-08/2026-08-13-user-account-statistics.md)：首页统计与用户星币账户。
+- [`2026-08/2026-08-24-theme-recolor-and-product-plant-scaffold.md`](2026-08/2026-08-24-theme-recolor-and-product-plant-scaffold.md)：主题配色改为 LOGO 青绿，新增植物管理接口封装、路由与菜单同步范围。
