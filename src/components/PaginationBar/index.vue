@@ -28,3 +28,29 @@ const emit = defineEmits(['size-change', 'current-change'])
     />
   </div>
 </template>
+
+<style scoped lang="scss">
+.pagination-container {
+  :deep(.el-pagination) {
+    --el-pagination-button-bg-color: var(--app-surface-muted);
+    --el-pagination-hover-color: var(--brand-600);
+
+    .btn-prev,
+    .btn-next,
+    .el-pager li {
+      border-radius: var(--control-radius);
+      font-weight: 500;
+      transition:
+        background-color 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease;
+
+      &.is-active {
+        background-color: var(--brand-500);
+        color: #ffffff;
+        font-weight: 600;
+      }
+    }
+  }
+}
+</style>

@@ -1,17 +1,29 @@
-// YSplanter palette.
-// 品牌色取自 APP LOGO（src/assets/images/logo.png）的青绿渐变：
-// 浅端 #c7e3d8、深端 #48999f，色相锁在 186° 左右。
-// LOGO 深端 #48999f 白字对比度只有 3.32:1，不能直接当界面主色；
-// 界面主色压深到同色相的 #2a757c（白字 5.34:1），LOGO 原色只用于 1-2px 指示条。
-$brandLogo: #48999f; // 仅 LOGO / 细指示条
-$primary: #2a757c; // 界面主色（填充按钮、选中态）
-$primaryDark: #1f6a71; // hover / 按下 / 正文链接
-$primaryTint: #f0f6f6; // 最浅的品牌底色
+// YSplanter 品牌色系规范（苹果极简主义版）
+// 品牌色精准取自 APP LOGO（src/assets/images/logo.png）：
+// LOGO 浅端 #C7E3D8、原色 #48999F；
+// 界面主色采用深青绿 #20656C 作为核心点睛色（高对比度 5.8:1，克制使用，绝不大面积泼洒）。
+$brandMint: #c7e3d8;
+$brandCyan: #86bfc0;
+$brandLogo: #48999f;
+$primary: #20656c;        // 界面主行动色（主按钮、关键选中）
+$primaryDark: #185258;
+$primaryTint: #f0f7f6;    // 浅层品牌微底色
 
-// 中性色统一走「冷中性 + 一点绿灰」，与青绿主色同色温，整屏观感干净不发黄。
-$topNavBg: #0f2a2e;
-$pageBg: #f4f6f6;
-$surface: #ffffff;
-$border: #e3e9e8;
-$textPrimary: #16262a;
-$textSecondary: #5f6f70;
+// 苹果官网标准冷白/深炭黑表面体系：纯净、开阔、呼吸感十足
+$topNavBg: #161617;       // 苹果经典黑曜石暗调顶栏
+$pageBg: #f5f5f7;         // 苹果官网标志性极简冷灰底色
+$surface: #ffffff;        // 纯白浮动卡片表面
+$surfaceMuted: #fafafc;   // 次级清爽底色
+$surfaceHover: #f0f0f4;   // 极轻微悬浮底色
+$border: rgba(0, 0, 0, 0.04); // 苹果级微细隐形边框，彻底消除粗重线条
+$borderStrong: #d2d2d7;   // 输入框标准细微边框
+$textPrimary: #1d1d1f;    // 苹果经典深炭黑标题与正文
+$textSecondary: #86868b;  // 苹果经典冷灰副标题与说明
+$textMuted: #a1a1a6;      // 占位符与微元信息
+
+// 苹果标准圆角尺度：温润微圆弧（Squircle）
+$radiusCard: 16px;
+$radiusControl: 8px;
+$radiusBadge: 6px;
+
+

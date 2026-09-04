@@ -37,12 +37,13 @@ const classObj = computed(() => ({
   min-height: 100dvh;
   padding-top: var(--shell-header-height);
   padding-left: var(--shell-sidebar-width);
-  background:
-    radial-gradient(circle at 100% 0, rgba(72, 153, 159, 0.06), transparent 24rem),
-    var(--app-canvas);
+  background: var(--app-canvas);
+  transition: padding-left 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .main-container {
   min-height: calc(100dvh - var(--shell-header-height));
+  display: flex;
+  flex-direction: column;
 }
 </style>

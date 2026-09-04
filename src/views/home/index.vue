@@ -10,6 +10,15 @@ const statisticsLoading = shallowRef(false)
 const statisticsQueryType = shallowRef(0)
 const statisticsList = ref([])
 
+const greetingText = computed(() => {
+  const hour = new Date().getHours()
+  if (hour < 6) return '夜深了'
+  if (hour < 12) return '早上好'
+  if (hour < 14) return '中午好'
+  if (hour < 18) return '下午好'
+  return '晚上好'
+})
+
 const stats = reactive({
   userCount: '-',
   userBindProductCount: '-',
@@ -30,6 +39,7 @@ const cards = computed(() => [
     label: '用户总数',
     value: stats.userCount,
     icon: 'User',
+    unit: '位',
     span: 8
   },
   {
@@ -37,6 +47,7 @@ const cards = computed(() => [
     label: '绑定设备',
     value: stats.userBindProductCount,
     icon: 'Connection',
+    unit: '台',
     span: 8
   },
   {
@@ -44,21 +55,24 @@ const cards = computed(() => [
     label: '订单金额',
     value: stats.orderAmount,
     icon: 'Wallet',
+    unit: '元',
     span: 8
   },
   {
     key: 'productCount',
-    label: '产品数量',
+    label: '产品型号',
     value: stats.productCount,
     icon: 'Goods',
-    span: 6
+    unit: '款',
+    span: 12
   },
   {
     key: 'productFaqCount',
-    label: '常见问题',
+    label: '常见问题解答',
     value: stats.productFaqCount,
     icon: 'QuestionFilled',
-    span: 6
+    unit: '条',
+    span: 12
   }
 ])
 
@@ -76,7 +90,7 @@ function formatCount(value) {
 function getBarWidth(count) {
   const value = Number(count) || 0
   if (!value || !maxRegistrationCount.value) return '0%'
-  return `${Math.max((value / maxRegistrationCount.value) * 100, 6)}%`
+  return `${Math.max((value / maxRegistrationCount.value) * 100, 4)}%`
 }
 
 async function loadStats() {
@@ -114,37 +128,67 @@ onMounted(() => {
 
 <template>
   <div class="app-container home">
-    <el-card shadow="never" class="welcome">
+    <!-- 欢迎与系统概况横幅 -->
+    <el-card shadow="never" class="welcome-card">
       <div class="welcome-inner">
-        <img :src="avatar" class="avatar" alt="avatar" />
-        <div class="hello">
-          <div class="title">你好，{{ trueName || '管理员' }}</div>
-          <div class="sub">欢迎使用 花盆 管理中心</div>
+        <div class="avatar-wrap">
+          <img :src="avatar" class="avatar-img" alt="avatar" />
+          <span class="online-indicator" title="在线状态正常" />
+        </div>
+        <div class="welcome-text">
+          <div class="greeting">
+            {{ greetingText }}，<span class="user-highlight">{{ trueName || '管理员' }}</span>
+          </div>
+          <div class="welcome-desc">欢迎回到 YSplanter 花盆管理中心，系统运行平稳</div>
+        </div>
+        <div class="welcome-chips">
+          <div class="chip-item">
+            <span class="chip-dot" />
+            <span class="chip-label">智能设备状态</span>
+            <span class="chip-val">正常连线</span>
+          </div>
         </div>
       </div>
     </el-card>
 
+    <!-- 便当盒 Bento 核心指标卡片 -->
     <el-row v-loading="statsLoading" :gutter="16" class="stat-row">
-      <el-col v-for="card in cards" :key="card.key" :xs="24" :sm="12" :md="card.span">
+      <el-col
+        v-for="card in cards"
+        :key="card.key"
+        :xs="24"
+        :sm="12"
+        :md="card.span"
+      >
         <el-card shadow="never" class="stat-card">
-          <div class="stat-icon">
-            <el-icon><component :is="card.icon" /></el-icon>
-          </div>
-          <div class="stat-info">
-            <div class="stat-value">{{ card.value }}</div>
-            <div class="stat-label">{{ card.label }}</div>
+          <div class="stat-body">
+            <div class="stat-icon-wrap">
+              <el-icon class="stat-icon"><component :is="card.icon" /></el-icon>
+            </div>
+            <div class="stat-content">
+              <div class="stat-label">{{ card.label }}</div>
+              <div class="stat-value-line">
+                <span class="stat-value">{{ card.value }}</span>
+                <span v-if="card.value !== '-'" class="stat-unit">{{ card.unit }}</span>
+              </div>
+            </div>
           </div>
         </el-card>
       </el-col>
     </el-row>
 
+    <!-- 用户注册趋势可视化卡片 -->
     <el-card v-loading="statisticsLoading" shadow="never" class="trend-card">
       <template #header>
         <div class="trend-header">
-          <span class="font-title-medium">用户注册统计</span>
+          <div class="trend-title-box">
+            <el-icon class="trend-title-icon"><TrendCharts /></el-icon>
+            <span class="trend-title-text">用户注册增长趋势</span>
+          </div>
           <el-radio-group
             v-model="statisticsQueryType"
             size="small"
+            class="trend-range-toggle"
             @change="loadRegistrationStats"
           >
             <el-radio-button
@@ -171,10 +215,10 @@ onMounted(() => {
               :style="{ width: getBarWidth(item.userCount) }"
             />
           </div>
-          <span class="trend-count">{{ item.userCount ?? 0 }}</span>
+          <span class="trend-count">{{ item.userCount ?? 0 }} <small>人</small></span>
         </div>
       </div>
-      <el-empty v-else description="暂无数据" :image-size="80" />
+      <el-empty v-else description="暂无数据" :image-size="70" />
     </el-card>
   </div>
 </template>
@@ -184,20 +228,17 @@ onMounted(() => {
   margin-top: 16px;
 }
 
-.welcome {
+// 欢迎卡片：纯净开阔呼吸感
+.welcome-card {
   position: relative;
   overflow: hidden;
+  border-radius: var(--app-radius);
+  border: 1px solid var(--app-border);
+  background: var(--app-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 
-  &::after {
-    position: absolute;
-    top: -52px;
-    right: -52px;
-    width: 170px;
-    height: 170px;
-    border: 26px solid var(--brand-50);
-    border-radius: 50%;
-    content: '';
-    pointer-events: none;
+  :deep(.el-card__body) {
+    padding: 22px 28px;
   }
 }
 
@@ -207,83 +248,173 @@ onMounted(() => {
   position: relative;
   z-index: 1;
 
-  .avatar {
-    width: 60px;
-    height: 60px;
-    border: 4px solid var(--brand-50);
-    border-radius: 16px;
-    margin-right: 18px;
+  .avatar-wrap {
+    position: relative;
+    margin-right: 20px;
+    flex-shrink: 0;
+
+    .avatar-img {
+      width: 54px;
+      height: 54px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 14px;
+      background: var(--brand-50);
+      object-fit: cover;
+    }
+
+    .online-indicator {
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--app-success);
+      border: 2px solid #ffffff;
+    }
   }
 
-  .title {
-    font-size: 20px;
-    color: var(--app-ink);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+  .welcome-text {
+    flex: 1;
+    min-width: 0;
+
+    .greeting {
+      font-size: 20px;
+      color: var(--app-ink);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+
+      .user-highlight {
+        color: var(--brand-600);
+      }
+    }
+
+    .welcome-desc {
+      font-size: 13px;
+      color: var(--app-text-secondary);
+      margin-top: 4px;
+    }
   }
 
-  .sub {
-    font-size: 13px;
-    color: var(--app-text);
-    margin-top: 6px;
+  .welcome-chips {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .chip-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.03);
+      border: none;
+      font-size: 12px;
+
+      .chip-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--app-success);
+      }
+
+      .chip-label {
+        color: var(--app-text-secondary);
+      }
+
+      .chip-val {
+        color: var(--app-ink);
+        font-weight: 500;
+      }
+    }
   }
 }
 
 .stat-row {
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
+// Bento 指标卡片：苹果极简平滑悬浮
 .stat-card {
   margin-bottom: 16px;
-  min-height: 118px;
+  border-radius: var(--app-radius);
+  border: 1px solid var(--app-border);
+  background: var(--app-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   transition:
-    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 28px rgba(22, 38, 42, 0.07);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.045);
   }
 
   :deep(.el-card__body) {
-    display: flex;
-    align-items: center;
-    min-height: 116px;
-    padding: 20px 22px;
+    padding: 22px 24px;
   }
 
-  // 三块实心饱和橙是首页最刺眼的部分。改成品牌浅底 + 品牌深色图标：
-  // 同样能认出品牌，但橙色面积和亮度都降下来了。
-  .stat-icon {
-    width: 54px;
-    height: 54px;
-    border-radius: 15px;
-    border: 1px solid var(--brand-100);
-    background: var(--brand-50);
-    color: var(--brand-600);
-    font-size: 24px;
+  .stat-body {
+    display: flex;
+    align-items: center;
+  }
+
+  .stat-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    border: none;
+    background: rgba(32, 101, 108, 0.06);
+    color: var(--brand-500);
+    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 16px;
+    margin-right: 18px;
+    flex-shrink: 0;
   }
 
-  .stat-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--app-ink);
-    letter-spacing: -0.03em;
+  .stat-content {
+    min-width: 0;
   }
 
   .stat-label {
     font-size: 13px;
-    color: var(--app-text);
+    color: var(--app-text-secondary);
+    font-weight: 500;
+  }
+
+  .stat-value-line {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
     margin-top: 4px;
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--app-ink);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-unit {
+      font-size: 12px;
+      color: var(--app-text-muted);
+      font-weight: 400;
+    }
   }
 }
 
+// 增长趋势卡片
 .trend-card {
   margin-top: 2px;
+  border-radius: var(--app-radius);
+  border: 1px solid var(--app-border);
+  background: var(--app-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .trend-header {
@@ -291,33 +422,58 @@ onMounted(() => {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+
+  .trend-title-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .trend-title-icon {
+      color: var(--brand-500);
+      font-size: 16px;
+    }
+
+    .trend-title-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--app-ink);
+      letter-spacing: -0.01em;
+    }
+  }
 }
 
 .trend-list {
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .trend-row {
   display: grid;
-  grid-template-columns: 120px minmax(120px, 1fr) 64px;
+  grid-template-columns: 130px minmax(120px, 1fr) 72px;
   align-items: center;
-  gap: 14px;
-  min-height: 34px;
-  padding: 0 10px;
+  gap: 16px;
+  min-height: 36px;
+  padding: 0 14px;
   border-radius: 8px;
-  background: var(--app-surface-muted);
+  background: #fafafc;
+  transition: background-color 0.18s ease;
+
+  &:hover {
+    background: #f2f2f6;
+  }
 }
 
 .trend-date {
   color: var(--app-text);
   font-size: 13px;
+  font-weight: 450;
+  font-variant-numeric: tabular-nums;
 }
 
 .trend-track {
-  height: 8px;
+  height: 6px;
   border-radius: 999px;
-  background: var(--app-border);
+  background: rgba(0, 0, 0, 0.04);
   overflow: hidden;
 }
 
@@ -325,23 +481,44 @@ onMounted(() => {
   height: 100%;
   border-radius: 999px;
   background: var(--brand-500);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .trend-count {
   color: var(--app-ink);
   font-weight: 600;
   text-align: right;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+
+  small {
+    font-size: 11px;
+    color: var(--app-text-muted);
+    font-weight: 400;
+    margin-left: 2px;
+  }
 }
 
 @media (max-width: 768px) {
+  .welcome-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+
+    .welcome-chips {
+      margin-top: 6px;
+    }
+  }
+
   .trend-header {
     align-items: flex-start;
     flex-direction: column;
   }
 
   .trend-row {
-    grid-template-columns: 86px minmax(80px, 1fr) 46px;
+    grid-template-columns: 86px minmax(80px, 1fr) 52px;
     gap: 8px;
+    padding: 0 8px;
   }
 }
 </style>

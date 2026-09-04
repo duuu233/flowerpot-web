@@ -7,7 +7,6 @@
           class="item"
         >
           <div class="title">
-            <i class="line" />
             <span class="name">{{ item.menuName }}</span>
           </div>
           <div v-if="item.childs && item.childs.length" class="route-box">
@@ -66,74 +65,85 @@ function isActive(name) {
 .sidebar-inner {
   height: 100%;
   overflow-y: auto;
+  padding: 4px 0 16px;
+
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
   }
   &::-webkit-scrollbar-thumb {
-    background: #cbd4d2;
-    border-radius: 20px;
+    background: rgba(19, 36, 39, 0.14);
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(19, 36, 39, 0.24);
   }
 }
+
 .menus-box {
+  padding: 6px 8px;
+
   .item {
-    padding: 12px 12px 16px;
-    margin: 0 8px;
-    border-bottom: 1px solid var(--app-border);
-  }
-  .title {
-    display: flex;
-    font-size: 14px;
-    line-height: 30px;
-    color: var(--app-ink);
-    margin: 0 0 6px;
-    font-weight: 650;
-    align-items: center;
-    position: relative;
-    .line {
-      width: 3px;
-      height: 14px;
-      background-color: var(--brand-logo);
-      position: absolute;
-      left: -12px;
-      top: 50%;
-      transform: translateY(-50%);
-      border-radius: 2px;
+    padding: 10px 4px 6px;
+    margin: 0;
+
+    &:first-child {
+      padding-top: 4px;
     }
   }
+
+  // 一级菜单分组标题：字号加大，深炭黑加粗，与二级菜单形成清晰层级区分
+  .title {
+    display: flex;
+    align-items: center;
+    font-size: 13.5px;
+    line-height: 22px;
+    color: var(--app-ink);
+    margin: 0 0 8px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    padding: 0 8px;
+  }
+
   .route-box {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 3px;
+    gap: 4px;
     color: var(--app-text);
+
     .subitem {
       a,
       span {
         display: block;
-        border: 1px solid transparent;
-        border-radius: 7px;
+        border: none;
+        border-radius: 8px;
         line-height: 18px;
+        font-size: 12.5px;
         max-width: 100%;
-        padding: 6px 8px;
+        padding: 7px 10px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        color: #555558;
+        font-weight: 450;
         transition:
           color 0.18s cubic-bezier(0.16, 1, 0.3, 1),
           background-color 0.18s cubic-bezier(0.16, 1, 0.3, 1);
       }
-      // hover 用中性灰，只有「当前页」用品牌色，
-      // 否则整条侧边栏在鼠标移动时一直在闪橙色。
+
       a:hover {
         color: var(--app-ink);
-        background: var(--app-surface-hover);
+        background: rgba(0, 0, 0, 0.04);
       }
     }
   }
 }
+
+// 激活项：苹果纯净微胶囊（无边框、无发光暗影，触感自然平滑）
 .clickedNav {
   color: var(--brand-600) !important;
-  border-color: transparent !important;
-  background: var(--brand-50) !important;
-  font-weight: 600;
+  background: rgba(32, 101, 108, 0.09) !important;
+  font-weight: 600 !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 </style>

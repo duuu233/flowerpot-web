@@ -13,9 +13,9 @@ const emit = defineEmits(['search', 'reset'])
 
 <template>
   <PageSection class="filter-container" :title="title" icon="Search">
-    <el-form :inline="inline" :model="model" :size="size">
+    <el-form :inline="inline" :model="model" :size="size" class="filter-form">
       <slot />
-      <el-form-item class="fr">
+      <el-form-item class="fr search-btn-group">
         <el-button type="primary" icon="Search" @click="emit('search')">
           查询
         </el-button>
@@ -24,3 +24,20 @@ const emit = defineEmits(['search', 'reset'])
     </el-form>
   </PageSection>
 </template>
+
+<style scoped lang="scss">
+.filter-container {
+  :deep(.filter-form) {
+    margin-bottom: -10px;
+  }
+
+  :deep(.el-form-item) {
+    margin-bottom: 10px;
+    margin-right: 14px;
+  }
+
+  .search-btn-group {
+    margin-right: 0;
+  }
+}
+</style>

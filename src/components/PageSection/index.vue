@@ -8,7 +8,7 @@ defineProps({
 <template>
   <el-card class="page-section" shadow="never">
     <div class="page-section__header">
-      <el-icon v-if="icon">
+      <el-icon v-if="icon" class="page-section__title-icon">
         <component :is="icon" />
       </el-icon>
       <span>{{ title }}</span>
@@ -25,6 +25,9 @@ defineProps({
 <style scoped>
 .page-section {
   overflow: hidden;
+  border-radius: var(--app-radius);
+  border: 1px solid var(--app-border);
+  background: var(--app-surface);
 }
 
 .page-section :deep(.el-card__body) {
@@ -34,23 +37,20 @@ defineProps({
 .page-section__header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-height: 22px;
+  gap: 9px;
+  min-height: 24px;
   color: var(--app-ink);
   font-size: 14px;
-  font-weight: 650;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
-.page-section__header :deep(.el-icon) {
+.page-section__title-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 7px;
-  color: var(--brand-600);
-  background: var(--brand-100);
-  font-size: 14px;
+  color: var(--brand-500);
+  font-size: 16px;
 }
 
 .page-section__extra {

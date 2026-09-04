@@ -2,6 +2,10 @@
   <div class="top-nav-box">
     <div class="logo">
       <img :src="logoMini" alt="花盆 LOGO" />
+      <div class="logo-title-group">
+        <span class="logo-brand">YSplanter</span>
+        <span class="logo-sub">管理中心</span>
+      </div>
     </div>
     <div class="nav-box">
       <ul class="nav">
@@ -18,7 +22,7 @@
         <el-dropdown class="avatar-container" trigger="click">
           <div class="avatar-wrapper">
             <img class="user-avatar" :src="userAvatar" alt="avatar" />
-            <span class="user-name">{{ username }}</span>
+            <span class="user-name">{{ username || '管理员' }}</span>
             <el-icon class="caret"><CaretBottom /></el-icon>
           </div>
           <template #dropdown>
@@ -28,7 +32,7 @@
           </template>
         </el-dropdown>
         <i class="right-line" />
-        <div class="message-icon-box">
+        <div class="message-icon-box" title="通知消息">
           <svg-icon icon-class="nav-ring" />
         </div>
       </div>
@@ -89,111 +93,189 @@ function logout() {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: var(--app-shell);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: 0 8px 24px rgba(15, 42, 46, 0.1);
-  z-index: 99;
+  background-color: rgba(22, 22, 23, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  z-index: 1002;
+  backdrop-filter: saturate(180%) blur(20px);
 }
+
 .logo {
   height: var(--shell-header-height);
   min-width: var(--shell-sidebar-width);
   display: flex;
   align-items: center;
   color: #fff;
-  padding: 10px 28px;
+  padding: 0 20px;
+  user-select: none;
+
   img {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     object-fit: contain;
+    transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+      transform: scale(1.04);
+    }
+  }
+
+  .logo-title-group {
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    line-height: 1.15;
+  }
+
+  .logo-brand {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #f5f5f7;
+  }
+
+  .logo-sub {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.48);
+    letter-spacing: 0.02em;
+    margin-top: 2px;
   }
 }
+
 .nav-box {
   display: flex;
   flex: 10;
   min-width: 0;
-  padding: 0 24px 0 0;
+  padding: 0 20px 0 0;
   align-items: center;
   justify-content: space-between;
+
   .right {
     display: flex;
     align-items: center;
   }
 }
+
 .nav {
   display: flex;
   min-width: 0;
   overflow-x: auto;
+  gap: 4px;
+  align-items: center;
+
   &::-webkit-scrollbar {
     display: none;
   }
+
   li {
-    height: var(--shell-header-height);
-    line-height: var(--shell-header-height);
+    position: relative;
+    height: 32px;
+    line-height: 32px;
     text-align: center;
-    padding: 0 22px;
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 14px;
-    font-weight: 500;
+    padding: 0 14px;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 13.5px;
+    font-weight: 450;
     cursor: pointer;
     white-space: nowrap;
+    border-radius: 6px;
     transition:
       color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
       background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  li:hover {
-    background-color: rgba(255, 255, 255, 0.06);
-    color: #fff;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
   }
 }
+
+// 选中态：苹果极简平滑高光，彻底移除发光描边
+.clickedNav {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+  font-weight: 550 !important;
+}
+
 .avatar-container {
-  height: 35px;
+  height: 34px;
+
   .avatar-wrapper {
     cursor: pointer;
     display: flex;
     align-items: center;
-    color: rgba(255, 255, 255, 0.82);
-    font-size: 14px;
-    font-weight: 500;
-    .user-avatar {
-      width: 35px;
-      height: 35px;
-      border-radius: 10px;
-      margin-right: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 13px;
+    font-weight: 450;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
     }
+
+    .user-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      margin-right: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      object-fit: cover;
+    }
+
+    .user-name {
+      margin-right: 2px;
+    }
+
     .caret {
-      margin-left: 6px;
-      font-size: 14px;
+      margin-left: 4px;
+      font-size: 12px;
+      opacity: 0.6;
+      transition: transform 0.2s ease;
     }
   }
 }
+
 .right-line {
   width: 1px;
-  height: 15px;
-  background-color: rgba(255, 255, 255, 0.16);
-  margin: 0 15px 0 20px;
+  height: 14px;
+  background-color: rgba(255, 255, 255, 0.12);
+  margin: 0 14px 0 16px;
 }
+
 .message-icon-box {
   display: flex;
   align-items: center;
-  font-size: 20px;
-  color: rgba(255, 255, 255, 0.82);
-}
-// 选中态：中性填充 + 2px LOGO 橙指示条。
-// 深色顶栏上的细指示条是 LOGO 原色唯一合适的位置，面积小到不会刺眼。
-.clickedNav {
-  background-color: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  box-shadow: inset 0 -2px 0 var(--brand-logo);
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+  }
 }
 
 @media (max-width: 768px) {
   .logo {
-    min-width: 170px;
-    padding: 10px 18px;
+    min-width: auto;
+    padding: 0 14px;
+
     img {
-      width: 44px;
-      height: 44px;
+      width: 34px;
+      height: 34px;
+    }
+
+    .logo-sub {
+      display: none;
     }
   }
 
@@ -202,7 +284,8 @@ function logout() {
   }
 
   .nav li {
-    padding: 0 14px;
+    padding: 0 12px;
+    font-size: 13px;
   }
 
   .user-name,

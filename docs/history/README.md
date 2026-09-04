@@ -37,3 +37,4 @@
 - [`2026-08/2026-08-13-user-account-statistics.md`](2026-08/2026-08-13-user-account-statistics.md)：首页统计与用户星币账户。
 - [`2026-08/2026-08-24-theme-recolor-and-product-plant-scaffold.md`](2026-08/2026-08-24-theme-recolor-and-product-plant-scaffold.md)：主题配色改为 LOGO 青绿，新增植物管理接口封装、路由与菜单同步范围。
 - [`2026-08/2026-08-25-product-plant-integration-menu-sync.md`](2026-08/2026-08-25-product-plant-integration-menu-sync.md)：按 Excel、Swagger 与 CodeGraph 完成植物管理 CRUD，并生成、迁移和复查完整清单菜单权限。
+- [`2026-09/2026-09-04-ui-refactoring.md`](2026-09/2026-09-04-ui-refactoring.md)：基于 SKILL.md 与 LOGO 配色进行全站视觉风格、Bento 仪表盘、顶栏侧边栏与微交互全面重构。

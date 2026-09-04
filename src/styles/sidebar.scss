@@ -11,11 +11,11 @@
     left: 0;
     z-index: 1001;
     width: var(--shell-sidebar-width) !important;
-    padding: 8px 0 20px;
+    padding: 10px 0 24px;
     overflow: hidden;
     border-right: 1px solid var(--app-border);
-    background: #fbfcfc;
-    box-shadow: 1px 0 0 rgba(22, 38, 42, 0.03);
+    background: #ffffff;
+    box-shadow: none;
     transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 
     a {

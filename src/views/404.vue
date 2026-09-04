@@ -26,23 +26,31 @@ function goHome() {
   align-items: center;
   justify-content: center;
   min-height: 100dvh;
-  background: var(--app-canvas);
+  padding: 40px 20px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(199, 227, 216, 0.25), transparent 60%),
+    var(--app-canvas);
 }
 .img-404 {
-  max-width: 360px;
-  width: 40vw;
+  max-width: 320px;
+  width: 36vw;
+  filter: drop-shadow(0 12px 28px rgba(19, 36, 39, 0.08));
 }
 .text {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 24px;
   h1 {
-    font-size: 60px;
-    color: var(--brand-500);
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--brand-600);
+    line-height: 1;
   }
   p {
     font-size: 14px;
-    color: var(--app-info);
-    margin: 12px 0 20px;
+    color: var(--app-text);
+    margin: 14px 0 24px;
+    letter-spacing: 0.01em;
   }
 }
 </style>

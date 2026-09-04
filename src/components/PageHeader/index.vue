@@ -35,17 +35,19 @@ defineProps({
   width: 100%;
   background: var(--app-surface);
   border-radius: var(--app-radius);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--app-shadow-xs);
 }
 
 .page-header :deep(.el-card__body) {
-  padding: 10px 18px;
+  padding: 12px 20px;
 }
 
 .page-header__inner {
   display: flex;
   align-items: center;
-  min-height: 22px;
-  gap: 8px;
+  min-height: 24px;
+  gap: 10px;
   color: var(--app-ink);
   line-height: 24px;
   white-space: nowrap;
@@ -53,19 +55,23 @@ defineProps({
 
 .page-header__icon {
   flex: 0 0 auto;
-  color: var(--brand-600);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-500);
   font-size: 16px;
 }
 
 .page-header__title,
 .page-header__title :slotted(span) {
   font-size: 14px;
-  font-weight: 650;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .page-header__extra {
   display: inline-flex;
   align-items: center;
-  margin-left: 8px;
+  margin-left: auto;
 }
 </style>
