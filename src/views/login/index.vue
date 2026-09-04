@@ -116,7 +116,9 @@ function handleLogin() {
                 placeholder="请输入登录账号"
               >
                 <template #prefix>
-                  <svg-icon icon-class="loginuser" class="login-prefix" />
+                  <el-icon class="login-prefix" aria-hidden="true">
+                    <User />
+                  </el-icon>
                 </template>
               </el-input>
             </el-form-item>
@@ -134,7 +136,9 @@ function handleLogin() {
                 @keyup.enter="handleLogin"
               >
                 <template #prefix>
-                  <svg-icon icon-class="loginpwd" class="login-prefix" />
+                  <el-icon class="login-prefix" aria-hidden="true">
+                    <Lock />
+                  </el-icon>
                 </template>
               </el-input>
             </el-form-item>
