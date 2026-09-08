@@ -39,4 +39,4 @@
 - [`2026-08/2026-08-25-product-plant-integration-menu-sync.md`](2026-08/2026-08-25-product-plant-integration-menu-sync.md)：按 Excel、Swagger 与 CodeGraph 完成植物管理 CRUD，并生成、迁移和复查完整清单菜单权限。
 - [`2026-09/2026-09-04-ui-refactoring.md`](2026-09/2026-09-04-ui-refactoring.md)：基于 SKILL.md 与 LOGO 配色进行全站视觉风格、Bento 仪表盘、顶栏侧边栏与微交互全面重构。
 - [`2026-09/2026-09-08-plant-category-and-suggestions.md`](2026-09/2026-09-08-plant-category-and-suggestions.md)：植物资料新增分类与四条养护建议字段。
-- [`2026-09/2026-09-08-api-origin-back-to-domain.md`](2026-09/2026-09-08-api-origin-back-to-domain.md)：接口地址由临时 IP 改回域名 `https://api.yikaltd.com`。
+- [`2026-09/2026-09-08-api-origin-back-to-domain.md`](2026-09/2026-09-08-api-origin-back-to-domain.md)：接口地址由临时 IP 改回域名 `https://api.yikaltd.com`，并删除遗留支付 / 上传配置与 `requestPay` 实例。

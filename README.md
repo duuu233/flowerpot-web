@@ -31,7 +31,6 @@ yarn preview      # 预览生产构建
 - `VITE_APP_API_ORIGIN`：后端接口域名，例如 `https://api.fce-inno.com`。
 - `VITE_APP_API_PREFIX`：后端接口前缀，例如 `/ZoneAdmin`。开发环境 axios 使用此前缀走 Vite 代理；生产环境拼成完整地址。
 - `VITE_APP_PROXY_TARGET`：可选，开发代理目标域名；未设置时默认使用 `VITE_APP_API_ORIGIN`。
-- `VITE_APP_BASE_PAY` / `VITE_APP_BASE_UPLOAD` / `VITE_APP_BASE_BIGUPLOAD`：支付 / 上传接口地址。
 
 ## 目录结构
 
@@ -55,7 +54,7 @@ src/
 
 ## 接口调用 / 业务实现（与原项目一致）
 
-- **请求层 `utils/request.js`**：完整保留原签名机制（`randomString` + md5 `sign`）、token（cookie `loginToken` 注入为 `userToken`）、响应约定 `{ retCode, retMsg, retData }`（200 为成功），以及 406 被登出处理。`utils/requestPay.js` 对应支付接口实例。
+- **请求层 `utils/request.js`**：完整保留原签名机制（`randomString` + md5 `sign`）、token（cookie `loginToken` 注入为 `userToken`）、响应约定 `{ retCode, retMsg, retData }`（200 为成功），以及 406 被登出处理。遗留的支付接口实例 `utils/requestPay.js` 已于 2026-09-08 删除。
 - **权限指令 `v-permission`**：检查 Pinia `user.permissions`（即 `getChildAppCodes` 返回的 `childAppCodes`），cookie `isSysAdmin === '1'` 时放行。用法不变：`v-permission="['xxx']"`。
 - **菜单模型（后端驱动）**：登录后由路由守卫调用 `getSysMenus` 得到顶部系统导航（`app.sidebarTop`）；点击顶部导航调用 `getLeftMenus` 得到左侧分组菜单（`app.sidebarRight`），`menuUrl` 即路由 `name`。实际路由表使用本地静态表 `router/routes.js`。
 

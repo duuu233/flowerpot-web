@@ -15,7 +15,7 @@ Recorded: 2026-08-03
 ## Continue next time
 
 1. Install project dependencies, then run `npm run build`. The current machine has no `node_modules`, so `vite` is unavailable.
-2. Remove the orphan legacy helpers: `src/api/log.js`, `src/api/messagePush.js`, `src/api/messageUser.js`, `src/api/waybill.js`, and `src/utils/requestPay.js`.
+2. Remove the orphan legacy helpers: `src/api/messagePush.js`, `src/api/messageUser.js`, and `src/api/waybill.js`. (`src/utils/requestPay.js` was deleted on 2026-09-08 together with the legacy pay/upload env entries; `src/api/log.js` is still imported by the log views, so it stays until those views go.)
 3. Remove the corresponding orphan views under `src/views/log`, `src/views/oms/waybill`, `src/views/sms/messagePush`, and `src/views/sms/messageUser` after confirming no new Swagger groups replace them.
 4. Re-run an endpoint-set audit and confirm that every remaining `src/api` URL belongs to the 77 management endpoints.
 5. Rewrite the copied-project portions of `README.md` and fill in `AI_CONTEXT.md` after source cleanup.

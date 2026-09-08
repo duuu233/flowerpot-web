@@ -41,7 +41,9 @@ npm run preview
 - 只接入 Swagger tag 以 `管理后台-` 开头的接口。
 - `VITE_APP_API_PREFIX` 通常为 `/ZoneAdmin`；API 模块默认不重复写该前缀。
 - `VITE_APP_API_ORIGIN` 是生产接口源站，`VITE_APP_PROXY_TARGET` 是开发代理目标。
-- `VITE_APP_BASE_PAY` 供遗留支付请求实例使用；是否继续保留需结合当前接口范围确认。
+- 2026-09-08 起没有分环境覆盖项：遗留支付 / 上传服务（`VITE_APP_BASE_PAY`、`VITE_APP_BASE_UPLOAD`、
+  `VITE_APP_BASE_BIGUPLOAD`，指向 `39.108.153.239`）连同 `src/utils/requestPay.js` 与两个无人调用的支付
+  查询封装一并删除，`.env.development` / `.env.production` 只剩说明性注释。
 
 不得把实际 Token、签名、密码、Cookie、接口密钥或完整环境文件复制到文档、源码、历史记录或提交信息。
 

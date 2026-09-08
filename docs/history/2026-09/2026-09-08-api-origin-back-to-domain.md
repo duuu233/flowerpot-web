@@ -1,4 +1,4 @@
-# 接口地址由 IP 改回域名
+# 接口地址由 IP 改回域名，并删除遗留支付 / 上传配置
 
 > 文档类型：Historical Change Record
 > 日期：2026-09-08
@@ -19,7 +19,7 @@
 
 ## 关键决策
 
-- **只改 yikaltd 管理端这一个地址**。`.env.development` / `.env.production` 里的 `VITE_APP_BASE_PAY`、`VITE_APP_BASE_UPLOAD`、`VITE_APP_BASE_BIGUPLOAD` 指向另一台服务器 `39.108.153.239:8813/8817`，属于复制项目遗留的支付与上传服务，不在当前 Swagger 范围内，也没有任何文档给出它的域名，本轮不猜。其中两个上传变量在 `src/` 里已经没有任何引用，`VITE_APP_BASE_PAY` 仅被 `src/utils/requestPay.js` → `src/api/log.js` 使用。
+- **第一步只改 yikaltd 管理端这一个地址**。`.env.development` / `.env.production` 里的 `VITE_APP_BASE_PAY`、`VITE_APP_BASE_UPLOAD`、`VITE_APP_BASE_BIGUPLOAD` 指向另一台服务器 `39.108.153.239:8813/8817`，属于复制项目遗留的支付与上传服务，不在当前 Swagger 范围内，也没有任何文档给出它的域名，当时没有替换（见下方追加：确认不需要后已整体删除）。
 - 开发代理已带 `changeOrigin: true`，目标换成 HTTPS 域名后无需额外配置；证书有效（curl 未加 `-k` 即通）。
 
 ## 外部操作
@@ -39,4 +39,17 @@
 
 ## 回滚或恢复
 
-把 `.env` 的 `VITE_APP_API_ORIGIN` 与 `scripts/sync-admin-menu.mjs` 的 `DEFAULT_API_BASE` 改回 IP 即可，或直接 revert 本次提交。
+把 `.env` 的 `VITE_APP_API_ORIGIN` 与 `scripts/sync-admin-menu.mjs` 的 `DEFAULT_API_BASE` 改回 IP 即可，或直接 revert 对应提交；支付 / 上传那部分 revert 第二次提交即可整体恢复。
+---
+
+## 追加（同日）：删除遗留支付 / 上传配置
+
+确认这部分现在不需要后整体删除，而不是换域名：
+
+- `.env.development` / `.env.production`：删掉 `VITE_APP_BASE_PAY`、`VITE_APP_BASE_UPLOAD`、`VITE_APP_BASE_BIGUPLOAD` 三个变量（连同写在 URL 里的 `sign` / `randomString` 查询串）。两个文件已没有任何分环境覆盖项，只保留一行说明指向根目录 `.env`。
+- 删除 `src/utils/requestPay.js`：它的 `baseURL` 就是 `VITE_APP_BASE_PAY`，变量一删这个实例只会打到管理后台自身源站，属于坏路径而不是可用回退。`docs/next-session.md` 原本就把它列在待清理清单里。
+- `src/api/log.js`：删掉 `requestPay` 的 import 和 `getPayQuery`、`getPayRefundQuery` 两个封装——全仓库没有任何页面引用它们。`log.js` 其余函数走普通 `request`，仍被 `src/views/log/**` 使用，因此文件保留。
+- 文档同步：`AI_CONTEXT.md` 第 3 节、`README.md` 环境变量与请求层说明、`docs/next-session.md` 的待清理项。
+
+删除后 `npx vite build`（1024 MB 堆）再次通过。风险：如果以后要重新接支付查询，需要连同请求实例一起恢复（可从本次提交 revert）。
+

@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-import requestPay from '@/utils/requestPay'
 
 // 获取管理员操作日志列表
 export function getOperationLogs(params) {
@@ -194,24 +193,6 @@ export function getLogPayRefundSuccess(params) {
 export function getLogAliPayRequest(params) {
   return request({
     url: '/Log/getLogAliPayRequest',
-    method: 'get',
-    params
-  })
-}
-
-// 支付查询接口
-export function getPayQuery(params) {
-  return requestPay({
-    url: '/Pay/getPayQuery',
-    method: 'get',
-    params
-  })
-}
-
-// 支付退款查询接口
-export function getPayRefundQuery(params) {
-  return requestPay({
-    url: '/Pay/getPayRefundQuery',
     method: 'get',
     params
   })
