@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 
 const SIGN_SALT = '8e808087-08b3-3e10-8e83-93bf078df4b2'
-const DEFAULT_API_BASE = 'http://120.25.227.36:8601/ZoneAdmin'
+const DEFAULT_API_BASE = 'https://api.yikaltd.com/ZoneAdmin'
 
 export const commerceMenuTree = [
   {

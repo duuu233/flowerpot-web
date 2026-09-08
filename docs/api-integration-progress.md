@@ -4,14 +4,18 @@ Last checked: 2026-08-25
 
 Swagger sources:
 
-- UI: http://120.25.227.36:8601/swagger-ui.html#/
-- Machine-readable: http://120.25.227.36:8601/v2/api-docs
+- UI: https://api.yikaltd.com/swagger-ui.html#/
+- Machine-readable: https://api.yikaltd.com/v2/api-docs
 
 Backend prefix: `/ZoneAdmin`
 
-> 2026-08-25：接口地址使用 IP `http://120.25.227.36:8601`（原域名 `https://api.yikaltd.com`
-> 在本机被 ICP 备案页或 TLS reset 拦截）。本轮已重新读取 `/v2/api-docs`，并用真实只读响应核对
+> 2026-08-25：接口地址一度改用 IP `http://120.25.227.36:8601`（原域名 `https://api.yikaltd.com`
+> 在当时的机器上被 ICP 备案页或 TLS reset 拦截）。本轮已重新读取 `/v2/api-docs`，并用真实只读响应核对
 > 植物列表、详情和产品下拉数据；认证参数仅用于当次请求，未写入源码或文档。
+>
+> 2026-09-08：接口地址改回域名 `https://api.yikaltd.com`。SSH 开发机上实测 `/v2/api-docs` 返回 200，
+> 与 IP 返回同一份契约（仅 `host` 字段不同）。改动只落在 `.env` 的 `VITE_APP_API_ORIGIN` 和
+> `scripts/sync-admin-menu.mjs` 的 `DEFAULT_API_BASE`。
 
 Integration rule: only expose and call endpoints whose Swagger tag starts with `管理后台-`.
 

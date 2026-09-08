@@ -7,7 +7,7 @@ import request from '@/utils/request'
  * 与其他模块一致：路径省略公共前缀 /ZoneAdmin，由 VITE_APP_API_PREFIX 与请求层补齐；
  * 签名、randomString、userToken 由 src/utils/request.js 统一注入。
  *
- * 2026-08-25 已按 Swagger（http://120.25.227.36:8601/v2/api-docs）和真实只读响应核对：
+ * 2026-08-25 已按 Swagger（https://api.yikaltd.com/v2/api-docs）和真实只读响应核对：
  * 列表返回 productPlantId 分页记录，详情使用 id 查询，状态接口提交 { id, verify }；
  * 新增/编辑共用 ProductPlantAddApiIn，编辑时额外提交 productPlantId。
  */

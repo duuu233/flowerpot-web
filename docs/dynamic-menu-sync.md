@@ -181,9 +181,9 @@ npm run menu:sync:commerce -- --system-id=2 --apply
 
 ## 新模块复用步骤
 
-1. 从 `http://120.25.227.36:8601/v2/api-docs` 核对接口路径、HTTP 方法、入参和输出模型。
-   （旧域名 `api.boltfox.cn` 已于 2026-08-03 停用；2026-08-25 起接口地址统一改用 IP，
-   脚本的 `DEFAULT_API_BASE` 为 `http://120.25.227.36:8601/ZoneAdmin`，可用 `BOLTFOX_API_BASE` 覆盖。）
+1. 从 `https://api.yikaltd.com/v2/api-docs` 核对接口路径、HTTP 方法、入参和输出模型。
+   （旧域名 `api.boltfox.cn` 已于 2026-08-03 停用；2026-08-25 曾临时改用 IP，2026-09-08 起改回域名，
+   脚本的 `DEFAULT_API_BASE` 为 `https://api.yikaltd.com/ZoneAdmin`，可用 `BOLTFOX_API_BASE` 覆盖。）
 2. 在 `src/api/<module>.js` 中新增请求封装；路径省略 `/ZoneAdmin`，由环境变量统一补齐。
 3. 在 `src/router/routes.js` 注册列表和隐藏的详情/编辑路由，固定路由 `name`。
 4. 在菜单同步脚本的适用 scope 中新增节点：导航节点的 `appUrl` 填路由 `name`；若是已有导航下的操作权限，使用 `parentCode` 定位父节点。

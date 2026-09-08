@@ -32,10 +32,12 @@ npm run preview
 
 ## 3. 环境与接口约定
 
-- 当前管理后台 Swagger：`http://120.25.227.36:8601/swagger-ui.html#/`。
-- 机器可读契约：`http://120.25.227.36:8601/v2/api-docs`。
-- 2026-08-25 起接口地址统一使用 IP：原域名 `https://api.yikaltd.com` 在本机被阿里云 ICP 备案页拦截，
-  改用 IP 后 Swagger 与 `/v2/api-docs` 实测可访问。地址只写在根目录 `.env` 的 `VITE_APP_API_ORIGIN`。
+- 当前管理后台 Swagger：`https://api.yikaltd.com/swagger-ui.html#/`。
+- 机器可读契约：`https://api.yikaltd.com/v2/api-docs`。
+- 2026-09-08 起接口地址改回域名 `https://api.yikaltd.com`：2026-08-25 因原域名在当时的机器上被阿里云
+  ICP 备案页拦截而临时改用 IP `http://120.25.227.36:8601`，本次在 SSH 开发机上实测域名 `/v2/api-docs`
+  返回 200 且与 IP 是同一份契约（仅 `host` 字段不同），故切回域名。地址只写在根目录 `.env` 的
+  `VITE_APP_API_ORIGIN`；若某台机器又被备案页拦住，本机改这一个变量回退到 IP 即可。
 - 只接入 Swagger tag 以 `管理后台-` 开头的接口。
 - `VITE_APP_API_PREFIX` 通常为 `/ZoneAdmin`；API 模块默认不重复写该前缀。
 - `VITE_APP_API_ORIGIN` 是生产接口源站，`VITE_APP_PROXY_TARGET` 是开发代理目标。
