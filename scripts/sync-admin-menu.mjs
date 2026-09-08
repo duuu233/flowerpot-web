@@ -338,24 +338,6 @@ export const checklistMenuTree = [
             isRefresh: 0
           }
         ]
-      },
-      {
-        appName: '基础信息配置',
-        appCode: 'Get_Common_GetConfigDataList',
-        appUrl: 'config',
-        grade: 1,
-        isNav: 1,
-        isRefresh: 0,
-        children: [
-          {
-            appName: '编辑',
-            appCode: 'Post_Common_SetConfigDataEdit',
-            appUrl: '#',
-            grade: 0,
-            isNav: 0,
-            isRefresh: 0
-          }
-        ]
       }
     ]
   },

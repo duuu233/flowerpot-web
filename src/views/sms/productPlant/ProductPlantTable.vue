@@ -68,7 +68,6 @@ function emitStatusChange(row, verify) {
         </template>
       </vxe-column>
 
-      <vxe-column field="productName" title="所属产品" min-width="125" align="center" show-overflow />
       <vxe-column field="alias" title="别名" min-width="125" align="center" show-overflow />
       <vxe-column field="difficultyMaintenanceMsg" title="养护难度" width="105" align="center">
         <template #default="{ row }">

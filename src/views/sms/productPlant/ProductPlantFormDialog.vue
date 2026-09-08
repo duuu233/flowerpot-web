@@ -12,10 +12,6 @@ const props = defineProps({
     type: Object,
     default: () => ({})
   },
-  productOptions: {
-    type: Array,
-    default: () => []
-  },
   submitting: {
     type: Boolean,
     default: false
@@ -74,7 +70,6 @@ const requiredTextRule = (label, max) => [
 const rules = computed(() => {
   if (isDetail.value) return {}
   return {
-    productId: [{ required: true, message: '请选择所属产品', trigger: 'change' }],
     plantName: requiredTextRule('植物名称', 20),
     plantImgList: [
       { required: true, type: 'array', min: 1, message: '请上传植物图片', trigger: 'change' }
@@ -187,24 +182,6 @@ watch(visible, (isVisible) => {
           </div>
 
           <el-row :gutter="18">
-            <el-col :span="8">
-              <el-form-item label="所属产品" prop="productId">
-                <el-select
-                  v-model="formData.productId"
-                  filterable
-                  placeholder="请选择产品"
-                  class="form-control"
-                  :disabled="isDetail"
-                >
-                  <el-option
-                    v-for="item in productOptions"
-                    :key="item.productId"
-                    :label="item.productName"
-                    :value="item.productId"
-                  />
-                </el-select>
-              </el-form-item>
-            </el-col>
             <el-col :span="8">
               <el-form-item label="植物名称" prop="plantName">
                 <el-input

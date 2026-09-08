@@ -18,28 +18,10 @@ const props = defineProps({
 const route = useRoute()
 const router = useRouter()
 
-const shapeTypeOptions = [
-  { value: 0, label: '方形' },
-  { value: 1, label: '圆形' }
-]
-
-const screenTypeOptions = [
-  { value: 0, label: '竖屏' },
-  { value: 1, label: '横屏' }
-]
-
 const defaultForm = () => ({
   productId: null,
   productName: '',
-  productImg: [],
-  shapeType: 0,
-  screenType: 0,
-  width: null,
-  height: null,
-  broadcastId: '',
-  carouselInterval: null,
-  rotationDegree: 0,
-  verticalRotation: 0
+  productImg: []
 })
 
 const formRef = ref(null)
@@ -59,16 +41,6 @@ const rules = {
       message: '请上传产品图片',
       trigger: 'change'
     }
-  ],
-  shapeType: [{ required: true, message: '请选择形状类型', trigger: 'change' }],
-  screenType: [
-    { required: true, message: '请选择屏幕方向', trigger: 'change' }
-  ],
-  width: [{ required: true, message: '请输入宽度', trigger: 'blur' }],
-  height: [{ required: true, message: '请输入高度', trigger: 'blur' }],
-  broadcastId: [{ required: true, message: '请输入广播ID', trigger: 'blur' }],
-  carouselInterval: [
-    { required: true, message: '请输入轮播间隔', trigger: 'blur' }
   ]
 }
 
@@ -80,15 +52,12 @@ async function getData() {
   if (!route.query.id) return
   const res = await getProductDetail({ id: route.query.id })
   const detail = res.retData || {}
+  // 形状、尺寸、广播ID、轮播间隔、旋转度数这些字段界面上已经不展示，但仍随
+  // detail 原样进入 formData 并在保存时回传，免得编辑一次就把后端已有的值清空。
   Object.assign(formData, defaultForm(), detail, {
     productImg: detail.productImg
       ? [{ url: detail.productImg, name: '产品图片' }]
-      : [],
-    broadcastId: detail.broadcastId ?? '',
-    carouselInterval: detail.carouselInterval ?? null,
-    screenType: detail.screenType ?? 0,
-    rotationDegree: detail.rotationDegree ?? 0,
-    verticalRotation: detail.verticalRotation ?? 0
+      : []
   })
 }
 
@@ -179,106 +148,6 @@ onActivated(() => {
           />
         </el-form-item>
 
-        <el-form-item label="形状类型" prop="shapeType">
-          <el-radio-group
-            v-model="formData.shapeType"
-            :disabled="pageType === 3"
-          >
-            <el-radio
-              v-for="item in shapeTypeOptions"
-              :key="item.value"
-              :label="item.value"
-            >
-              {{ item.label }}
-            </el-radio>
-          </el-radio-group>
-        </el-form-item>
-
-        <el-form-item label="屏幕方向" prop="screenType">
-          <el-radio-group
-            v-model="formData.screenType"
-            :disabled="pageType === 3"
-          >
-            <el-radio
-              v-for="item in screenTypeOptions"
-              :key="item.value"
-              :label="item.value"
-            >
-              {{ item.label }}
-            </el-radio>
-          </el-radio-group>
-        </el-form-item>
-
-        <el-form-item label="尺寸(cm)" required>
-          <div class="size-fields">
-            <el-form-item prop="width">
-              <el-input-number
-                v-model="formData.width"
-                :min="0"
-                :max="2147483647"
-                :precision="0"
-                :controls="false"
-                placeholder="宽度"
-                :disabled="pageType === 3"
-              />
-            </el-form-item>
-            <span class="size-separator">x</span>
-            <el-form-item prop="height">
-              <el-input-number
-                v-model="formData.height"
-                :min="0"
-                :max="2147483647"
-                :precision="0"
-                :controls="false"
-                placeholder="高度"
-                :disabled="pageType === 3"
-              />
-            </el-form-item>
-          </div>
-        </el-form-item>
-
-        <el-form-item label="广播ID" prop="broadcastId">
-          <el-input
-            v-model="formData.broadcastId"
-            class="input-width"
-            placeholder="请输入广播ID"
-            clearable
-            :disabled="pageType === 3"
-          />
-        </el-form-item>
-
-        <el-form-item label="轮播间隔(分钟)" prop="carouselInterval">
-          <el-input-number
-            v-model="formData.carouselInterval"
-            :min="0"
-            :max="2147483647"
-            :precision="0"
-            :controls="false"
-            placeholder="请输入轮播间隔"
-            :disabled="pageType === 3"
-          />
-        </el-form-item>
-
-        <el-form-item label="横向旋转度数" prop="rotationDegree">
-          <el-input-number
-            v-model="formData.rotationDegree"
-            :precision="0"
-            :controls="false"
-            placeholder="请输入横向旋转度数"
-            :disabled="pageType === 3"
-          />
-        </el-form-item>
-
-        <el-form-item label="竖向旋转度数" prop="verticalRotation">
-          <el-input-number
-            v-model="formData.verticalRotation"
-            :precision="0"
-            :controls="false"
-            placeholder="请输入竖向旋转度数"
-            :disabled="pageType === 3"
-          />
-        </el-form-item>
-
         <el-form-item>
           <el-button
             v-if="pageType !== 3"
@@ -302,14 +171,4 @@ onActivated(() => {
   margin-top: 10px;
 }
 
-.size-fields {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.size-separator {
-  line-height: 32px;
-  color: var(--app-info);
-}
 </style>

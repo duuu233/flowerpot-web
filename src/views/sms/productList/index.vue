@@ -174,10 +174,6 @@ function handleDetail(row) {
       >
         <vxe-column type="seq" title="编号" width="70" align="center" />
         <vxe-column field="productName" title="产品名称" min-width="140" align="center" show-overflow />
-        <vxe-column field="shapeTypeMsg" title="形状" width="100" align="center" show-overflow />
-        <vxe-column title="尺寸(cm)" width="120" align="center">
-          <template #default="{ row }">{{ row.width || '-' }} x {{ row.height || '-' }}</template>
-        </vxe-column>
         <vxe-column title="产品图片" width="100" align="center">
           <template #default="{ row }">
             <el-image

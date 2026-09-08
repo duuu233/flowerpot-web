@@ -28,7 +28,7 @@ Integration rule: only expose and call endpoints whose Swagger tag starts with `
 | --- | --- | ---: | --- | --- |
 | APP version / market | 管理后台-APP版本管理接口 | 12 | `appVersion.js`, `applicationStore.js` | Completed |
 | Product plant | 管理后台-产品植物相关接口 | 5 | `productPlant.js` | Completed on 2026-08-25 |
-| Product version | 管理后台-产品版本控制接口 | 6 | `productVersion.js` | Completed |
+| Product version | 管理后台-产品版本控制接口 | 6 | 已随「产品版本」模块下线（2026-09-08） | Removed |
 | Product / FAQ / user product | 管理后台-产品相关接口 | 11 | `productList.js` | Completed |
 | Login | 管理后台-登录 | 1 | `login.js` | Completed |
 | Permission / staff / roles / menus / departments | 管理后台-权限 | 32 | `login.js`, `menu.js`, `role.js` | Completed |

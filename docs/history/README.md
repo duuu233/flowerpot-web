@@ -32,6 +32,8 @@
 
 ## 索引
 
+- [`2026-09/2026-09-08-module-cleanup-and-product-field-trim.md`](2026-09/2026-09-08-module-cleanup-and-product-field-trim.md)：下线用户设备、用户产品图片、产品版本与系统配置四个模块，植物去掉所属产品，产品表单精简七个字段与列表两列。
+
 - [`2026-08/2026-08-12-ai-context-codegraph-maintenance.md`](2026-08/2026-08-12-ai-context-codegraph-maintenance.md)：建立项目专属 AI 上下文、文档入口与 CodeGraph/历史记录规则。
 - [`2026-08/2026-08-12-official-gallery-upload-thumbnail.md`](2026-08/2026-08-12-official-gallery-upload-thumbnail.md)：官方图库上传时生成缩略图。
 - [`2026-08/2026-08-13-user-account-statistics.md`](2026-08/2026-08-13-user-account-statistics.md)：首页统计与用户星币账户。

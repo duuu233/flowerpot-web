@@ -1,11 +1,10 @@
 <script setup name="productPlant">
-import { onMounted, shallowRef } from 'vue'
+import { shallowRef } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import SearchPanel from '@/components/SearchPanel/index.vue'
 import ListToolbar from '@/components/ListToolbar/index.vue'
 import PaginationBar from '@/components/PaginationBar/index.vue'
 import { cleanQuery, usePagedList } from '@/composables/usePagedList'
-import { getProductList } from '@/api/productList'
 import {
   addProductPlant,
   editProductPlant,
@@ -34,13 +33,11 @@ const defaultListQuery = () => ({
   pageIndex: 1,
   pageSize: 10,
   keyword: null,
-  productId: null,
   verify: null,
   language: null
 })
 
 const dateRange = shallowRef([])
-const productOptions = shallowRef([])
 const dialogVisible = shallowRef(false)
 const dialogMode = shallowRef('add')
 const dialogData = shallowRef({})
@@ -64,11 +61,6 @@ const {
 
 function getRowId(row) {
   return row.productPlantId || row.id
-}
-
-async function loadProducts() {
-  const response = await getProductList({ pageIndex: 1, pageSize: 500 })
-  productOptions.value = response.retData?.pageData || []
 }
 
 function applyDateRange() {
@@ -141,7 +133,6 @@ async function handleToggleStatus({ row, verify }) {
   }
 }
 
-onMounted(loadProducts)
 </script>
 
 <template>
@@ -155,23 +146,6 @@ onMounted(loadProducts)
           clearable
           maxlength="30"
         />
-      </el-form-item>
-
-      <el-form-item label="所属产品">
-        <el-select
-          v-model="listQuery.productId"
-          filterable
-          clearable
-          placeholder="请选择产品"
-          style="width: 170px"
-        >
-          <el-option
-            v-for="item in productOptions"
-            :key="item.productId"
-            :label="item.productName"
-            :value="item.productId"
-          />
-        </el-select>
       </el-form-item>
 
       <el-form-item label="状态">
@@ -248,7 +222,6 @@ onMounted(loadProducts)
       v-model="dialogVisible"
       :mode="dialogMode"
       :initial-data="dialogData"
-      :product-options="productOptions"
       :submitting="submitting"
       @submit="handleSubmit"
     />
