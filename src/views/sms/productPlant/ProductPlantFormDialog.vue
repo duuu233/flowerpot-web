@@ -36,6 +36,8 @@ const defaultForm = () => ({
   optimalTemperature: '',
   optimalHumidity: '',
   lightingRequirements: null,
+  // 2026-09-09 起界面不再展示养护建议（APP 已改用本地文案），但仍接住详情返回值并原样回传，
+  // 编辑老数据时不会把后端已有的养护建议清空。
   careInstructions: '',
   // 2026-09-08 新增：分类下发进设备 DP 161（1 水培 / 2 适中 / 3 耐旱），可留空以兼容既有植物资料。
   categoryType: null,
@@ -82,7 +84,6 @@ const rules = computed(() => {
     lightingRequirements: [
       { required: true, message: '请输入光照需求等级', trigger: 'change' }
     ],
-    careInstructions: requiredTextRule('养护建议', 5000),
     tuYaRemark: [{ max: 50, message: '涂鸦标识符不能超过 50 个字符', trigger: 'blur' }]
   }
 })
@@ -119,6 +120,7 @@ function buildPayload() {
     optimalTemperature: formData.optimalTemperature,
     optimalHumidity: formData.optimalHumidity,
     lightingRequirements: formData.lightingRequirements,
+    // 界面已不展示：编辑时把详情回填的值原样带回，新增时为空会被 cleanPayload 过滤掉
     careInstructions: formData.careInstructions,
     categoryType: formData.categoryType,
     tuYaRemark: formData.tuYaRemark
@@ -324,19 +326,6 @@ watch(visible, (isVisible) => {
                     :value="item.value"
                   />
                 </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="养护建议" prop="careInstructions">
-                <el-input
-                  v-model="formData.careInstructions"
-                  type="textarea"
-                  :rows="5"
-                  placeholder="填写完整的日常养护建议"
-                  maxlength="5000"
-                  show-word-limit
-                  :disabled="isDetail"
-                />
               </el-form-item>
             </el-col>
           </el-row>
