@@ -63,6 +63,10 @@ export default defineConfig(({ mode }) => {
               if (id.includes('vxe-table') || id.includes('xe-utils')) {
                 return 'vxe-table'
               }
+              // 图表只有首页用，单独拆包，避免拖慢其他页面的首屏
+              if (id.includes('echarts') || id.includes('zrender')) {
+                return 'echarts'
+              }
               return 'vendor'
             }
           }

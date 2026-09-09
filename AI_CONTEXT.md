@@ -19,6 +19,7 @@ Git 是办公室电脑、家庭电脑和远程 SSH 环境之间唯一共享的�
 - Vue 3.5，页面主要使用 `<script setup>`。
 - Vite 5，Vue Router 4 Hash 模式，Pinia。
 - Element Plus、vxe-table、SCSS、WangEditor。
+- ECharts 6（2026-09-09 起，仅首页注册趋势柱状图在用；按需引入 `echarts/core` + `BarChart`，构建里单独拆成 `echarts` chunk）。
 - Axios 请求层，Cookie 登录态，MD5 请求签名。
 - Node.js `>=18`。
 
@@ -29,6 +30,8 @@ npm run preview
 ```
 
 项目没有 test、lint 或 type-check 脚本。仓库同时存在 `pnpm-lock.yaml`、`pnpm-workspace.yaml` 和 `yarn.lock`，README 仍推荐 yarn；主包管理器尚未由仓库规则确认。不要为了文档任务安装依赖或重写锁文件。
+
+2026-09-09 新增 `echarts` 时用的是 `npm install echarts --save --no-package-lock`：只写 `package.json`，两个既有锁文件都没动，也没有新增 `package-lock.json`。**其他环境拉到这次改动后必须重新安装依赖**（锁文件里没有 echarts），锁文件的统一留到主包管理器确认之后再处理。
 
 ## 3. 环境与接口约定
 

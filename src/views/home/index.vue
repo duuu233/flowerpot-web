@@ -2,6 +2,7 @@
 import { computed, onMounted, reactive, ref, shallowRef } from 'vue'
 import { getStatisticsUser, getUserCount } from '@/api/home'
 import { getCookie } from '@/utils/support'
+import RegistrationTrendChart from './RegistrationTrendChart.vue'
 import avatar from '@/assets/images/user.png'
 
 const trueName = shallowRef(getCookie('trueName') || '')
@@ -76,21 +77,8 @@ const cards = computed(() => [
   }
 ])
 
-const maxRegistrationCount = computed(() => {
-  return statisticsList.value.reduce((max, item) => {
-    const count = Number(item.userCount) || 0
-    return Math.max(max, count)
-  }, 0)
-})
-
 function formatCount(value) {
   return value ?? '-'
-}
-
-function getBarWidth(count) {
-  const value = Number(count) || 0
-  if (!value || !maxRegistrationCount.value) return '0%'
-  return `${Math.max((value / maxRegistrationCount.value) * 100, 4)}%`
 }
 
 async function loadStats() {
@@ -202,22 +190,7 @@ onMounted(() => {
         </div>
       </template>
 
-      <div v-if="statisticsList.length" class="trend-list">
-        <div
-          v-for="item in statisticsList"
-          :key="item.queryDate"
-          class="trend-row"
-        >
-          <span class="trend-date">{{ item.queryDate || '-' }}</span>
-          <div class="trend-track">
-            <div
-              class="trend-bar"
-              :style="{ width: getBarWidth(item.userCount) }"
-            />
-          </div>
-          <span class="trend-count">{{ item.userCount ?? 0 }} <small>人</small></span>
-        </div>
-      </div>
+      <RegistrationTrendChart v-if="statisticsList.length" :list="statisticsList" />
       <el-empty v-else description="暂无数据" :image-size="70" />
     </el-card>
   </div>
@@ -442,63 +415,6 @@ onMounted(() => {
   }
 }
 
-.trend-list {
-  display: grid;
-  gap: 6px;
-}
-
-.trend-row {
-  display: grid;
-  grid-template-columns: 130px minmax(120px, 1fr) 72px;
-  align-items: center;
-  gap: 16px;
-  min-height: 36px;
-  padding: 0 14px;
-  border-radius: 8px;
-  background: #fafafc;
-  transition: background-color 0.18s ease;
-
-  &:hover {
-    background: #f2f2f6;
-  }
-}
-
-.trend-date {
-  color: var(--app-text);
-  font-size: 13px;
-  font-weight: 450;
-  font-variant-numeric: tabular-nums;
-}
-
-.trend-track {
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.04);
-  overflow: hidden;
-}
-
-.trend-bar {
-  height: 100%;
-  border-radius: 999px;
-  background: var(--brand-500);
-  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.trend-count {
-  color: var(--app-ink);
-  font-weight: 600;
-  text-align: right;
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
-
-  small {
-    font-size: 11px;
-    color: var(--app-text-muted);
-    font-weight: 400;
-    margin-left: 2px;
-  }
-}
-
 @media (max-width: 768px) {
   .welcome-inner {
     flex-direction: column;
@@ -513,12 +429,6 @@ onMounted(() => {
   .trend-header {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .trend-row {
-    grid-template-columns: 86px minmax(80px, 1fr) 52px;
-    gap: 8px;
-    padding: 0 8px;
   }
 }
 </style>

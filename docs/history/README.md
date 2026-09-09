@@ -32,6 +32,7 @@
 
 ## 索引
 
+- [`2026-09/2026-09-09-home-registration-bar-chart.md`](2026-09/2026-09-09-home-registration-bar-chart.md)：首页用户注册增长趋势由手写条形列表改为按需引入的 ECharts 柱状图，新增 echarts 依赖与独立分包。
 - [`2026-09/2026-09-09-sidebar-route-filter.md`](2026-09/2026-09-09-sidebar-route-filter.md)：侧栏渲染前用 `router.hasRoute` 过滤后端返回的失效菜单，修复已下线模块残留菜单行导致整块左侧菜单不显示。
 - [`2026-09/2026-09-08-module-cleanup-and-product-field-trim.md`](2026-09/2026-09-08-module-cleanup-and-product-field-trim.md)：下线用户设备、用户产品图片、产品版本与系统配置四个模块，植物去掉所属产品，产品表单精简七个字段与列表两列。
 
