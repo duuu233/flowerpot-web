@@ -73,6 +73,8 @@ src/views 与 src/components
 
 后端菜单与本地路由是双层模型：后端决定可见性和授权，本地路由决定组件映射。后端 `menuUrl`、Vue Router `name` 和页面组件 `name` 必须一致，才能保证跳转、标签页和 keep-alive 正常。
 
+侧栏（`src/layout/components/Sidebar.vue`）渲染前会用 `router.hasRoute(menuUrl)` 过滤接口返回的菜单：本地没有同名路由的节点直接跳过，开发环境 `console.warn` 一次。模块下线后后台常残留菜单行，不过滤会让 `RouterLink` 在渲染期抛 `No match for {"name":"..."}`，整块左侧菜单都渲染不出来。
+
 ## 5. 关键目录
 
 | 路径 | 职责 |

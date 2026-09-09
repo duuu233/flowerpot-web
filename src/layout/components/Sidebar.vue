@@ -1,45 +1,37 @@
 <template>
   <div class="sidebar-inner">
     <div class="menus-box">
-      <template v-for="(item, index) in sidebarRight" :key="index">
-        <div
-          v-show="hideItemList.indexOf(item.menuName) === -1"
-          class="item"
-        >
-          <div class="title">
-            <span class="name">{{ item.menuName }}</span>
-          </div>
-          <div v-if="item.childs && item.childs.length" class="route-box">
-            <template v-for="(v, i) in item.childs" :key="i">
-              <div
-                v-if="hideSubItemList.indexOf(v.menuName) === -1"
-                class="subitem"
-              >
-                <router-link
-                  v-if="v.menuUrl"
-                  :to="{ name: v.menuUrl }"
-                  :class="{ clickedNav: isActive(v.menuUrl) }"
-                >
-                  {{ v.menuName }}
-                </router-link>
-                <span v-else>{{ v.menuName }}</span>
-              </div>
-            </template>
+      <div v-for="(item, index) in visibleMenus" :key="index" class="item">
+        <div class="title">
+          <span class="name">{{ item.menuName }}</span>
+        </div>
+        <div class="route-box">
+          <div v-for="(v, i) in item.childs" :key="i" class="subitem">
+            <router-link
+              v-if="v.menuUrl"
+              :to="{ name: v.menuUrl }"
+              :class="{ clickedNav: isActive(v.menuUrl) }"
+            >
+              {{ v.menuName }}
+            </router-link>
+            <span v-else>{{ v.menuName }}</span>
           </div>
         </div>
-      </template>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup name="Sidebar">
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '@/store/modules/app'
 
 const appStore = useAppStore()
 const { sidebarRight } = storeToRefs(appStore)
 const route = useRoute()
+const router = useRouter()
 
 // 与原项目一致：屏蔽部分尚未启用的菜单
 const hideItemList = ['支付查询']
@@ -55,6 +47,37 @@ const hideSubItemList = [
   '广告位置',
   '用户优惠券列表'
 ]
+
+// 已提示过的失效 menuUrl，避免每次重新渲染都刷屏
+const warnedMenuUrls = new Set()
+
+// 后端菜单和本地路由表各自维护：模块下线后后台可能还留着菜单行（例如已删除的 config）。
+// RouterLink 解析不存在的 name 会在渲染期抛错，整块侧栏都渲染不出来，所以先把这类节点丢掉。
+function isRenderable(child) {
+  if (!child.menuUrl) return true
+  if (router.hasRoute(child.menuUrl)) return true
+  if (import.meta.env.DEV && !warnedMenuUrls.has(child.menuUrl)) {
+    warnedMenuUrls.add(child.menuUrl)
+    console.warn(
+      `[Sidebar] 后台菜单「${child.menuName}」指向的路由 ${child.menuUrl} 在本地不存在，已跳过`
+    )
+  }
+  return false
+}
+
+// 过滤后没有可见子项的分组不再渲染，避免留下一个空标题
+const visibleMenus = computed(() => {
+  const list = Array.isArray(sidebarRight.value) ? sidebarRight.value : []
+  return list
+    .filter(item => hideItemList.indexOf(item.menuName) === -1)
+    .map(item => ({
+      ...item,
+      childs: (item.childs || []).filter(
+        v => hideSubItemList.indexOf(v.menuName) === -1 && isRenderable(v)
+      )
+    }))
+    .filter(item => item.childs.length > 0)
+})
 
 function isActive(name) {
   return route.name === name
