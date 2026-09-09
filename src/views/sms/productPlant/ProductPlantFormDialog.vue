@@ -37,13 +37,8 @@ const defaultForm = () => ({
   optimalHumidity: '',
   lightingRequirements: null,
   careInstructions: '',
-  // 2026-09-08 新增：分类下发进设备 DP 161（1 水培 / 2 适中 / 3 耐旱），
-  // 四条建议是纯文案，APP 端只读展示。均可留空以兼容既有植物资料。
+  // 2026-09-08 新增：分类下发进设备 DP 161（1 水培 / 2 适中 / 3 耐旱），可留空以兼容既有植物资料。
   categoryType: null,
-  lightingSuggestions: '',
-  waterSuggestion: '',
-  temperatureSuggestion: '',
-  humiditySuggestion: '',
   tuYaRemark: ''
 })
 
@@ -88,11 +83,6 @@ const rules = computed(() => {
       { required: true, message: '请输入光照需求等级', trigger: 'change' }
     ],
     careInstructions: requiredTextRule('养护建议', 5000),
-    // 新增字段选填：旧植物资料没有这些值，强制必填会卡住编辑保存。
-    lightingSuggestions: [{ max: 150, message: '光照建议不能超过 150 个字符', trigger: 'blur' }],
-    waterSuggestion: [{ max: 150, message: '需水建议不能超过 150 个字符', trigger: 'blur' }],
-    temperatureSuggestion: [{ max: 150, message: '空气温度建议不能超过 150 个字符', trigger: 'blur' }],
-    humiditySuggestion: [{ max: 150, message: '湿度建议不能超过 150 个字符', trigger: 'blur' }],
     tuYaRemark: [{ max: 50, message: '涂鸦标识符不能超过 50 个字符', trigger: 'blur' }]
   }
 })
@@ -131,10 +121,6 @@ function buildPayload() {
     lightingRequirements: formData.lightingRequirements,
     careInstructions: formData.careInstructions,
     categoryType: formData.categoryType,
-    lightingSuggestions: formData.lightingSuggestions,
-    waterSuggestion: formData.waterSuggestion,
-    temperatureSuggestion: formData.temperatureSuggestion,
-    humiditySuggestion: formData.humiditySuggestion,
     tuYaRemark: formData.tuYaRemark
   }
   if (isEdit.value) payload.productPlantId = formData.productPlantId
@@ -322,7 +308,7 @@ watch(visible, (isVisible) => {
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="12">
               <el-form-item label="植物分类" prop="categoryType">
                 <el-select
                   v-model="formData.categoryType"
@@ -338,50 +324,6 @@ watch(visible, (isVisible) => {
                     :value="item.value"
                   />
                 </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="光照建议" prop="lightingSuggestions">
-                <el-input
-                  v-model="formData.lightingSuggestions"
-                  placeholder="选填，例如每日散射光 4-6 小时"
-                  maxlength="150"
-                  show-word-limit
-                  :disabled="isDetail"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="需水建议" prop="waterSuggestion">
-                <el-input
-                  v-model="formData.waterSuggestion"
-                  placeholder="选填，例如土面下 2cm 干燥后浇透"
-                  maxlength="150"
-                  show-word-limit
-                  :disabled="isDetail"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="空气温度建议" prop="temperatureSuggestion">
-                <el-input
-                  v-model="formData.temperatureSuggestion"
-                  placeholder="选填，例如避免低于 10℃"
-                  maxlength="150"
-                  show-word-limit
-                  :disabled="isDetail"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="湿度建议" prop="humiditySuggestion">
-                <el-input
-                  v-model="formData.humiditySuggestion"
-                  placeholder="选填，例如干燥季节配合加湿"
-                  maxlength="150"
-                  show-word-limit
-                  :disabled="isDetail"
-                />
               </el-form-item>
             </el-col>
             <el-col :span="24">
