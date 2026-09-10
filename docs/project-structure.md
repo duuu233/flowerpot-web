@@ -88,7 +88,7 @@ src/views/
 └─ ums/              # 权限 / 系统管理
 ```
 
-用户列表相关页面位于 `src/views/sms/userList/`：列表页复用公共查询、工具栏和分页组件；`components/UserAccountEditor.vue` 负责可用星币编辑交互；`accountLogs.vue` 是账户操作日志的隐藏路由页面。
+用户列表相关页面位于 `src/views/sms/userList/`：列表页复用公共查询、工具栏和分页组件；`accountLogs.vue` 是账户操作日志的隐藏路由页面，只从列表工具栏进入。2026-09-10 按产品要求下线了总计 / 可用 / 消耗星币三列与行级「账户日志」按钮，只服务于可用星币编辑的 `components/UserAccountEditor.vue` 与 `setUserAccount` 请求封装一并删除。
 
 植物管理位于 `src/views/sms/productPlant/`：`index.vue` 负责分页查询和接口协调，
 `ProductPlantTable.vue` 负责资料列表与权限操作，`ProductPlantFormDialog.vue` 统一承载新增、

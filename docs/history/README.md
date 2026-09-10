@@ -32,6 +32,7 @@
 
 ## 索引
 
+- [`2026-09/2026-09-10-userlist-remove-token-columns.md`](2026-09/2026-09-10-userlist-remove-token-columns.md)：用户列表去掉总计/可用/消耗星币三列与行级「账户日志」按钮，连带删除只服务于该列的 `UserAccountEditor.vue` 与 `setUserAccount` 封装；工具栏「账户操作日志」入口、后端接口与权限节点均保留。
 - [`2026-09/2026-09-09-plant-remove-care-instructions.md`](2026-09/2026-09-09-plant-remove-care-instructions.md)：植物资料再删「养护建议」表单项与必填校验，提交体保留原样回传以免清空存量数据。
 - [`2026-09/2026-09-09-plant-remove-suggestion-fields.md`](2026-09/2026-09-09-plant-remove-suggestion-fields.md)：植物资料新增/编辑/详情删除光照、需水、空气温度、湿度四条建议字段；核对确认后端契约里从未有过这四个字段。
 - [`2026-09/2026-09-09-home-registration-bar-chart.md`](2026-09/2026-09-09-home-registration-bar-chart.md)：首页用户注册增长趋势由手写条形列表改为按需引入的 ECharts 柱状图，新增 echarts 依赖与独立分包。

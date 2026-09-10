@@ -8,7 +8,6 @@ import PaginationBar from '@/components/PaginationBar/index.vue'
 import { usePagedList, cleanQuery } from '@/composables/usePagedList'
 import { formatDate } from '@/utils/date'
 import { getUserList, getUserListExcel, setUserVerify } from '@/api/userList'
-import UserAccountEditor from './components/UserAccountEditor.vue'
 
 const router = useRouter()
 
@@ -123,13 +122,8 @@ function handleDetail(row) {
   router.push({ name: 'userListDetail', query: { id: row.userId } })
 }
 
-function handleAccountUpdated(row, availableToken) {
-  row.availableToken = availableToken
-}
-
-function handleAccountLogs(row) {
-  const query = row ? { id: row.userId } : undefined
-  router.push({ name: 'userAccountLogs', query })
+function handleAccountLogs() {
+  router.push({ name: 'userAccountLogs' })
 }
 </script>
 
@@ -232,16 +226,6 @@ function handleAccountLogs(row) {
         <vxe-column field="nickName" title="用户昵称" min-width="120" align="center" show-overflow />
         <vxe-column field="userEmail" title="用户邮箱" min-width="170" align="center" show-overflow />
         <vxe-column field="terminalMsg" title="终端" width="110" align="center" show-overflow />
-        <vxe-column field="totalToken" title="总计星币" min-width="120" align="right" show-overflow />
-        <vxe-column title="可用星币" min-width="150" align="right">
-          <template #default="{ row }">
-            <UserAccountEditor
-              :user="row"
-              @updated="handleAccountUpdated(row, $event)"
-            />
-          </template>
-        </vxe-column>
-        <vxe-column field="consumeToken" title="消耗星币" min-width="120" align="right" show-overflow />
         <vxe-column title="状态" width="120" align="center">
           <template #default="{ row }">
             <el-switch
@@ -256,7 +240,7 @@ function handleAccountLogs(row) {
         <vxe-column title="注册时间" width="170" align="center">
           <template #default="{ row }">{{ formatDateTime(row.joinTime) }}</template>
         </vxe-column>
-        <vxe-column title="操作" width="250" align="center" fixed="right">
+        <vxe-column title="操作" width="170" align="center" fixed="right">
           <template #default="{ row }">
             <div class="handle-table-box">
               <el-button
@@ -274,13 +258,6 @@ function handleAccountLogs(row) {
                 @click="handleDetail(row)"
               >
                 详情
-              </el-button>
-              <el-button
-                v-permission="['Get_User_GetOperatUserAccountLog']"
-                size="small"
-                @click="handleAccountLogs(row)"
-              >
-                账户日志
               </el-button>
             </div>
           </template>

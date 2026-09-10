@@ -47,11 +47,3 @@ export function setUserInfo(data) {
     data
   })
 }
-
-export function setUserAccount(data) {
-  return request({
-    url: '/User/setUserAccount',
-    method: 'post',
-    data
-  })
-}
