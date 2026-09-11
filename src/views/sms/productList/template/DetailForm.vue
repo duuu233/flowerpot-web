@@ -21,7 +21,8 @@ const router = useRouter()
 const defaultForm = () => ({
   productId: null,
   productName: '',
-  productImg: []
+  productImg: [],
+  broadcastId: ''
 })
 
 const formRef = ref(null)
@@ -41,7 +42,8 @@ const rules = {
       message: '请上传产品图片',
       trigger: 'change'
     }
-  ]
+  ],
+  broadcastId: [{ required: true, message: '请输入广播ID', trigger: 'blur' }]
 }
 
 function resetForm() {
@@ -52,12 +54,21 @@ async function getData() {
   if (!route.query.id) return
   const res = await getProductDetail({ id: route.query.id })
   const detail = res.retData || {}
-  // 形状、尺寸、广播ID、轮播间隔、旋转度数这些字段界面上已经不展示，但仍随
-  // detail 原样进入 formData 并在保存时回传，免得编辑一次就把后端已有的值清空。
+  // 形状、尺寸、轮播间隔、旋转度数这些字段界面上不展示，但仍随 detail 原样进入
+  // formData 并在保存时回传，免得编辑一次就把后端已有的值清空。
+  //
+  // ⚠️ **广播ID 2026-09-11 重新上界面了**（改回必填）：它是后台产品与设备 BLE 广播的
+  // 映射来源——App 侧 BLE 扫到的 `ScanDeviceBean.getProductId()` 拿到的就是这个值，
+  // 和涂鸦平台的产品 ID 是两个不同字段。2026-09-08 把它从界面撤掉时就留过风险提示
+  // 「后端若当必填，新增会失败」，现在按产品要求恢复。
+  //
+  // `?? ''` 不能省：后端返回 null 时 `Object.assign` 会把默认值覆盖成 null，
+  // el-input 拿到 null 会告警，必填校验也判不出"没填"。
   Object.assign(formData, defaultForm(), detail, {
     productImg: detail.productImg
       ? [{ url: detail.productImg, name: '产品图片' }]
-      : []
+      : [],
+    broadcastId: detail.broadcastId ?? ''
   })
 }
 
@@ -136,6 +147,16 @@ onActivated(() => {
             clearable
             maxlength="20"
             show-word-limit
+            :disabled="pageType === 3"
+          />
+        </el-form-item>
+
+        <el-form-item label="广播ID" prop="broadcastId">
+          <el-input
+            v-model="formData.broadcastId"
+            class="input-width"
+            placeholder="请输入广播ID"
+            clearable
             :disabled="pageType === 3"
           />
         </el-form-item>
