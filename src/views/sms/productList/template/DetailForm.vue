@@ -43,7 +43,7 @@ const rules = {
       trigger: 'change'
     }
   ],
-  broadcastId: [{ required: true, message: '请输入广播ID', trigger: 'blur' }]
+  broadcastId: [{ required: true, message: '请输入涂鸦产品ID', trigger: 'blur' }]
 }
 
 function resetForm() {
@@ -57,10 +57,13 @@ async function getData() {
   // 形状、尺寸、轮播间隔、旋转度数这些字段界面上不展示，但仍随 detail 原样进入
   // formData 并在保存时回传，免得编辑一次就把后端已有的值清空。
   //
-  // ⚠️ **广播ID 2026-09-11 重新上界面了**（改回必填）：它是后台产品与设备 BLE 广播的
-  // 映射来源——App 侧 BLE 扫到的 `ScanDeviceBean.getProductId()` 拿到的就是这个值，
-  // 和涂鸦平台的产品 ID 是两个不同字段。2026-09-08 把它从界面撤掉时就留过风险提示
-  // 「后端若当必填，新增会失败」，现在按产品要求恢复。
+  // ⚠️ **界面文案叫「涂鸦产品ID」，字段名仍是 broadcastId**（2026-09-12 产品要求：
+  // 只改文案、备注写清楚沿用旧字段）。后端表结构与接口出入参都没动，App 侧读的也还是
+  // `broadcastId`，所以 prop / v-model / 提交字段一律不要跟着改名。
+  //
+  // 这个字段 2026-09-11 重新上界面（改回必填）：它是后台产品与设备的映射来源——App 侧
+  // BLE 扫到的 `ScanDeviceBean.getProductId()` 会拿它来配对。2026-09-08 把它从界面撤掉
+  // 时留过风险提示「后端若当必填，新增会失败」，后来按产品要求恢复。
   //
   // `?? ''` 不能省：后端返回 null 时 `Object.assign` 会把默认值覆盖成 null，
   // el-input 拿到 null 会告警，必填校验也判不出"没填"。
@@ -151,14 +154,21 @@ onActivated(() => {
           />
         </el-form-item>
 
-        <el-form-item label="广播ID" prop="broadcastId">
+        <!--
+          文案是「涂鸦产品ID」，但 prop / v-model 用的还是旧的 broadcastId 字段，
+          后端没有改名，不要顺手把这几处也改了。
+        -->
+        <el-form-item label="涂鸦产品ID" prop="broadcastId">
           <el-input
             v-model="formData.broadcastId"
             class="input-width"
-            placeholder="请输入广播ID"
+            placeholder="请输入涂鸦产品ID"
             clearable
             :disabled="pageType === 3"
           />
+          <div class="form-tip">
+            备注：沿用原「广播ID」字段（broadcastId），后端字段名未变。
+          </div>
         </el-form-item>
 
         <el-form-item label="产品图片" prop="productImg">
@@ -190,6 +200,15 @@ onActivated(() => {
 <style lang="scss" scoped>
 .box-card {
   margin-top: 10px;
+}
+
+// el-form-item__content 是 flex + wrap，给满宽就会自己换到输入框下面一行。
+.form-tip {
+  width: 100%;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--el-text-color-secondary);
 }
 
 </style>
