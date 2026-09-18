@@ -440,6 +440,15 @@ export const asyncRouterMap = [
           icon: 'ums-dept'
         }
       },
+      {
+        path: 'config',
+        name: 'config',
+        component: () => import('@/views/ums/config/index.vue'),
+        meta: {
+          title: '系统配置',
+          icon: 'ums-config'
+        }
+      }
     ]
   }
 ]

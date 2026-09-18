@@ -8,7 +8,7 @@
 
 ## 1. 项目定位
 
-`flowerpot-web` 是 YSplanter/花盆产品体系的 PC 管理后台前端，负责用户、产品与 FAQ、植物管理、APP 版本与应用市场，以及员工、角色、菜单和部门。2026-09-08 按产品要求下线了用户设备（用户产品列表）、用户产品图片、产品版本和系统配置四个模块（页面、路由与只服务于它们的接口封装一并删除；后端接口与已存在的菜单行不受影响，需要时在后台手工清理菜单）。2026-09-10 用户列表又去掉了总计 / 可用 / 消耗星币三列和行级「账户日志」按钮，只服务于可用星币编辑的 `UserAccountEditor.vue` 与 `setUserAccount` 封装一并删除——账户操作日志页 `userAccountLogs` 与工具栏那个全量入口保留，`getUserList` 响应里的三个星币字段和 `Post_User_SetUserAccount` 权限节点也都没动。仓库由旧管理后台迁移而来，`package.json` 名称和 README 仍有 `web-ui-v2` 复制痕迹；项目定位以当前路由、API 和本文件为准。
+`flowerpot-web` 是 YSplanter/花盆产品体系的 PC 管理后台前端，负责用户、产品与 FAQ、植物管理、APP 版本与应用市场，以及员工、角色、菜单和部门。2026-09-08 按产品要求下线了用户设备（用户产品列表）、用户产品图片、产品版本和系统配置四个模块（页面、路由与只服务于它们的接口封装一并删除；后端接口与已存在的菜单行不受影响，需要时在后台手工清理菜单）；其中**系统配置在 2026-09-18 按产品要求恢复**——`src/api/config.js`、`src/views/ums/config/index.vue`、`config` 路由与菜单脚本里的「基础信息配置」节点都回来了，页面按配置名称识别「平台设备id」并同时从展示与 `setConfigDataEdit` 负载中排除，另外三个模块仍然下线。2026-09-10 用户列表又去掉了总计 / 可用 / 消耗星币三列和行级「账户日志」按钮，只服务于可用星币编辑的 `UserAccountEditor.vue` 与 `setUserAccount` 封装一并删除——账户操作日志页 `userAccountLogs` 与工具栏那个全量入口保留，`getUserList` 响应里的三个星币字段和 `Post_User_SetUserAccount` 权限节点也都没动。仓库由旧管理后台迁移而来，`package.json` 名称和 README 仍有 `web-ui-v2` 复制痕迹；项目定位以当前路由、API 和本文件为准。
 
 本仓库只包含管理后台前端。Flutter 用户端位于兄弟项目 `flowerpot`，服务端和数据库不在本仓库。
 
@@ -97,7 +97,7 @@ src/views 与 src/components
 - `home`：后台首页。
 - `sms`：用户、产品、FAQ、植物管理、APP 版本和应用市场；
   `productPlant` 已完成分页列表、新增、编辑、详情、图片上传、启用/禁用、路由和后端菜单。
-- `ums`：员工、角色、菜单权限和部门。
+- `ums`：员工、角色、菜单权限、部门和系统配置（`config`）。
 
 2026-08-25 已按 Excel 清单对系统 `1` 同步完整菜单：运营管理下为植物管理、APP版本管理和
 基础信息配置，系统管理下为管理员权限。`scripts/sync-admin-menu.mjs` 的 `checklist` scope 可在

@@ -94,6 +94,12 @@ src/views/
 `ProductPlantTable.vue` 负责资料列表与权限操作，`ProductPlantFormDialog.vue` 统一承载新增、
 编辑和详情。页面对应后端 `ProductPlant` 的 5 个管理端接口，并复用 `multiUpload.vue` 上传植物图片。
 
+系统配置位于 `src/views/ums/config/index.vue`（路由 `config`，菜单「基础配置 → 系统配置」）：
+页面把 `/Common/getConfigDataList` 返回的配置项按 `configType` 1 / 2 渲染成可编辑表单，标签取
+`configContent`，名称里含 mail / 邮箱的项额外做邮箱格式校验。2026-09-08 曾随另外三个模块一起下线，
+2026-09-18 恢复；恢复时按配置名称识别「平台设备id」（`configContent` / `configKey` 去掉空格、
+下划线、冒号与连字符后小写比对），命中项同时从展示列表和 `setConfigDataEdit` 的提交负载中排除。
+
 `scripts/sync-admin-menu.mjs` 的 `checklist` scope 维护 Excel 中属于本仓库的四个后台模块，
 支持旧 APP 版本权限码迁移和空旧分组的非删除式收尾；具体字段、命令和验证见
 `docs/dynamic-menu-sync.md`。
