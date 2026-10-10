@@ -2,7 +2,7 @@
 
 > 文档类型：当前操作手册
 > 状态：Active
-> 最后核验：2026-08-25
+> 最后核验：2026-10-10（新增文件管理范围）
 > 事实来源：菜单同步脚本、路由、权限 Store 与后台接口契约
 
 本项目的页面可访问性由两部分共同决定：
@@ -102,12 +102,27 @@ AI配置 (#)
 `scripts/sync-admin-menu.mjs` 里 `productPlantMenuTree` 的 `aliases`，避免建出重复分组。
 分组 `grade` 目前是 2，排在现有「产品管理 / 订单管理 / AI配置」之后，需要靠前就调高该值。
 
+`common-file` 范围复用现有「运营管理」，只补齐文件管理及三个操作权限：
+
+```text
+运营管理 (#)
+└─ 文件管理 (Get_CommonFile_GetCommonFileList, appUrl=commonFile)
+   ├─ 新增 (Post_CommonFile_AddCommonFile)
+   ├─ 编辑 (Post_CommonFile_EditCommonFile)
+   └─ 删除 (Post_CommonFile_DelCommonFile)
+```
+
+2026-10-10 系统 `1` 实际同步新增 4 个节点、更新 0；复查全部存在且无配置差异，
+`getLeftMenus` 已返回「运营管理 → 文件管理」。不自动给普通角色绑定权限。
+
 `checklist` 是智能花盆接口清单在本仓库的完整 PC 管理后台范围，推荐新环境直接使用：
 
 ```text
 运营管理 (#)
 ├─ 植物管理 (Get_ProductPlant_GetProductPlantList, appUrl=productPlant)
 │  └─ 新增 / 详情 / 编辑 / 启用禁用
+├─ 文件管理 (Get_CommonFile_GetCommonFileList, appUrl=commonFile)
+│  └─ 新增 / 编辑 / 删除
 ├─ APP版本管理 (Get_AppVersion_GetAppVersionList, appUrl=appVersion)
 │  └─ 详情 / 新增编辑 / 删除 / 启用禁用 / 设置权重
 └─ 基础信息配置 (Get_Common_GetConfigDataList, appUrl=config)
@@ -161,6 +176,10 @@ npm run menu:sync:user-account -- --apply
 npm run menu:sync:product-plant
 npm run menu:sync:product-plant -- --apply
 
+# 文件管理：只同步本次模块，先预览再写入
+npm run menu:sync:common-file
+npm run menu:sync:common-file -- --apply
+
 # 完整清单：先预览，再迁移旧节点并补齐缺失节点（推荐）
 npm run menu:sync:checklist
 npm run menu:sync:checklist -- --apply --update
@@ -177,7 +196,7 @@ npm run menu:sync:commerce -- --system-id=2 --apply
 脚本的安全特性：
 
 - 默认是只读预览，必须显式传 `--apply` 才写入。
-- `commerce`、`user-account`、`product-plant` 与 `checklist` 是独立范围；`checklist` 只维护功能清单内的 PC 管理后台节点。
+- `commerce`、`user-account`、`product-plant`、`common-file` 与 `checklist` 是独立范围；`checklist` 只维护功能清单内的 PC 管理后台节点。
 - 在同一父节点下优先按 `appCode` 查重；编码为 `#` 的分组按 `appName` 查重。
 - “产品管理”声明兼容旧版顶级名称“商品管理”，升级时不会重复创建分组；传入 `--update` 后会完成名称迁移。
 - `checklist` 对已知旧 APP 版本权限码进行全树查重和安全迁移；旧空分组只改为非导航，不执行删除。

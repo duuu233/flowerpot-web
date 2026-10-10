@@ -22,6 +22,7 @@
 | --- | --- | --- |
 | [`project-structure.md`](project-structure.md) | Active | 当前目录、请求地址规则、公共列表组件和 composable。 |
 | [`api-integration-progress.md`](api-integration-progress.md) | Tracking / Reverify | yikaltd 管理端接口迁移进度；当前工作树正在修改，使用前核对日期、源码和 Swagger。 |
+| [`common-file-management.md`](common-file-management.md) | Active | 文件管理四个接口、字段、页面与权限约定；2026-10-10 核验。 |
 | [`dynamic-menu-sync.md`](dynamic-menu-sync.md) | Active | 后端菜单与按钮权限的声明式同步脚本、scope 划分和验证步骤。 |
 | [`interface-list.md`](interface-list.md) | Mixed Sources | 同时保留 boltfox 历史与 yikaltd 更新，整理前不能单独作为当前契约。 |
 | [`next-session.md`](next-session.md) | Temporary Handoff | 2026-08-03 的可替换会话交接；其中本机依赖状态已经陈旧。 |

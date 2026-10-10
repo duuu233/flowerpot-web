@@ -11,6 +11,7 @@
     "menu:sync:commerce": "node scripts/sync-admin-menu.mjs --scope=commerce",
     "menu:sync:user-account": "node scripts/sync-admin-menu.mjs --scope=user-account",
     "menu:sync:product-plant": "node scripts/sync-admin-menu.mjs --scope=product-plant",
+    "menu:sync:common-file": "node scripts/sync-admin-menu.mjs --scope=common-file",
     "menu:sync:checklist": "node scripts/sync-admin-menu.mjs --scope=checklist"
   },
   "dependencies": {

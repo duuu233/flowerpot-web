@@ -267,6 +267,27 @@ export const productPlantMenuTree = [
   }
 ]
 
+export const commonFileMenuTree = [
+  {
+    ...productPlantMenuTree[0],
+    children: [
+      {
+        appName: '文件管理',
+        appCode: 'Get_CommonFile_GetCommonFileList',
+        appUrl: 'commonFile',
+        grade: 0,
+        isNav: 1,
+        isRefresh: 0,
+        children: [
+          { appName: '新增', appCode: 'Post_CommonFile_AddCommonFile', appUrl: '#', grade: 0, isNav: 0, isRefresh: 0 },
+          { appName: '编辑', appCode: 'Post_CommonFile_EditCommonFile', appUrl: '#', grade: 0, isNav: 0, isRefresh: 0 },
+          { appName: '删除', appCode: 'Post_CommonFile_DelCommonFile', appUrl: '#', grade: 0, isNav: 0, isRefresh: 0 }
+        ]
+      }
+    ]
+  }
+]
+
 export const checklistMenuTree = [
   {
     appName: '运营管理',
@@ -277,6 +298,7 @@ export const checklistMenuTree = [
     isNav: 1,
     isRefresh: 0,
     children: [
+      ...commonFileMenuTree[0].children,
       {
         ...productPlantMenuTree[0].children[0],
         grade: 3
@@ -497,6 +519,11 @@ const menuScopes = {
     parentCode: null,
     nodes: productPlantMenuTree
   },
+  'common-file': {
+    label: '运营管理与文件管理',
+    parentCode: null,
+    nodes: commonFileMenuTree
+  },
   checklist: {
     label: '智能花盆后台对接清单',
     parentCode: null,
@@ -566,7 +593,7 @@ function printHelp() {
   BOLTFOX_MENU_SCOPE   可选，默认 commerce
 
 参数：
-  --scope=<scope>      同步范围：commerce、user-account、product-plant 或 checklist
+  --scope=<scope>      同步范围：commerce、user-account、product-plant、common-file 或 checklist
   --apply              实际新增缺失节点；省略时只预览
   --update             同时更新已存在但配置漂移的节点（必须搭配 --apply）
   --system-id=<id>     覆盖系统 ID

@@ -190,6 +190,12 @@ export const asyncRouterMap = [
         }
       },
       {
+        path: 'commonFile',
+        name: 'commonFile',
+        component: () => import('@/views/sms/commonFile/index.vue'),
+        meta: { title: '文件管理', icon: 'sms-flash' }
+      },
+      {
         path: 'appVersion',
         name: 'appVersion',
         component: () => import('@/views/sms/appVersion/index.vue'),

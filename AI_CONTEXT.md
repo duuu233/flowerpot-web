@@ -2,7 +2,7 @@
 
 > 文档类型：当前项目上下文
 > 状态：Active
-> 最后核验：2026-09-10
+> 最后核验：2026-10-10（文件管理范围；其它条目保留各自核验日期）
 > 适用范围：`flowerpot-web` 当前工作树
 > 事实来源：源码与 CodeGraph、`package.json`、路由、请求层和 `docs/` 当前内容
 
@@ -95,7 +95,8 @@ src/views 与 src/components
 ## 6. 当前有效业务模块
 
 - `home`：后台首页。
-- `sms`：用户、产品、FAQ、植物管理、APP 版本和应用市场；
+- `sms`：用户、产品、FAQ、植物管理、文件管理、APP 版本和应用市场；
+  `commonFile` 已完成分页、关键词 / 添加时间筛选、新增、编辑和删除；接口及菜单详见 `docs/common-file-management.md`。
   `productPlant` 已完成分页列表、新增、编辑、详情、图片上传、启用/禁用、路由和后端菜单。
 - `ums`：员工、角色、菜单权限、部门和系统配置（`config`）。
 

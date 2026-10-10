@@ -90,6 +90,10 @@ src/views/
 
 用户列表相关页面位于 `src/views/sms/userList/`：列表页复用公共查询、工具栏和分页组件；`accountLogs.vue` 是账户操作日志的隐藏路由页面，只从列表工具栏进入。2026-09-10 按产品要求下线了总计 / 可用 / 消耗星币三列与行级「账户日志」按钮，只服务于可用星币编辑的 `components/UserAccountEditor.vue` 与 `setUserAccount` 请求封装一并删除。
 
+文件管理位于 `src/views/sms/commonFile/`：`index.vue` 协调分页与增删改请求，
+`CommonFileFilters.vue` 管理筛选，`CommonFileTable.vue` 展示文件和权限操作，
+`CommonFileFormDialog.vue` 统一新增 / 编辑及校验；接口约定见 `common-file-management.md`。
+
 植物管理位于 `src/views/sms/productPlant/`：`index.vue` 负责分页查询和接口协调，
 `ProductPlantTable.vue` 负责资料列表与权限操作，`ProductPlantFormDialog.vue` 统一承载新增、
 编辑和详情。页面对应后端 `ProductPlant` 的 5 个管理端接口，并复用 `multiUpload.vue` 上传植物图片。
@@ -100,7 +104,7 @@ src/views/
 2026-09-18 恢复；恢复时按配置名称识别「平台设备id」（`configContent` / `configKey` 去掉空格、
 下划线、冒号与连字符后小写比对），命中项同时从展示列表和 `setConfigDataEdit` 的提交负载中排除。
 
-`scripts/sync-admin-menu.mjs` 的 `checklist` scope 维护 Excel 中属于本仓库的四个后台模块，
+`scripts/sync-admin-menu.mjs` 的 `checklist` scope 维护后台清单与新增文件管理模块，
 支持旧 APP 版本权限码迁移和空旧分组的非删除式收尾；具体字段、命令和验证见
 `docs/dynamic-menu-sync.md`。
 

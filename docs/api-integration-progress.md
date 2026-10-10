@@ -1,6 +1,6 @@
 # API Integration Progress
 
-Last checked: 2026-08-25
+Last checked: 2026-10-10 (CommonFile); legacy coverage below was checked on 2026-08-25
 
 Swagger sources:
 
@@ -19,7 +19,16 @@ Backend prefix: `/ZoneAdmin`
 
 Integration rule: only expose and call endpoints whose Swagger tag starts with `管理后台-`.
 
-## Current coverage
+## 2026-10-10 文件管理（CommonFile）
+
+当前 Swagger 新增的「管理后台-公用文件相关接口」四个端点已封装于 `src/api/commonFile.js`，
+路由 `commonFile` 对应分页列表、关键词 / 添加时间筛选、新增 / 编辑弹窗及删除确认。
+新增和编辑共用 `CommonFileAddApiIn`，删除提交 `{ id: fileId }`；列表路径是
+`/ZoneAdmin/CommonFile/getCommonFileList`，需求中的 `ConmonFile` 与当前契约不一致，采用契约拼写。
+系统 `1` 的文件管理菜单和三个操作权限已实际新增，真实列表及左侧菜单只读请求均成功。
+字段与当前验证边界见 [`common-file-management.md`](common-file-management.md)。
+
+## Current coverage (historical count as of 2026-08-25)
 
 当前 Swagger 包含 8 个管理后台分组和 77 个端点。源码路径核对显示 77 个端点均有本地包装；
 `/Common/setFileUpload` 通过 `src/api/oss.js` 的动态 URL 生成，因此不出现在静态字符串扫描结果中。
