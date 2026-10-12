@@ -30,13 +30,13 @@ function dateTime(value) {
     <vxe-table :data="rows" :loading="loading" border round stripe
       :row-config="{ isHover: true, keyField: 'fileId' }" :column-config="{ resizable: true }" max-height="580">
       <vxe-column field="fileId" title="编号" width="90" align="center" />
-      <vxe-column field="fileName" title="文件名称" min-width="210" show-overflow>
+      <vxe-column field="fileName" title="表情名称" min-width="210" show-overflow>
         <template #default="{ row }">
           <div class="file-identity"><el-icon class="file-icon"><Document /></el-icon>
             <span>{{ row.fileName || '-' }}</span></div>
         </template>
       </vxe-column>
-      <vxe-column field="filePath" title="文件地址" min-width="340" show-overflow>
+      <vxe-column field="filePath" title="表情地址" min-width="340" show-overflow>
         <template #default="{ row }">
           <a v-if="fileLink(row.filePath)" :href="fileLink(row.filePath)" target="_blank"
             rel="noopener noreferrer" class="file-link">{{ row.filePath }}</a>

@@ -2,7 +2,7 @@
 
 > 文档类型：当前项目上下文
 > 状态：Active
-> 最后核验：2026-10-10（文件管理范围；其它条目保留各自核验日期）
+> 最后核验：2026-10-12（首页与表情列表文案；接口核验仍为 2026-10-10，其它条目保留各自日期）
 > 适用范围：`flowerpot-web` 当前工作树
 > 事实来源：源码与 CodeGraph、`package.json`、路由、请求层和 `docs/` 当前内容
 
@@ -76,7 +76,7 @@ src/views 与 src/components
 
 后端菜单与本地路由是双层模型：后端决定可见性和授权，本地路由决定组件映射。后端 `menuUrl`、Vue Router `name` 和页面组件 `name` 必须一致，才能保证跳转、标签页和 keep-alive 正常。
 
-侧栏（`src/layout/components/Sidebar.vue`）渲染前会用 `router.hasRoute(menuUrl)` 过滤接口返回的菜单：本地没有同名路由的节点直接跳过，开发环境 `console.warn` 一次。模块下线后后台常残留菜单行，不过滤会让 `RouterLink` 在渲染期抛 `No match for {"name":"..."}`，整块左侧菜单都渲染不出来。
+侧栏（`src/layout/components/Sidebar.vue`）渲染前会用 `router.hasRoute(menuUrl)` 过滤接口返回的菜单：本地没有同名路由的节点直接跳过，开发环境 `console.warn` 一次。模块下线后后台常残留菜单行，不过滤会让 `RouterLink` 在渲染期抛 `No match for {"name":"..."}`，整块左侧菜单都渲染不出来。`commonFile` 节点使用本地路由标题「表情列表」显示，以兼容远端旧名称；其它菜单继续使用远端名称，原菜单数据不变。
 
 ## 5. 关键目录
 
@@ -94,8 +94,8 @@ src/views 与 src/components
 
 ## 6. 当前有效业务模块
 
-- `home`：后台首页。
-- `sms`：用户、产品、FAQ、植物管理、文件管理、APP 版本和应用市场；
+- `home`：后台首页只展示用户总数、常见问题解答两项统计和注册趋势，欢迎文案为「欢迎回到YSplanter管理中心」。
+- `sms`：用户、产品、FAQ、植物管理、表情列表（commonFile）、APP 版本和应用市场；
   `commonFile` 已完成分页、关键词 / 添加时间筛选、新增、编辑和删除；接口及菜单详见 `docs/common-file-management.md`。
   `productPlant` 已完成分页列表、新增、编辑、详情、图片上传、启用/禁用、路由和后端菜单。
 - `ums`：员工、角色、菜单权限、部门和系统配置（`config`）。

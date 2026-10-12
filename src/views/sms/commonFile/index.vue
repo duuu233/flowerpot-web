@@ -39,7 +39,7 @@ async function submit(payload) {
   try {
     const isEdit = dialogMode.value === 'edit'
     await (isEdit ? editCommonFile : addCommonFile)(payload)
-    ElMessage.success(isEdit ? '编辑成功' : '新增成功')
+    ElMessage.success(isEdit ? '编辑表情成功' : '新增表情成功')
     dialogVisible.value = false
     if (isEdit) await getList()
     else await handleSearchList()
@@ -54,11 +54,11 @@ async function remove(row) {
   if (deletingId.value !== null) return
   deletingId.value = row.fileId
   try {
-    await ElMessageBox.confirm('是否确认删除文件“' + row.fileName + '”？', '删除文件', {
+    await ElMessageBox.confirm('是否确认删除表情“' + row.fileName + '”？', '删除表情', {
       confirmButtonText: '删除', cancelButtonText: '取消', type: 'warning'
     })
     await delCommonFile({ id: row.fileId })
-    ElMessage.success('删除成功')
+    ElMessage.success('删除表情成功')
     if (list.value.length === 1 && listQuery.pageIndex > 1) listQuery.pageIndex -= 1
     await getList()
   } catch {
@@ -72,9 +72,9 @@ async function remove(row) {
 <template>
   <div class="app-container">
     <CommonFileFilters @search="search" @reset="handleResetSearch()" />
-    <ListToolbar title="文件列表">
+    <ListToolbar title="表情列表">
       <el-button v-permission="['Post_CommonFile_AddCommonFile']" type="primary"
-        size="small" icon="Plus" :disabled="submitting" @click="openForm()">新增文件</el-button>
+        size="small" icon="Plus" :disabled="submitting" @click="openForm()">新增表情</el-button>
     </ListToolbar>
     <CommonFileTable :rows="list" :loading="listLoading" :deleting-id="deletingId"
       :submitting="submitting" @edit="openForm" @delete="remove" />

@@ -23,8 +23,8 @@ function reset() {
 
 <template>
   <SearchPanel :model="filters" @search="search" @reset="reset">
-    <el-form-item label="文件关键词">
-      <el-input v-model="filters.keyword" placeholder="文件名称或地址" clearable class="keyword-input" />
+    <el-form-item label="表情关键词">
+      <el-input v-model="filters.keyword" placeholder="表情名称或地址" clearable class="keyword-input" />
     </el-form-item>
     <el-form-item label="添加时间">
       <el-date-picker v-model="dateRange" type="daterange" unlink-panels value-format="YYYY-MM-DD"

@@ -2,7 +2,7 @@
 
 > 文档类型：当前操作手册
 > 状态：Active
-> 最后核验：2026-10-10（新增文件管理范围）
+> 最后核验：2026-10-12（表情列表声明与客户端兼容；远端状态核验仍为 2026-10-10）
 > 事实来源：菜单同步脚本、路由、权限 Store 与后台接口契约
 
 本项目的页面可访问性由两部分共同决定：
@@ -102,18 +102,19 @@ AI配置 (#)
 `scripts/sync-admin-menu.mjs` 里 `productPlantMenuTree` 的 `aliases`，避免建出重复分组。
 分组 `grade` 目前是 2，排在现有「产品管理 / 订单管理 / AI配置」之后，需要靠前就调高该值。
 
-`common-file` 范围复用现有「运营管理」，只补齐文件管理及三个操作权限：
+`common-file` 范围复用现有「运营管理」，复用表情列表及三个操作权限的原标识：
 
 ```text
 运营管理 (#)
-└─ 文件管理 (Get_CommonFile_GetCommonFileList, appUrl=commonFile)
-   ├─ 新增 (Post_CommonFile_AddCommonFile)
-   ├─ 编辑 (Post_CommonFile_EditCommonFile)
-   └─ 删除 (Post_CommonFile_DelCommonFile)
+└─ 表情列表 (Get_CommonFile_GetCommonFileList, appUrl=commonFile)
+   ├─ 新增表情 (Post_CommonFile_AddCommonFile)
+   ├─ 编辑表情 (Post_CommonFile_EditCommonFile)
+   └─ 删除表情 (Post_CommonFile_DelCommonFile)
 ```
 
 2026-10-10 系统 `1` 实际同步新增 4 个节点、更新 0；复查全部存在且无配置差异，
-`getLeftMenus` 已返回「运营管理 → 文件管理」。不自动给普通角色绑定权限。
+`getLeftMenus` 当时返回「运营管理 → 文件管理」。2026-10-12 本地声明和路由标题更名，客户端侧栏兼容旧远端名称并展示「表情列表」；本轮未改写远端节点。
+需要同步节点名称时先预览，再用 `npm run menu:sync:common-file -- --apply --update` 更新已有节点，不重复创建，不自动给普通角色绑定权限。
 
 `checklist` 是智能花盆接口清单在本仓库的完整 PC 管理后台范围，推荐新环境直接使用：
 
@@ -121,8 +122,8 @@ AI配置 (#)
 运营管理 (#)
 ├─ 植物管理 (Get_ProductPlant_GetProductPlantList, appUrl=productPlant)
 │  └─ 新增 / 详情 / 编辑 / 启用禁用
-├─ 文件管理 (Get_CommonFile_GetCommonFileList, appUrl=commonFile)
-│  └─ 新增 / 编辑 / 删除
+├─ 表情列表 (Get_CommonFile_GetCommonFileList, appUrl=commonFile)
+│  └─ 新增表情 / 编辑表情 / 删除表情
 ├─ APP版本管理 (Get_AppVersion_GetAppVersionList, appUrl=appVersion)
 │  └─ 详情 / 新增编辑 / 删除 / 启用禁用 / 设置权重
 └─ 基础信息配置 (Get_Common_GetConfigDataList, appUrl=config)
@@ -176,7 +177,7 @@ npm run menu:sync:user-account -- --apply
 npm run menu:sync:product-plant
 npm run menu:sync:product-plant -- --apply
 
-# 文件管理：只同步本次模块，先预览再写入
+# 表情列表：只同步本模块，先预览再写入；更名已有节点需 --update
 npm run menu:sync:common-file
 npm run menu:sync:common-file -- --apply
 

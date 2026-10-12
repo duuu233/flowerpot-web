@@ -1,6 +1,6 @@
 # API Integration Progress
 
-Last checked: 2026-10-10 (CommonFile); legacy coverage below was checked on 2026-08-25
+Last checked: 2026-10-12 (CommonFile UI names; API verification remains 2026-10-10); legacy coverage below was checked on 2026-08-25
 
 Swagger sources:
 
@@ -19,7 +19,11 @@ Backend prefix: `/ZoneAdmin`
 
 Integration rule: only expose and call endpoints whose Swagger tag starts with `管理后台-`.
 
-## 2026-10-10 文件管理（CommonFile）
+## 2026-10-12 表情列表（CommonFile）
+
+按产品口径统一菜单、页面、表单和提示名称；接口、字段、权限码与上传规则不变。侧栏按路由标题兼容远端旧「文件管理」名称；本轮未改写远端菜单或真实表情记录。生产构建、语法及首页/菜单隔离渲染核验通过。
+
+## 2026-10-10 文件管理（CommonFile，首次接入记录）
 
 当前 Swagger 新增的「管理后台-公用文件相关接口」四个端点已封装于 `src/api/commonFile.js`，
 路由 `commonFile` 对应分页列表、关键词 / 添加时间筛选、新增 / 编辑弹窗及删除确认。

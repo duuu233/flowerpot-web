@@ -72,9 +72,12 @@ const visibleMenus = computed(() => {
     .filter(item => hideItemList.indexOf(item.menuName) === -1)
     .map(item => ({
       ...item,
-      childs: (item.childs || []).filter(
-        v => hideSubItemList.indexOf(v.menuName) === -1 && isRenderable(v)
-      )
+      childs: (item.childs || [])
+        .filter(v => hideSubItemList.indexOf(v.menuName) === -1 && isRenderable(v))
+        // 已有后台节点可能保留旧名称，表情模块跟随本地路由标题展示。
+        .map(v => v.menuUrl === 'commonFile'
+          ? { ...v, menuName: router.resolve({ name: v.menuUrl }).meta.title }
+          : v)
     }))
     .filter(item => item.childs.length > 0)
 })

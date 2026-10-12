@@ -32,6 +32,8 @@
 
 ## 索引
 
+- [`2026-10/2026-10-12-home-emotion-labels.md`](2026-10/2026-10-12-home-emotion-labels.md)：移除三项首页统计、更新欢迎文案，文件管理改称表情列表并兼容旧菜单数据；生产构建与隔离渲染核验通过。
+
 - [`2026-10/2026-10-10-common-file-original-name-upload.md`](2026-10/2026-10-10-common-file-original-name-upload.md)：文件管理上传保留原始文件名，名称只读回填及隔离浏览器验收。
 
 - [`2026-10/2026-10-10-common-file-management.md`](2026-10/2026-10-10-common-file-management.md)：运营管理新增文件管理页面、四个接口和实际菜单同步，核验字段及验证结果。

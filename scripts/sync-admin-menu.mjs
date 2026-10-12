@@ -272,16 +272,16 @@ export const commonFileMenuTree = [
     ...productPlantMenuTree[0],
     children: [
       {
-        appName: '文件管理',
+        appName: '表情列表',
         appCode: 'Get_CommonFile_GetCommonFileList',
         appUrl: 'commonFile',
         grade: 0,
         isNav: 1,
         isRefresh: 0,
         children: [
-          { appName: '新增', appCode: 'Post_CommonFile_AddCommonFile', appUrl: '#', grade: 0, isNav: 0, isRefresh: 0 },
-          { appName: '编辑', appCode: 'Post_CommonFile_EditCommonFile', appUrl: '#', grade: 0, isNav: 0, isRefresh: 0 },
-          { appName: '删除', appCode: 'Post_CommonFile_DelCommonFile', appUrl: '#', grade: 0, isNav: 0, isRefresh: 0 }
+          { appName: '新增表情', appCode: 'Post_CommonFile_AddCommonFile', appUrl: '#', grade: 0, isNav: 0, isRefresh: 0 },
+          { appName: '编辑表情', appCode: 'Post_CommonFile_EditCommonFile', appUrl: '#', grade: 0, isNav: 0, isRefresh: 0 },
+          { appName: '删除表情', appCode: 'Post_CommonFile_DelCommonFile', appUrl: '#', grade: 0, isNav: 0, isRefresh: 0 }
         ]
       }
     ]
@@ -520,7 +520,7 @@ const menuScopes = {
     nodes: productPlantMenuTree
   },
   'common-file': {
-    label: '运营管理与文件管理',
+    label: '运营管理与表情列表',
     parentCode: null,
     nodes: commonFileMenuTree
   },
