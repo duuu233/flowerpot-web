@@ -60,4 +60,6 @@ codegraph sync .
 
 ## 历史记录
 
+本轮依赖与产物同步：[2026-10-13 锁文件与构建包](history/2026-10/2026-10-13-lockfile-build-archive-sync.md)。
+
 记录路径为 `history/YYYY-MM/YYYY-MM-DD-topic.md`。一次集中修改对应一份记录，不建立无限增长的单文件日志。不得记录 Token、签名、密码、Cookie、用户数据、完整环境文件或本机缓存。

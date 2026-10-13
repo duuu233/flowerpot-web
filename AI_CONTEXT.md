@@ -31,7 +31,7 @@ npm run preview
 
 项目没有 test、lint 或 type-check 脚本。仓库同时存在 `pnpm-lock.yaml`、`pnpm-workspace.yaml` 和 `yarn.lock`，README 仍推荐 yarn；主包管理器尚未由仓库规则确认。不要为了文档任务安装依赖或重写锁文件。
 
-2026-09-09 新增 `echarts` 时用的是 `npm install echarts --save --no-package-lock`：只写 `package.json`，两个既有锁文件都没动，也没有新增 `package-lock.json`。**其他环境拉到这次改动后必须重新安装依赖**（锁文件里没有 echarts），锁文件的统一留到主包管理器确认之后再处理。
+2026-09-09 新增 `echarts` 时只写 `package.json`，未同步既有锁文件。2026-10-13 按用户要求提交本机已有的锁文件补全：`pnpm-lock.yaml` 现在包含清单已声明的 `echarts ^6.1.0`，解析到 6.1.0，并补齐 zrender/tslib；`yarn.lock` 未更新。其它环境应按所用包管理器安装依赖，主包管理器仍未统一。
 
 ## 3. 环境与接口约定
 

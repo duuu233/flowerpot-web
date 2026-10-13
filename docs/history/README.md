@@ -32,6 +32,8 @@
 
 ## 索引
 
+- [`2026-10/2026-10-13-lockfile-build-archive-sync.md`](2026-10/2026-10-13-lockfile-build-archive-sync.md)：补齐 ECharts 的 pnpm 锁文件并同步原有构建 ZIP；生产构建与文件包结构检查通过，未部署。
+
 - [`2026-10/2026-10-12-home-emotion-labels.md`](2026-10/2026-10-12-home-emotion-labels.md)：移除三项首页统计、更新欢迎文案，文件管理改称表情列表并兼容旧菜单数据；生产构建与隔离渲染核验通过。
 
 - [`2026-10/2026-10-10-common-file-original-name-upload.md`](2026-10/2026-10-10-common-file-original-name-upload.md)：文件管理上传保留原始文件名，名称只读回填及隔离浏览器验收。
